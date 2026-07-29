@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" width="400" height="240" role="img" aria-label="The Nest room: a low table, wooden blocks and a window of plants">
+  <rect width="400" height="240" fill="#dfe7da"/>
+  <!-- window -->
+  <rect x="238" y="26" width="120" height="104" rx="58" fill="#cfe0ea"/>
+  <path d="M238 84a60 58 0 0 1 120 0v46H238Z" fill="#bfd6e4"/>
+  <path d="M298 26v104M238 84h120" stroke="#f8f3e8" stroke-width="4"/>
+  <rect x="230" y="128" width="136" height="9" rx="4" fill="#c9a06a"/>
+  <!-- plants on the sill -->
+  <g>
+    <path d="M258 128v-16" stroke="#5f7c62" stroke-width="3"/>
+    <path d="M258 116c-12-2-17-9-16-19 11 1 16 8 16 19ZM258 118c12-4 16-12 13-22-10 3-14 11-13 22Z" fill="#7d9c7e"/>
+    <rect x="248" y="126" width="21" height="16" rx="3" fill="#c05f38"/>
+    <path d="M336 128v-12" stroke="#5f7c62" stroke-width="3"/>
+    <path d="M336 118c-10-3-13-10-11-18 9 2 12 9 11 18Z" fill="#91ab90"/>
+    <rect x="327" y="126" width="19" height="15" rx="3" fill="#e2a641"/>
+  </g>
+  <!-- rug -->
+  <ellipse cx="150" cy="196" rx="128" ry="34" fill="#f0d8cb"/>
+  <ellipse cx="150" cy="196" rx="94" ry="24" fill="#dd8f86" opacity="0.5"/>
+  <ellipse cx="150" cy="196" rx="58" ry="14" fill="#f0d8cb"/>
+  <!-- low table -->
+  <rect x="48" y="140" width="152" height="12" rx="5" fill="#c9a06a"/>
+  <path d="M62 152v34M186 152v34" stroke="#a7794e" stroke-width="9" stroke-linecap="round"/>
+  <!-- blocks -->
+  <rect x="70" y="112" width="28" height="28" rx="4" fill="#7fa6c3"/>
+  <rect x="100" y="120" width="20" height="20" rx="3" fill="#e2a641"/>
+  <path d="M136 140l16-26 16 26Z" fill="#c05f38"/>
+  <circle cx="184" cy="130" r="10" fill="#91ab90"/>
+  <!-- basket -->
+  <path d="M296 214c-4-26 2-38 26-38s30 12 26 38Z" fill="#c9a06a"/>
+  <path d="M300 190h44" stroke="#a7794e" stroke-width="3"/>
+  <circle cx="316" cy="172" r="9" fill="#dd8f86"/>
+  <circle cx="334" cy="174" r="7" fill="#7fa6c3"/>
+</svg>

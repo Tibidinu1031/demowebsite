@@ -1,0 +1,428 @@
+/* ==========================================================================
+   Fernhollow — page-level composition
+   ========================================================================== */
+
+@layer pages {
+
+  /* ================================================================= hero */
+  .hero {
+    position: relative;
+    padding-block: clamp(1.5rem, 1rem + 3vi, 3.5rem) var(--sp-2xl);
+    overflow: clip;
+  }
+
+  /* A warm bloom behind the artwork, sized in vi so it never tiles oddly. */
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset-block-start: -18vi;
+    inset-inline-end: -14vi;
+    inline-size: 74vi;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%,
+                color-mix(in oklab, var(--ochre) 26%, transparent),
+                transparent 62%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .hero__inner {
+    display: grid;
+    gap: var(--sp-xl);
+    align-items: center;
+  }
+
+  @media (min-width: 64em) {
+    .hero__inner {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.85fr);
+      gap: var(--sp-2xl);
+    }
+  }
+
+  .hero__title {
+    font-size: var(--fs-7xl);
+    line-height: 0.98;
+    letter-spacing: -0.036em;
+    font-weight: 440;
+    font-variation-settings: "SOFT" 46, "WONK" 1, "opsz" 144;
+    margin-block-start: var(--sp-sm);
+    text-wrap: balance;
+  }
+
+  .hero__lede { margin-block-start: var(--sp-md); max-inline-size: 38ch; }
+
+  .hero__actions {
+    margin-block-start: var(--sp-lg);
+    --gap: var(--sp-md);
+  }
+
+  .hero__figures {
+    margin-block-start: var(--sp-xl);
+    padding-block-start: var(--sp-md);
+    border-block-start: 1px solid var(--rule);
+    --fs-4xl: var(--fs-3xl);
+  }
+
+  .hero__figures .figure { gap: 0.15rem; }
+  .hero__figures .figure__l { order: 2; }
+  .hero__figures .figure__n { order: 1; color: var(--ink); }
+
+  .hero__art {
+    position: relative;
+    justify-self: center;
+    inline-size: min(100%, 30rem);
+  }
+
+  .hero__arch {
+    box-shadow: var(--lift-lg);
+    will-change: transform;
+  }
+
+  /* Scaled a touch so the parallax shift never exposes an edge. */
+  .hero__arch img {
+    inline-size: 100%;
+    transform: translate3d(0, var(--py, 0px), 0) scale(1.05);
+  }
+
+  .hero__seal {
+    position: absolute;
+    inset-block-end: -1.6rem;
+    inset-inline-start: -1.4rem;
+    background: var(--paper);
+    border-radius: 50%;
+    box-shadow: var(--lift);
+    padding: 0.35rem;
+  }
+
+  @media (min-width: 64em) {
+    .hero__seal { inset-inline-start: -3rem; inset-block-end: 2.5rem; }
+  }
+
+  /* ------------------------------------------------------------ fit the fold
+     From the two-column breakpoint up the hero is sized to land inside the
+     first screen, so nothing important sits below the fold.
+
+     Every vertical measurement is capped with min(<fluid>, <vh>): on a tall
+     display the normal fluid scale wins, on a short laptop the height term
+     takes over and the whole composition shrinks together rather than
+     overflowing. `svh` rather than `vh` so mobile browser chrome can't clip it.
+
+     Below 64em the hero stacks (copy above artwork) and cannot fit a screen at
+     a readable size, so it flows normally. */
+  @media (min-width: 64em) {
+    .hero {
+      align-content: center;
+      min-block-size: calc(100svh - var(--header-h));
+      padding-block: clamp(0.75rem, 2.4vh, 2.75rem);
+    }
+
+    .hero__inner { gap: clamp(1.5rem, 3.2vh, 5.5rem); }
+
+    .hero__title {
+      font-size: min(var(--fs-7xl), 10.4vh);
+      margin-block-start: min(var(--sp-sm), 1.6vh);
+    }
+
+    .hero__lede {
+      font-size: min(var(--fs-lg), 3.4vh);
+      margin-block-start: min(var(--sp-md), 2.4vh);
+    }
+
+    .hero__actions { margin-block-start: min(var(--sp-lg), 3.4vh); }
+
+    .hero__figures {
+      margin-block-start: min(var(--sp-xl), 3.4vh);
+      padding-block-start: min(var(--sp-md), 2.2vh);
+    }
+
+    .hero__figures .figure__n { font-size: min(var(--fs-3xl), 4.6vh); }
+
+    /* The artwork takes whichever is narrower: the column, or the width the
+       leftover height allows at the drawing's 72:88 ratio. Capping the figure
+       (not the arch) keeps the seal pinned to the artwork's real edge. */
+    .hero__art {
+      inline-size: min(100%, 30rem, calc((100svh - var(--header-h) - 5.5rem) * 72 / 88));
+    }
+
+    .hero__arch { aspect-ratio: 72 / 88; }
+    .hero__arch img { block-size: 100%; object-fit: cover; }
+
+    .hero__seal { inline-size: min(9.5rem, 21vh); }
+  }
+
+  /* Decorative fallen leaves in the hero gutter, large screens only. */
+  @media (min-width: 78em) {
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset-block-start: 42%;
+      inset-inline-start: 1.5vi;
+      inline-size: 4.5rem;
+      aspect-ratio: 1;
+      background: var(--sage);
+      opacity: 0.32;
+      border-radius: 0 100% 0 100%;
+      rotate: -22deg;
+      pointer-events: none;
+    }
+  }
+
+  /* ================================================== section head pattern */
+  .rooms__head {
+    display: grid;
+    gap: var(--sp-md);
+    align-items: end;
+  }
+
+  @media (min-width: 56em) {
+    .rooms__head {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: var(--sp-2xl);
+    }
+  }
+
+  .room:first-of-type { border-block-start: 0; }
+
+  .room__swatch img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+
+  /* ============================================================= approach */
+  .approach .quote { max-inline-size: 26ch; }
+
+  /* From the tablet breakpoint up, the pull quote runs the full width of the
+     panel and is sized to break across exactly two lines.
+
+     Measured across 896–1920px: the largest size that still holds two lines is
+     almost exactly (container width ÷ 25) at every width. The clamp below rides
+     that ceiling at ~92%, which fills about nine tenths of the panel and leaves
+     enough headroom that a font fallback or a stray wide glyph can't tip it onto
+     a third line. `text-wrap: balance` on .quote__text then evens the two lines
+     to within a few pixels of each other.
+
+     Below 56em the sentence can't hold two lines at any readable size, so it
+     reverts to the narrow measure and wraps normally. */
+  @media (min-width: 56em) {
+    .approach .quote { max-inline-size: none; }
+
+    .approach .quote__text {
+      font-size: clamp(1.9rem, 0.29rem + 2.87vi, 2.875rem);
+      line-height: 1.14;
+      letter-spacing: -0.026em;
+    }
+  }
+
+  /* ================================================================== cta */
+  .cta__inner {
+    display: grid;
+    gap: var(--sp-xl);
+    align-items: start;
+  }
+
+  @media (min-width: 58em) {
+    .cta__inner {
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+      gap: var(--sp-2xl);
+    }
+  }
+
+  .cta__aside {
+    display: grid;
+    gap: var(--sp-sm);
+    align-content: start;
+    padding: var(--sp-md);
+    border: 1px solid var(--rule-strong);
+    border-radius: var(--r-lg);
+    background: var(--surface-raised);
+    justify-items: start;
+  }
+
+  .cta__aside .room__facts { inline-size: 100%; margin-block-start: 0; }
+
+  /* =============================================================== drawer */
+  .drawer__foot { display: grid; gap: var(--sp-sm); justify-items: start; }
+
+  .masthead__tel { display: none; }
+  @media (min-width: 74em) { .masthead__tel { display: inline-flex; } }
+
+  /* ============================================================= colophon */
+  .colophon__links { display: grid; gap: 0.42rem; font-size: var(--fs-sm); }
+  .colophon__links a { text-decoration: none; opacity: 0.85; }
+  .colophon__links a:hover { opacity: 1; text-decoration: underline; }
+
+  /* A very faint fern watermark in the footer's bottom corner. */
+  .colophon::before {
+    content: "";
+    position: absolute;
+    inset-block-end: -4rem;
+    inset-inline-end: -3rem;
+    inline-size: 20rem;
+    aspect-ratio: 1;
+    background: var(--ochre);
+    opacity: 0.05;
+    border-radius: 0 100% 0 100%;
+    rotate: 12deg;
+    pointer-events: none;
+  }
+
+  /* ========================================================= inner pages */
+  .pagehead {
+    padding-block: var(--sp-2xl) var(--sp-xl);
+    position: relative;
+  }
+
+  .pagehead__title {
+    font-size: var(--fs-7xl);
+    line-height: 0.99;
+    letter-spacing: -0.034em;
+    font-weight: 430;
+    font-variation-settings: "SOFT" 46, "WONK" 1, "opsz" 144;
+    margin-block-start: var(--sp-sm);
+    max-inline-size: 16ch;
+  }
+
+  .pagehead__lede { margin-block-start: var(--sp-md); }
+
+  .crumbs {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: var(--fs-3xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--ink-ghost);
+  }
+  .crumbs a { text-decoration: none; }
+  .crumbs a:hover { color: var(--clay-deep); }
+
+  /* ================================================================ fees */
+  .fees {
+    inline-size: 100%;
+    border-collapse: collapse;
+    font-size: var(--fs-sm);
+  }
+
+  .fees caption {
+    text-align: start;
+    font-size: var(--fs-3xs);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--ink-faint);
+    padding-block-end: var(--sp-xs);
+  }
+
+  .fees th,
+  .fees td {
+    text-align: start;
+    padding: 0.85rem 0.9rem 0.85rem 0;
+    border-block-end: 1px solid var(--rule);
+    vertical-align: baseline;
+  }
+
+  .fees thead th {
+    font-size: var(--fs-3xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--ink-faint);
+    border-block-end-color: var(--rule-strong);
+  }
+
+  .fees tbody th { font-weight: 600; }
+
+  .fees td:last-child,
+  .fees th:last-child { text-align: end; padding-inline-end: 0; }
+
+  .fees tbody tr:hover { background: color-mix(in oklab, var(--ochre) 10%, transparent); }
+
+  .fees .fees__num {
+    font-variant-numeric: tabular-nums lining-nums;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .table-wrap { overflow-x: auto; }
+
+  /* ============================================================= article */
+  .article { font-size: var(--fs-md); line-height: var(--lh-loose); }
+  .article > * + * { margin-block-start: 1.15em; }
+  .article h2 { font-size: var(--fs-2xl); margin-block-start: 2em; letter-spacing: -0.02em; }
+  .article h3 { font-size: var(--fs-lg); margin-block-start: 1.7em; }
+  .article ul { padding-inline-start: 1.15em; display: grid; gap: 0.5em; }
+  .article li::marker { color: var(--clay); }
+  .article blockquote {
+    padding-inline-start: var(--sp-md);
+    border-inline-start: 2px solid var(--ochre);
+    font-family: var(--font-display);
+    font-size: var(--fs-lg);
+    line-height: 1.4;
+    letter-spacing: -0.018em;
+    font-variation-settings: "SOFT" 44, "WONK" 1, "opsz" 60;
+  }
+  .article figure { margin-block: 2em; }
+  .article figcaption {
+    margin-block-start: 0.7rem;
+    font-size: var(--fs-2xs);
+    color: var(--ink-faint);
+  }
+  .article hr { margin-block: 2.4em; }
+
+  .article .dropcap::first-letter {
+    float: inline-start;
+    font-family: var(--font-display);
+    font-size: 3.4em;
+    line-height: 0.82;
+    padding-inline-end: 0.08em;
+    padding-block-start: 0.06em;
+    color: var(--clay);
+    font-variation-settings: "SOFT" 30, "WONK" 1, "opsz" 144;
+  }
+
+  /* ============================================================== visit */
+  .visit__grid {
+    display: grid;
+    gap: var(--sp-xl);
+    align-items: start;
+  }
+
+  @media (min-width: 62em) {
+    .visit__grid {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--sp-2xl);
+    }
+  }
+
+  .visit__aside {
+    display: grid;
+    gap: var(--sp-md);
+    align-content: start;
+    padding: var(--sp-md);
+    border-radius: var(--r-lg);
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+  }
+
+  .visit__aside dl { display: grid; gap: 0.5rem; font-size: var(--fs-sm); }
+  .visit__aside dt { font-weight: 600; }
+  .visit__aside dd { margin: 0; color: var(--ink-faint); }
+
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: var(--fs-sm);
+  }
+  .contact-row svg { inline-size: 1rem; color: var(--clay); flex: none; }
+
+  /* ============================================================== print */
+  @media print {
+    .masthead, .drawer, .to-top, .ticker, .cta, .hero__seal { display: none !important; }
+    body { background: #fff; color: #000; font-size: 11pt; }
+    body::after { display: none; }
+    .panel--ink { background: #fff !important; color: #000 !important; }
+    .panel--ink h1, .panel--ink h2, .panel--ink h3 { color: #000 !important; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; }
+    .section { padding-block: 1.2cm; }
+  }
+}

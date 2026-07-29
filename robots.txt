@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fernhollow.school/sitemap.xml

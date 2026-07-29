@@ -1,0 +1,244 @@
+/* ==========================================================================
+   Fernhollow — layout
+   One named grid does every width on the site: text, wide, and full-bleed.
+   ========================================================================== */
+
+@layer layout {
+
+  /* ---------------------------------------------------------------- shell */
+  .shell {
+    --shell-max: 78rem;
+    --shell-text: 44rem;
+
+    display: grid;
+    grid-template-columns:
+      [full-start] minmax(var(--gutter), 1fr)
+      [wide-start] minmax(0, calc((var(--shell-max) - var(--shell-text)) / 2))
+      [text-start] min(var(--shell-text), 100% - (var(--gutter) * 2))
+      [text-end] minmax(0, calc((var(--shell-max) - var(--shell-text)) / 2))
+      [wide-end] minmax(var(--gutter), 1fr) [full-end];
+  }
+
+  .shell > * { grid-column: text; }
+  .shell > .u-wide { grid-column: wide; }
+  .shell > .u-full { grid-column: full; }
+
+  /* Panels that bleed but keep their contents on the grid. */
+  .bleed {
+    grid-column: full;
+    display: grid;
+    grid-template-columns: inherit;
+  }
+  .bleed > * { grid-column: text; }
+  .bleed > .u-wide { grid-column: wide; }
+  .bleed > .u-full { grid-column: full; }
+
+  /* --------------------------------------------------------------- rhythm */
+  .section { padding-block: var(--sp-3xl); }
+  .section--tight { padding-block: var(--sp-2xl); }
+  .section--loose { padding-block: var(--sp-4xl); }
+  .section--flush-top { padding-block-start: 0; }
+
+  .section + .section { padding-block-start: 0; }
+  .section + .section.is-panel,
+  .is-panel + .section { padding-block-start: var(--sp-3xl); }
+
+  /* The ticker is a rule-bounded band, so it already reads as a divider. A full
+     --sp-3xl on top of the section beneath it just opened a hole. */
+  .ticker + .section { padding-block-start: var(--sp-lg); }
+
+  .stack > * + * { margin-block-start: var(--flow, var(--sp-sm)); }
+  .stack--sm { --flow: var(--sp-2xs); }
+  .stack--md { --flow: var(--sp-md); }
+  .stack--lg { --flow: var(--sp-lg); }
+  .stack--xl { --flow: var(--sp-xl); }
+
+  /* ----------------------------------------------------------- skip link */
+  .skip {
+    position: fixed;
+    inset-block-start: var(--sp-sm);
+    inset-inline-start: var(--sp-sm);
+    z-index: 1000;
+    padding: 0.7rem 1.1rem;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: var(--r-sm);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    text-decoration: none;
+    transform: translateY(-160%);
+    transition: transform var(--dur) var(--ease-spring);
+  }
+  .skip:focus-visible { transform: none; }
+
+  /* -------------------------------------------------------------- header */
+  .masthead {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 500;
+    isolation: isolate;
+  }
+
+  .masthead::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: color-mix(in oklab, var(--paper) 82%, transparent);
+    backdrop-filter: saturate(1.4) blur(14px);
+    -webkit-backdrop-filter: saturate(1.4) blur(14px);
+    border-block-end: 1px solid var(--rule);
+    opacity: 0;
+    transition: opacity var(--dur) var(--ease-out);
+    z-index: -1;
+  }
+
+  .masthead[data-stuck="true"]::before { opacity: 1; }
+
+  .masthead__inner {
+    min-block-size: var(--header-h);
+    display: flex;
+    align-items: center;
+    gap: var(--sp-md);
+    padding-inline: var(--gutter);
+    transition: min-block-size var(--dur) var(--ease-out);
+  }
+
+  .masthead[data-stuck="true"] .masthead__inner {
+    min-block-size: calc(var(--header-h) - 0.9rem);
+  }
+
+  .masthead__nav {
+    margin-inline-start: auto;
+    display: none;
+    align-items: center;
+    gap: clamp(0.35rem, 1.4vi, 1.15rem);
+  }
+
+  .masthead__actions {
+    margin-inline-start: auto;
+    display: flex;
+    align-items: center;
+    gap: var(--sp-xs);
+  }
+
+
+  /* The nav only exists inside <noscript> now, so `.masthead__actions` can no
+     longer rely on it to push the menu button to the far edge — it keeps its
+     own auto margin at every width. */
+  @media (min-width: 62em) {
+    .masthead__nav { display: flex; }
+  }
+
+
+  /* ---------------------------------------------------------------- footer */
+  .colophon {
+    background: var(--ink);
+    color: color-mix(in oklab, var(--paper) 88%, var(--ink));
+    padding-block: var(--sp-3xl) var(--sp-lg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .colophon a { color: var(--paper); }
+
+  .colophon__grid {
+    display: grid;
+    gap: var(--sp-xl) var(--sp-lg);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 44em) {
+    .colophon__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (min-width: 68em) {
+    .colophon__grid {
+      grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+      gap: var(--sp-lg);
+    }
+  }
+
+  .colophon__base {
+    margin-block-start: var(--sp-2xl);
+    padding-block-start: var(--sp-md);
+    border-block-start: 1px solid color-mix(in oklab, var(--paper) 18%, transparent);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-xs) var(--sp-md);
+    align-items: center;
+    justify-content: space-between;
+    font-size: var(--fs-2xs);
+    color: color-mix(in oklab, var(--paper) 62%, var(--ink));
+  }
+
+  /* ------------------------------------------------------------- editorial
+     Sticky label in the left rail, content in the text column. The rail
+     collapses above the content on narrow screens. */
+  .spread {
+    grid-column: wide;
+    display: grid;
+    gap: var(--sp-md);
+    align-items: start;
+  }
+
+  @media (min-width: 62em) {
+    .spread {
+      grid-template-columns: minmax(11rem, 15rem) minmax(0, 1fr);
+      gap: var(--sp-2xl);
+    }
+    .spread__rail {
+      position: sticky;
+      inset-block-start: calc(var(--header-h) + var(--sp-md));
+    }
+  }
+
+  /* ---------------------------------------------------------------- panel */
+  .panel {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .panel--ink {
+    background: var(--ink);
+    color: var(--paper-warm);
+  }
+  .panel--ink h1, .panel--ink h2, .panel--ink h3 { color: var(--paper); }
+  .panel--ink .eyebrow { color: var(--ochre); }
+  .panel--ink .rule { border-color: color-mix(in oklab, var(--paper) 20%, transparent); }
+
+  .panel--warm  { background: var(--paper-warm); }
+  .panel--deep  { background: var(--paper-deep); }
+  .panel--sage  { background: var(--sage-wash); }
+  .panel--clay  { background: var(--clay-wash); }
+
+  /* Torn top edge for warm panels — a paper seam, not a border. */
+  .panel--seam::before {
+    content: "";
+    position: absolute;
+    inset-block-start: -1px;
+    inset-inline: 0;
+    block-size: 14px;
+    background: inherit;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='14' preserveAspectRatio='none' viewBox='0 0 1200 14'%3E%3Cpath d='M0 14V6.4c34 0 47-3.6 82-4.2 35-.6 51 3.1 86 3.1s52-4.4 87-4.9 52 3.4 87 3.4 51-3.9 86-4.5 52 3.8 87 3.8 51-4.1 86-4.1 52 4.3 87 4.3 51-3.7 86-4.3 52 3.2 87 3.2 51-3.3 86-3.9 52 3.5 87 3.5 51-4 82-4V14Z' fill='%23000'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='14' preserveAspectRatio='none' viewBox='0 0 1200 14'%3E%3Cpath d='M0 14V6.4c34 0 47-3.6 82-4.2 35-.6 51 3.1 86 3.1s52-4.4 87-4.9 52 3.4 87 3.4 51-3.9 86-4.5 52 3.8 87 3.8 51-4.1 86-4.1 52 4.3 87 4.3 51-3.7 86-4.3 52 3.2 87 3.2 51-3.3 86-3.9 52 3.5 87 3.5 51-4 82-4V14Z' fill='%23000'/%3E%3C/svg%3E");
+    -webkit-mask-size: 1200px 14px;
+    mask-size: 1200px 14px;
+    -webkit-mask-repeat: repeat-x;
+    mask-repeat: repeat-x;
+    transform: translateY(-100%);
+  }
+
+  /* --------------------------------------------------------------- helpers */
+  .cluster {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap, var(--sp-sm));
+    align-items: var(--align, center);
+  }
+
+  .switcher {
+    display: grid;
+    gap: var(--gap, var(--sp-lg));
+    grid-template-columns: repeat(auto-fit, minmax(min(var(--min, 17rem), 100%), 1fr));
+  }
+}
