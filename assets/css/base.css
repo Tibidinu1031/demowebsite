@@ -1,0 +1,328 @@
+/* ==========================================================================
+   Arcobaleno — bază
+   Layer order is declared once, here, so later files can slot in anywhere.
+   ========================================================================== */
+
+@layer reset, tokens, base, layout, components, pages, utilities;
+
+/* --------------------------------------------------------------------------
+   1. Reset
+   -------------------------------------------------------------------------- */
+@layer reset {
+  *,
+  *::before,
+  *::after { box-sizing: border-box; }
+
+  * { margin: 0; }
+
+  html {
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+    scroll-behavior: smooth;
+    scroll-padding-block-start: 7rem;
+  }
+
+  body {
+    min-block-size: 100svh;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  img,
+  picture,
+  svg,
+  video {
+    display: block;
+    max-inline-size: 100%;
+    block-size: auto;
+  }
+
+  /* Icons drawn from the sprite carry no viewBox of their own, so there is no
+     intrinsic ratio for `block-size: auto` to resolve against and it falls back
+     to the SVG default height of 150px — which quietly wrecks the line box of
+     any flex row they sit in. Every symbol in the sprite is square. */
+  svg:not([viewBox]) { aspect-ratio: 1; }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  button { background: none; border: 0; }
+
+  p,
+  h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+    text-wrap: pretty;
+  }
+
+  h1, h2, h3 { text-wrap: balance; }
+
+  ul[role="list"],
+  ol[role="list"] {
+    list-style: none;
+    padding-inline-start: 0;
+  }
+
+  :target { scroll-margin-block-start: 7rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. Tokens
+   Palette is sampled from paper stock, not from a screen: warm cream, pine
+   ink, unglazed terracotta. Nothing here is a framework default.
+   -------------------------------------------------------------------------- */
+@layer tokens {
+  :root {
+    /* Ink */
+    --ink:        #1d2b23;
+    --ink-soft:   #3b4d43;
+    --ink-faint:  #6b7d71;
+    --ink-ghost:  #9aa89e;
+
+    /* Paper */
+    --paper:      #f8f3e8;
+    --paper-warm: #f1e9d8;
+    --paper-deep: #e7dcc5;
+    --paper-edge: #d9cbaf;
+
+    /* Pigments */
+    --clay:       #c05f38;
+    --clay-deep:  #9d4726;
+    --clay-wash:  #f0d8cb;
+    --ochre:      #e2a641;
+    --ochre-wash: #f6e5c3;
+    --sage:       #91ab90;
+    --sage-deep:  #5f7c62;
+    --sage-wash:  #dfe7da;
+    /* Verde adânc, pentru suprafețe pline cu text alb peste — banda de anunț.
+       Sage-deep e prea palid ca fundal: pică sub 4.5:1 cu text mic. */
+    --moss:       #4a6a4f;
+    --moss-deep:  #3a5540;
+    --sky:        #7ea6c4;
+    --sky-wash:   #d8e5ee;
+    --petal:      #dd8f86;
+    --plum:       #6f4f63;
+
+    /* Semantic */
+    --surface:        var(--paper);
+    --surface-raised: #fdfaf3;
+    --rule:           color-mix(in oklab, var(--ink) 14%, transparent);
+    --rule-strong:    color-mix(in oklab, var(--ink) 28%, transparent);
+    --focus:          var(--clay);
+
+    /* Type */
+    --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype",
+                    Palatino, Georgia, "Times New Roman", serif;
+    --font-text:    "Instrument Sans", ui-sans-serif, system-ui, -apple-system,
+                    "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+
+    /* Fluid scale — 1.20 at 360px widening to 1.26 at 1440px */
+    --fs-3xs: clamp(0.694rem, 0.681rem + 0.058vi, 0.729rem);
+    --fs-2xs: clamp(0.781rem, 0.759rem + 0.098vi, 0.840rem);
+    --fs-xs:  clamp(0.878rem, 0.845rem + 0.149vi, 0.968rem);
+    --fs-sm:  clamp(0.988rem, 0.939rem + 0.219vi, 1.119rem);
+    --fs-md:  clamp(1.111rem, 1.041rem + 0.313vi, 1.299rem);
+    --fs-lg:  clamp(1.250rem, 1.152rem + 0.438vi, 1.513rem);
+    --fs-xl:  clamp(1.406rem, 1.272rem + 0.598vi, 1.765rem);
+    --fs-2xl: clamp(1.582rem, 1.399rem + 0.815vi, 2.072rem);
+    --fs-3xl: clamp(1.780rem, 1.532rem + 1.104vi, 2.442rem);
+    --fs-4xl: clamp(2.002rem, 1.667rem + 1.489vi, 2.895rem);
+    --fs-5xl: clamp(2.252rem, 1.804rem + 1.993vi, 3.448rem);
+    --fs-6xl: clamp(2.534rem, 1.941rem + 2.635vi, 4.116rem);
+    --fs-7xl: clamp(2.850rem, 2.070rem + 3.469vi, 4.932rem);
+    --fs-8xl: clamp(3.206rem, 2.185rem + 4.539vi, 5.930rem);
+
+    --lh-tight:  0.94;
+    --lh-snug:   1.08;
+    --lh-heading:1.14;
+    --lh-body:   1.62;
+    --lh-loose:  1.78;
+
+    /* Space — fluid, one scale for the whole site */
+    --sp-3xs: clamp(0.25rem, 0.24rem + 0.05vi, 0.28rem);
+    --sp-2xs: clamp(0.5rem,  0.48rem + 0.09vi, 0.56rem);
+    --sp-xs:  clamp(0.75rem, 0.72rem + 0.14vi, 0.84rem);
+    --sp-sm:  clamp(1rem,    0.96rem + 0.18vi, 1.13rem);
+    --sp-md:  clamp(1.5rem,  1.44rem + 0.27vi, 1.69rem);
+    --sp-lg:  clamp(2rem,    1.91rem + 0.36vi, 2.25rem);
+    --sp-xl:  clamp(3rem,    2.87rem + 0.55vi, 3.38rem);
+    --sp-2xl: clamp(4rem,    3.55rem + 2.00vi, 5.5rem);
+    --sp-3xl: clamp(5.5rem,  4.55rem + 4.20vi, 9rem);
+    --sp-4xl: clamp(7rem,    5.20rem + 8.00vi, 13rem);
+
+    /* Shape */
+    --r-xs: 0.25rem;
+    --r-sm: 0.5rem;
+    --r-md: 0.875rem;
+    --r-lg: 1.375rem;
+    --r-xl: 2rem;
+    --r-pill: 100vmax;
+    --r-arch: 50vmax 50vmax 1.5rem 1.5rem;
+
+    /* Depth — one lift, one press. Restraint is the point. */
+    --lift: 0 1px 1px rgb(29 43 35 / 0.04),
+            0 6px 14px -8px rgb(29 43 35 / 0.14),
+            0 22px 44px -28px rgb(29 43 35 / 0.22);
+    --lift-lg: 0 2px 3px rgb(29 43 35 / 0.05),
+               0 14px 30px -14px rgb(29 43 35 / 0.16),
+               0 46px 70px -40px rgb(29 43 35 / 0.26);
+
+    /* Motion */
+    --ease-out:  cubic-bezier(0.16, 0.84, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.62, 0.02, 0.24, 1);
+    --ease-spring: cubic-bezier(0.34, 1.42, 0.48, 1);
+    --dur-fast: 160ms;
+    --dur:      280ms;
+    --dur-slow: 620ms;
+
+    /* Layout */
+    --gutter: clamp(1.15rem, 0.6rem + 2.6vi, 3rem);
+    --measure: 62ch;
+    --header-h: 4.75rem;
+
+    color-scheme: light;
+    accent-color: var(--clay);
+  }
+
+  @media (min-width: 60em) {
+    :root { --header-h: 5.5rem; }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. Base elements
+   -------------------------------------------------------------------------- */
+@layer base {
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-text);
+    font-size: var(--fs-md);
+    line-height: var(--lh-body);
+    font-feature-settings: "kern", "liga", "calt";
+  }
+
+  /* Paper grain. Fixed, cheap, and the single reason the flats read as stock
+     rather than as #f8f3e8. */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: -50%;
+    z-index: 900;
+    pointer-events: none;
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)' opacity='0.42'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+  }
+
+  @media (min-resolution: 2dppx) {
+    body::after { opacity: 0.34; background-size: 130px 130px; }
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 460;
+    line-height: var(--lh-heading);
+    letter-spacing: -0.014em;
+    font-variation-settings: "SOFT" 38, "WONK" 1, "opsz" 96;
+  }
+
+  h1 { font-size: var(--fs-6xl); line-height: var(--lh-tight); letter-spacing: -0.028em; }
+  h2 { font-size: var(--fs-4xl); line-height: var(--lh-snug);  letter-spacing: -0.022em; }
+  h3 { font-size: var(--fs-xl); }
+  h4 { font-size: var(--fs-lg); }
+
+  a {
+    color: inherit;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+    text-decoration-color: color-mix(in oklab, currentColor 34%, transparent);
+    transition: color var(--dur-fast) var(--ease-out),
+                text-decoration-color var(--dur-fast) var(--ease-out);
+  }
+
+  a:hover { text-decoration-color: currentColor; }
+
+  strong, b { font-weight: 600; }
+
+  em { font-style: italic; }
+
+  ::selection {
+    background-color: var(--ochre);
+    color: var(--ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: var(--r-xs);
+  }
+
+  :focus:not(:focus-visible) { outline: none; }
+
+  hr {
+    border: 0;
+    border-block-start: 1px solid var(--rule);
+    margin-block: var(--sp-lg);
+  }
+
+  small { font-size: var(--fs-xs); }
+
+  figure { margin: 0; }
+
+  blockquote { margin: 0; }
+
+  ::-webkit-scrollbar { width: 11px; height: 11px; }
+  ::-webkit-scrollbar-track { background: var(--paper-warm); }
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--ink) 22%, var(--paper-warm));
+    border-radius: var(--r-pill);
+    border: 3px solid var(--paper-warm);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklab, var(--ink) 38%, var(--paper-warm));
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. Cross-document transitions
+   Chrome/Edge only; everything else just gets an ordinary page load.
+   -------------------------------------------------------------------------- */
+@view-transition { navigation: auto; }
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: vt-out 240ms var(--ease-in-out) both;
+  }
+  ::view-transition-new(root) {
+    animation: vt-in 380ms var(--ease-out) both;
+  }
+  @keyframes vt-out {
+    to { opacity: 0; transform: translateY(-0.6rem); }
+  }
+  @keyframes vt-in {
+    from { opacity: 0; transform: translateY(1.1rem); }
+  }
+}
+
+::view-transition-group(site-mark) {
+  animation-duration: 420ms;
+  animation-timing-function: var(--ease-out);
+}

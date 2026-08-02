@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" width="640" height="320" role="img"
+     aria-labelledby="hole-t hole-d">
+  <title id="hole-t">Cross-section of the hole, weeks 1 to 11</title>
+  <desc id="hole-d">A field drawing showing three nested outlines of the same hole as it deepened
+    from about twenty centimetres in week one to just over a metre by week eleven, with the
+    soil layers labelled.</desc>
+
+  <rect width="640" height="320" fill="#f1e9d8"/>
+
+  <!-- soil layers -->
+  <path d="M0 96h640v46H0Z" fill="#c8b493"/>
+  <path d="M0 142h640v62H0Z" fill="#b39a75"/>
+  <path d="M0 204h640v66H0Z" fill="#9d8360"/>
+  <path d="M0 270h640v50H0Z" fill="#8a6f4f"/>
+
+  <!-- turf -->
+  <path d="M0 88h640v10H0Z" fill="#7d9c7e"/>
+  <g fill="#5f7c62">
+    <path d="M28 88c4-11 2-19-3-25 9 4 13 12 13 25ZM52 88c-1-9 2-17 8-22-2 9 0 15 3 22ZM588 88c4-10 2-18-3-24 9 4 13 11 13 24ZM610 88c-1-9 2-16 8-21-2 8 0 14 3 21Z"/>
+  </g>
+
+  <!-- week 11 (deepest) -->
+  <path d="M196 96c-6 44 4 72 18 104 12 27 34 42 66 42s54-15 66-42c14-32 24-60 18-104Z" fill="#f1e9d8"/>
+  <path d="M196 96c-6 44 4 72 18 104 12 27 34 42 66 42s54-15 66-42c14-32 24-60 18-104"
+        fill="none" stroke="#1d2b23" stroke-width="2.4"/>
+
+  <!-- week 6 -->
+  <path d="M226 96c-4 28 2 48 12 68 8 17 20 26 42 26s34-9 42-26c10-20 16-40 12-68"
+        fill="none" stroke="#c05f38" stroke-width="2" stroke-dasharray="7 5"/>
+
+  <!-- week 1 -->
+  <path d="M254 96c-2 14 1 24 6 32 5 8 11 12 20 12s15-4 20-12c5-8 8-18 6-32"
+        fill="none" stroke="#3b4d43" stroke-width="1.8" stroke-dasharray="3 4"/>
+
+  <!-- spoil heap -->
+  <path d="M382 88c14-26 44-40 82-40s66 16 78 40Z" fill="#b39a75"/>
+  <path d="M382 88c14-26 44-40 82-40s66 16 78 40" fill="none" stroke="#8a6f4f" stroke-width="2"/>
+
+  <!-- the plank roof, added week 9 -->
+  <path d="M186 92h60l16-14h56l16 14h60" fill="none" stroke="#a7794e" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- measure -->
+  <g stroke="#1d2b23" stroke-width="1.4">
+    <path d="M118 96v146"/>
+    <path d="M112 96h12M112 242h12"/>
+  </g>
+
+  <!-- labels -->
+  <g font-family="Instrument Sans, system-ui, sans-serif" font-size="12" fill="#3b4d43" font-weight="600">
+    <text x="128" y="174">1.04 m</text>
+    <text x="404" y="128" fill="#8a6f4f">spoil heap</text>
+    <text x="404" y="70">plank roof, wk 9</text>
+    <text x="16" y="120" font-size="11" fill="#6b5a42">topsoil</text>
+    <text x="16" y="178" font-size="11" fill="#6b5a42">clay</text>
+    <text x="16" y="240" font-size="11" fill="#f1e9d8">heavier clay</text>
+    <text x="16" y="300" font-size="11" fill="#f1e9d8">flint &amp; the pipe</text>
+  </g>
+
+  <!-- key -->
+  <g font-family="Instrument Sans, system-ui, sans-serif" font-size="11" font-weight="600">
+    <g transform="translate(452 168)">
+      <path d="M0 0h22" stroke="#3b4d43" stroke-width="1.8" stroke-dasharray="3 4"/>
+      <text x="30" y="4" fill="#3b4d43">week 1</text>
+      <path d="M0 20h22" stroke="#c05f38" stroke-width="2" stroke-dasharray="7 5"/>
+      <text x="30" y="24" fill="#c05f38">week 6</text>
+      <path d="M0 40h22" stroke="#1d2b23" stroke-width="2.4"/>
+      <text x="30" y="44" fill="#1d2b23">week 11</text>
+    </g>
+  </g>
+</svg>
