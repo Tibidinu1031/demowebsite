@@ -503,7 +503,9 @@
     font-size: var(--fs-2xs);
     font-weight: 500;
     letter-spacing: 0.1em;
-    color: var(--ochre);
+    /* -deep, nu ochre plin: cardul are fundal aproape alb, iar auriul de bandă
+       cade sub 3:1 acolo — deep ține un contrast mai bun ca decorație. */
+    color: var(--ochre-deep);
     font-variant-numeric: lining-nums;
   }
 
@@ -621,6 +623,17 @@
   }
 
   .ticker__item svg { inline-size: 0.85rem; color: var(--clay); flex: none; }
+
+  /* Frunzele din bandă merg pe tot arcul, ca sub siglă — șapte fapte, șapte
+     culori. `nth-child` se calculează per grup, deci copia pentru buclă
+     continuă exact aceeași secvență, fără cusătură vizibilă. */
+  .ticker__item:nth-child(7n+1) svg { color: var(--clay); }
+  .ticker__item:nth-child(7n+2) svg { color: var(--ochre-deep); }
+  .ticker__item:nth-child(7n+3) svg { color: var(--sage-deep); }
+  .ticker__item:nth-child(7n+4) svg { color: var(--sky-deep); }
+  .ticker__item:nth-child(7n+5) svg { color: var(--plum); }
+  .ticker__item:nth-child(7n+6) svg { color: var(--petal); }
+  .ticker__item:nth-child(7n)   svg { color: var(--clay-deep); }
 
   @keyframes ticker {
     to { transform: translateX(-50%); }
@@ -1031,7 +1044,7 @@
 
   .note p { font-size: var(--fs-sm); line-height: 1.6; }
   .note footer { font-size: var(--fs-2xs); color: var(--ink-faint); }
-  .note__stars { display: flex; gap: 0.12rem; color: var(--ochre); }
+  .note__stars { display: flex; gap: 0.12rem; color: var(--ochre-deep); }
   .note__stars svg { inline-size: 0.85rem; }
 
   /* ================================================================ journal */

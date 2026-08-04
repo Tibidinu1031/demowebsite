@@ -210,6 +210,10 @@
   .panel--deep  { background: var(--paper-deep); }
   .panel--sage  { background: var(--sage-wash); }
   .panel--clay  { background: var(--clay-wash); }
+  .panel--ochre { background: var(--ochre-wash); }
+  .panel--sky   { background: var(--sky-wash); }
+  .panel--plum  { background: var(--plum-wash); }
+  .panel--petal { background: var(--petal-wash); }
 
   /* Torn top edge for warm panels — a paper seam, not a border. */
   .panel--seam::before {

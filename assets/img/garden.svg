@@ -13,7 +13,7 @@
 
     <linearGradient id="canopyA" x1="0.2" y1="0" x2="0.8" y2="1">
       <stop offset="0" stop-color="#7d9c7e"/>
-      <stop offset="1" stop-color="#5f7c62"/>
+      <stop offset="1" stop-color="#276e33"/>
     </linearGradient>
 
     <linearGradient id="canopyB" x1="0" y1="0" x2="0.6" y2="1">
@@ -42,11 +42,11 @@
 
     <!-- sun -->
     <circle cx="536" cy="196" r="96" fill="#f0d9a4" opacity="0.55"/>
-    <circle cx="536" cy="196" r="63" fill="#e2a641"/>
+    <circle cx="536" cy="196" r="63" fill="#f2a11c"/>
     <circle cx="536" cy="196" r="63" fill="#f2c778" opacity="0.5"/>
 
     <!-- birds -->
-    <g stroke="#3b4d43" stroke-width="3.4" fill="none" stroke-linecap="round" opacity="0.55">
+    <g stroke="#313c66" stroke-width="3.4" fill="none" stroke-linecap="round" opacity="0.55">
       <path d="M182 168c9-11 18-11 26 0"/>
       <path d="M208 152c7-9 15-9 22 0"/>
       <path d="M604 320c8-9 16-9 23 0"/>
@@ -87,7 +87,7 @@
       <ellipse cx="360" cy="250" rx="158" ry="120" fill="url(#canopyB)"/>
       <ellipse cx="268" cy="186" rx="126" ry="98" fill="#6d8a70"/>
       <ellipse cx="140" cy="220" rx="92" ry="76" fill="#7d9c7e"/>
-      <ellipse cx="404" cy="326" rx="96" ry="70" fill="#5f7c62"/>
+      <ellipse cx="404" cy="326" rx="96" ry="70" fill="#276e33"/>
       <ellipse cx="228" cy="330" rx="112" ry="74" fill="#728f74"/>
       <!-- dapple -->
       <g fill="#a8c2a3" opacity="0.55">
@@ -104,7 +104,7 @@
       <rect x="404" y="580" width="78" height="13" rx="5" fill="#a7794e"/>
       <!-- child on the swing -->
       <g>
-        <path d="M443 542c-19 0-33 12-34 28l-2 22h72l-2-24c-1-16-15-26-34-26Z" fill="#c05f38"/>
+        <path d="M443 542c-19 0-33 12-34 28l-2 22h72l-2-24c-1-16-15-26-34-26Z" fill="#d6382a"/>
         <circle cx="443" cy="518" r="25" fill="#e9c6a1"/>
         <path d="M418 514c0-16 11-27 25-27s25 11 25 27c0 5-4 6-6 2-4-7-12-11-19-11s-15 4-19 11c-2 4-6 3-6-2Z"
               fill="#3f2f28"/>
@@ -118,20 +118,20 @@
       <path d="M-8 40 74-8l82 48v130H-8Z" fill="#c9a06a"/>
       <path d="M-26 44 74-16l100 60-10 17-90-54-90 54Z" fill="#9d6f45"/>
       <rect x="52" y="96" width="44" height="74" rx="4" fill="#7a5233"/>
-      <circle cx="88" cy="134" r="4" fill="#e2a641"/>
+      <circle cx="88" cy="134" r="4" fill="#f2a11c"/>
       <rect x="14" y="58" width="34" height="30" rx="5" fill="#7fa6c3"/>
       <rect x="102" y="58" width="34" height="30" rx="5" fill="#7fa6c3"/>
       <g stroke="#9d6f45" stroke-width="3" opacity="0.7">
         <path d="M-8 78h64M96 78h60M-8 116h50M104 116h52"/>
       </g>
       <!-- bunting -->
-      <path d="M-40 26C10 52 130 52 190 20" stroke="#3b4d43" stroke-width="2.6" fill="none"/>
+      <path d="M-40 26C10 52 130 52 190 20" stroke="#313c66" stroke-width="2.6" fill="none"/>
       <g>
-        <path d="M-16 38l20 2-8 18Z" fill="#dd8f86"/>
-        <path d="M24 46l20 1-9 18Z" fill="#e2a641"/>
+        <path d="M-16 38l20 2-8 18Z" fill="#ec5fa1"/>
+        <path d="M24 46l20 1-9 18Z" fill="#f2a11c"/>
         <path d="M64 48l20 0-10 18Z" fill="#7fa6c3"/>
-        <path d="M104 46l20-1-11 17Z" fill="#dd8f86"/>
-        <path d="M144 40l19-3-12 17Z" fill="#e2a641"/>
+        <path d="M104 46l20-1-11 17Z" fill="#ec5fa1"/>
+        <path d="M144 40l19-3-12 17Z" fill="#f2a11c"/>
       </g>
     </g>
 
@@ -142,13 +142,13 @@
       <circle cx="34" cy="20" r="23" fill="#8a5c3d"/>
       <path d="M11 18c0-15 10-26 23-26s23 11 23 26c0 6-5 4-7 0-3-6-9-9-16-9s-13 3-16 9c-2 4-7 6-7 0Z" fill="#2b1f19"/>
       <path d="M64 58c14 2 24 8 28 18" stroke="#8a5c3d" stroke-width="11" stroke-linecap="round" fill="none"/>
-      <rect x="88" y="72" width="30" height="24" rx="4" fill="#c05f38"/>
-      <path d="M88 72c0-10 30-10 30 0" stroke="#9d4726" stroke-width="3" fill="none"/>
+      <rect x="88" y="72" width="30" height="24" rx="4" fill="#d6382a"/>
+      <path d="M88 72c0-10 30-10 30 0" stroke="#a82a1e" stroke-width="3" fill="none"/>
     </g>
 
     <!-- running -->
     <g transform="translate(596 626)">
-      <path d="M4 92C0 60 12 42 32 42s32 18 28 50Z" fill="#e2a641"/>
+      <path d="M4 92C0 60 12 42 32 42s32 18 28 50Z" fill="#f2a11c"/>
       <circle cx="32" cy="24" r="22" fill="#f0cdae"/>
       <path d="M10 24c0-16 10-26 22-26s22 10 22 26c0 4-3 5-5 2-8-8-14-8-22-4-6 3-11 8-13 6-3-1-4-2-4-4Z" fill="#8a5c3d"/>
       <path d="M-2 62c-14 4-22 12-24 24M66 62c14 4 22 12 24 24"
@@ -160,13 +160,13 @@
     <g transform="translate(268 682)">
       <path d="M2 74C-2 48 10 34 28 34s30 14 26 40Z" fill="#9cb79a"/>
       <circle cx="28" cy="18" r="20" fill="#e9c6a1"/>
-      <path d="M8 16C8 3 17-6 28-6s20 9 20 22c0 5-3 4-6 1-4-4-8-6-14-6s-11 2-14 6c-3 3-6 4-6-1Z" fill="#c05f38"/>
+      <path d="M8 16C8 3 17-6 28-6s20 9 20 22c0 5-3 4-6 1-4-4-8-6-14-6s-11 2-14 6c-3 3-6 4-6-1Z" fill="#d6382a"/>
       <path d="M-4 74h64l-8 16H4Z" fill="#f8f3e8"/>
       <path d="M28 74v16" stroke="#d9cbaf" stroke-width="2.4"/>
     </g>
 
     <!-- foreground tufts + petals -->
-    <g fill="#5f7c62">
+    <g fill="#276e33">
       <path d="M60 848c8-24 4-42-6-56 18 8 26 26 26 56Z"/>
       <path d="M96 848c-2-20 4-36 16-46-4 18 0 32 6 46Z"/>
       <path d="M624 848c8-22 4-40-6-54 18 8 26 24 26 54Z"/>
@@ -174,7 +174,7 @@
       <path d="M352 852c6-18 2-32-6-42 14 6 20 20 20 42Z"/>
     </g>
 
-    <g fill="#dd8f86" opacity="0.85">
+    <g fill="#ec5fa1" opacity="0.85">
       <ellipse cx="512" cy="352" rx="7" ry="5" transform="rotate(28 512 352)"/>
       <ellipse cx="560" cy="418" rx="6" ry="4" transform="rotate(-14 560 418)"/>
       <ellipse cx="122" cy="452" rx="7" ry="5" transform="rotate(41 122 452)"/>

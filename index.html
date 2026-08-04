@@ -68,7 +68,7 @@
 }
 </script>
 </head>
-<body class="has-hero-video">
+<body class="has-hero-video is-home">
 
 <a class="skip" href="#main">Sari la conținut</a>
 
@@ -128,6 +128,25 @@
       <circle cx="12" cy="12" r="9.3" fill="none" stroke="currentColor" stroke-width="1.8"/>
       <path d="M13.9 8.2h-1.2c-1 0-1.5.6-1.5 1.6v10M9.4 12.4h4.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
     </symbol>
+    <!-- Arcul curcubeului din siglă, reprodus ca degrade — folosit pe
+         sublinierea desenată de mână de sub „Arcobaleno” din titlul erou.
+         `objectBoundingBox` (implicit) face ca degradeul să se întindă pe
+         cutia elementului care îl folosește, oriunde ar sta acel element. -->
+    <linearGradient id="i-rainbow" x1="0" y1="0" x2="1" y2="0.15">
+      <stop offset="0%"   stop-color="#d6382a"/>
+      <stop offset="25%"  stop-color="#f2a11c"/>
+      <stop offset="50%"  stop-color="#3f9e4d"/>
+      <stop offset="75%"  stop-color="#2f86dd"/>
+      <stop offset="100%" stop-color="#7c4dbe"/>
+    </linearGradient>
+    <symbol id="i-sound-on" viewBox="0 0 16 16">
+      <path d="M2.3 6.3h1.8L7 3.6v8.8L4.1 9.7H2.3Z" fill="currentColor"/>
+      <path d="M9.6 5.7a3.1 3.1 0 0 1 0 4.6M11.2 4a5.7 5.7 0 0 1 0 8" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-sound-off" viewBox="0 0 16 16">
+      <path d="M2.3 6.3h1.8L7 3.6v8.8L4.1 9.7H2.3Z" fill="currentColor"/>
+      <path d="M9.8 6.2l3.6 3.6M13.4 6.2l-3.6 3.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    </symbol>
   </defs>
 </svg>
 
@@ -158,6 +177,7 @@
           <a class="navlink" href="rooms.html">Programe</a>
           <a class="navlink" href="approach.html">Abordare</a>
           <a class="navlink" href="gallery.html">Galerie</a>
+          <a class="navlink" href="tur-virtual.html">Tur Virtual</a>
           <a class="navlink" href="blog.html">Blog</a>
           <a class="navlink" href="faq.html">Întrebări</a>
           <a class="navlink" href="visit.html">Tarife &amp; program</a>
@@ -230,11 +250,19 @@
       <svg class="seal__core" viewBox="0 0 40 40"><use href="#i-mark"/></svg>
     </div>
 
-    <button class="hero__toggle" type="button" data-hero-toggle data-playing="true"
-            aria-label="Oprește filmul de fundal" hidden>
-      <svg class="is-pause" aria-hidden="true"><use href="#i-pause"/></svg>
-      <svg class="is-play" aria-hidden="true"><use href="#i-play"/></svg>
-    </button>
+    <div class="hero__controls">
+      <button class="hero__sound" type="button" data-hero-sound data-muted="true"
+              aria-label="Pornește sunetul filmului" hidden>
+        <svg class="is-unmuted" aria-hidden="true"><use href="#i-sound-on"/></svg>
+        <svg class="is-muted" aria-hidden="true"><use href="#i-sound-off"/></svg>
+        <span class="hero__sound-label" data-hero-sound-label>Pornește sunetul</span>
+      </button>
+      <button class="hero__toggle" type="button" data-hero-toggle data-playing="true"
+              aria-label="Oprește filmul de fundal" hidden>
+        <svg class="is-pause" aria-hidden="true"><use href="#i-pause"/></svg>
+        <svg class="is-play" aria-hidden="true"><use href="#i-play"/></svg>
+      </button>
+    </div>
   </section>
 
   <!-- ============================================================ bandă -->
@@ -335,7 +363,7 @@
   </section>
 
   <!-- ============================================================ grupe -->
-  <section class="section panel panel--warm panel--seam is-panel shell">
+  <section class="section panel panel--ochre panel--seam is-panel shell">
     <div class="u-wide stack stack--md">
       <p class="eyebrow">Capitolul doi</p>
       <div class="rooms__head">
@@ -605,7 +633,7 @@
             <!-- Ilustrația rămâne dedesubt ca rezervă: dacă fotografia lipsește,
                  site.js scoate <img> și se vede desenul. -->
             <svg viewBox="0 0 120 150" aria-hidden="true">
-              <path d="M0 150c0-38 26-56 60-56s60 18 60 56Z" fill="#5f7c62"/>
+              <path d="M0 150c0-38 26-56 60-56s60 18 60 56Z" fill="#276e33"/>
               <circle cx="60" cy="62" r="34" fill="#8a5c3d"/>
               <path d="M26 60c0-24 15-40 34-40s34 16 34 40c0 8-5 6-8 1-6-9-14-13-26-13s-20 4-26 13c-3 5-8 7-8-1Z" fill="#2b1f19"/>
               <path d="M26 60c-6-2-9 6-6 12 2 4 6 4 7 1M94 60c6-2 9 6 6 12-2 4-6 4-7 1" fill="#2b1f19"/>
@@ -627,7 +655,7 @@
         <figure class="person" style="--tone:var(--ochre-wash)">
           <div class="person__portrait">
             <svg viewBox="0 0 120 150" aria-hidden="true">
-              <path d="M0 150c0-38 26-56 60-56s60 18 60 56Z" fill="#c05f38"/>
+              <path d="M0 150c0-38 26-56 60-56s60 18 60 56Z" fill="#d6382a"/>
               <circle cx="60" cy="62" r="34" fill="#e9c6a1"/>
               <path d="M27 56c2-22 16-36 33-36s31 14 33 36c0 5-4 3-7-1-7-8-13-11-26-11s-19 3-26 11c-3 4-7 6-7 1Z" fill="#6b4a2f"/>
               <path d="M46 92c8 5 20 5 28 0" stroke="#c9a06a" stroke-width="4" fill="none" stroke-linecap="round"/>
@@ -646,7 +674,7 @@
               <path d="M0 150c0-38 26-56 60-56s60 18 60 56Z" fill="#7fa6c3"/>
               <circle cx="60" cy="62" r="34" fill="#c78f5f"/>
               <path d="M24 66c0-28 16-46 36-46s36 18 36 46c0 14-6 22-10 20-3-2 0-10-2-18-3-12-11-18-24-18s-21 6-24 18c-2 8 1 16-2 18-4 2-10-6-10-20Z" fill="#241a14"/>
-              <circle cx="60" cy="30" r="7" fill="#dd8f86"/>
+              <circle cx="60" cy="30" r="7" fill="#ec5fa1"/>
             </svg>
           </div>
           <figcaption>
@@ -659,12 +687,12 @@
         <figure class="person" style="--tone:var(--sky-wash)">
           <div class="person__portrait">
             <svg viewBox="0 0 120 150" aria-hidden="true">
-              <path d="M0 150c0-38 26-56 60-56s60 18 60 56Z" fill="#5f7c62"/>
+              <path d="M0 150c0-38 26-56 60-56s60 18 60 56Z" fill="#276e33"/>
               <circle cx="60" cy="62" r="34" fill="#8f6446"/>
               <path d="M28 58c0-22 14-38 32-38s32 16 32 38c0 6-4 5-6 1-5-8-12-12-26-12s-21 4-26 12c-2 4-6 5-6-1Z" fill="#3a2a20"/>
-              <rect x="30" y="56" width="24" height="18" rx="9" fill="none" stroke="#1d2b23" stroke-width="3"/>
-              <rect x="66" y="56" width="24" height="18" rx="9" fill="none" stroke="#1d2b23" stroke-width="3"/>
-              <path d="M54 63h12" stroke="#1d2b23" stroke-width="3"/>
+              <rect x="30" y="56" width="24" height="18" rx="9" fill="none" stroke="#17213f" stroke-width="3"/>
+              <rect x="66" y="56" width="24" height="18" rx="9" fill="none" stroke="#17213f" stroke-width="3"/>
+              <path d="M54 63h12" stroke="#17213f" stroke-width="3"/>
             </svg>
           </div>
           <figcaption>
@@ -674,10 +702,10 @@
           </figcaption>
         </figure>
 
-        <figure class="person" style="--tone:var(--ochre-wash)">
+        <figure class="person" style="--tone:var(--plum-wash)">
           <div class="person__portrait">
             <svg viewBox="0 0 120 150" aria-hidden="true">
-              <path d="M0 150c0-38 26-56 60-56s60 18 60 56Z" fill="#e2a641"/>
+              <path d="M0 150c0-38 26-56 60-56s60 18 60 56Z" fill="#f2a11c"/>
               <circle cx="60" cy="62" r="34" fill="#f0cdae"/>
               <path d="M28 54c4-20 16-34 32-34s28 14 32 34c1 6-4 6-7 2-6-8-13-11-25-11s-19 3-25 11c-3 4-8 4-7-2Z" fill="#8e8175"/>
               <path d="M22 44h76v-6c0-4-3-6-8-6H30c-5 0-8 2-8 6Z" fill="#f8f3e8"/>
@@ -731,7 +759,7 @@
   </section>
 
   <!-- ========================================================== părinți -->
-  <section class="section panel panel--deep panel--seam is-panel shell">
+  <section class="section panel panel--sky panel--seam is-panel shell">
     <div class="u-wide stack stack--md">
       <p class="eyebrow">Ce spun părinții</p>
       <h2 class="u-measure-sm">Am cerut varianta sinceră</h2>
@@ -875,6 +903,7 @@
           <li><a href="rooms.html">Programe &amp; tarife</a></li>
           <li><a href="approach.html">Abordare</a></li>
           <li><a href="gallery.html">Galerie</a></li>
+          <li><a href="tur-virtual.html">Tur Virtual</a></li>
           <li><a href="blog.html">Blog</a></li>
           <li><a href="journal.html">Jurnal</a></li>
           <li><a href="faq.html">Întrebări frecvente</a></li>

@@ -84,16 +84,19 @@
 
 /* --------------------------------------------------------------------------
    2. Tokens
-   Palette is sampled from paper stock, not from a screen: warm cream, pine
-   ink, unglazed terracotta. Nothing here is a framework default.
+   Palette rebuilt around the Arcobaleno mark: a rainbow arc in red, gold,
+   green, sky blue and purple, under a bear in royal blue with a yellow
+   belly. Paper stays paper — cream, with the same grain — but every pigment
+   is pulled up to the mark's own saturation, and ink shifted from pine
+   toward the deep indigo of the wordmark's "AFTER SCHOOL" lettering.
    -------------------------------------------------------------------------- */
 @layer tokens {
   :root {
-    /* Ink */
-    --ink:        #1d2b23;
-    --ink-soft:   #3b4d43;
-    --ink-faint:  #6b7d71;
-    --ink-ghost:  #9aa89e;
+    /* Ink — indigo-navy now, not pine, to sit with the mark's blue type */
+    --ink:        #17213f;
+    --ink-soft:   #313c66;
+    --ink-faint:  #646d99;
+    --ink-ghost:  #9aa1c4;
 
     /* Paper */
     --paper:      #f8f3e8;
@@ -101,23 +104,32 @@
     --paper-deep: #e7dcc5;
     --paper-edge: #d9cbaf;
 
-    /* Pigments */
-    --clay:       #c05f38;
-    --clay-deep:  #9d4726;
-    --clay-wash:  #f0d8cb;
-    --ochre:      #e2a641;
-    --ochre-wash: #f6e5c3;
-    --sage:       #91ab90;
-    --sage-deep:  #5f7c62;
-    --sage-wash:  #dfe7da;
-    /* Verde adânc, pentru suprafețe pline cu text alb peste — banda de anunț.
-       Sage-deep e prea palid ca fundal: pică sub 4.5:1 cu text mic. */
-    --moss:       #4a6a4f;
-    --moss-deep:  #3a5540;
-    --sky:        #7ea6c4;
-    --sky-wash:   #d8e5ee;
-    --petal:      #dd8f86;
-    --plum:       #6f4f63;
+    /* Pigments — one clear hue per rainbow band. -deep variants are checked
+       against near-white button/banner text at 4.5:1 or better; -wash
+       variants are pale tints of the same hue, not separate colors, so a
+       swatch and its wash always read as one family. */
+    --clay:       #d6382a;
+    --clay-deep:  #a82a1e;
+    --clay-wash:  #fbdcd4;
+    --ochre:      #f2a11c;
+    --ochre-deep: #c97c0f;
+    --ochre-wash: #fdead0;
+    --sage:       #3f9e4d;
+    --sage-deep:  #276e33;
+    --sage-wash:  #dcf3de;
+    /* Verde de bandă — mai adânc decât sage-deep, ca fundal plin cu text
+       aproape alb peste (banda de anunț cere 4.5:1, sage-deep pică sub asta
+       ca fundal continuu). */
+    --moss:       #257a43;
+    --moss-deep:  #1d5f35;
+    --sky:        #2f86dd;
+    --sky-deep:   #1f65b3;
+    --sky-wash:   #dbebfb;
+    --petal:      #ec5fa1;
+    --petal-wash: #fce1ee;
+    --plum:       #7c4dbe;
+    --plum-deep:  #603897;
+    --plum-wash:  #ece1f8;
 
     /* Semantic */
     --surface:        var(--paper);
@@ -175,13 +187,16 @@
     --r-pill: 100vmax;
     --r-arch: 50vmax 50vmax 1.5rem 1.5rem;
 
-    /* Depth — one lift, one press. Restraint is the point. */
-    --lift: 0 1px 1px rgb(29 43 35 / 0.04),
-            0 6px 14px -8px rgb(29 43 35 / 0.14),
-            0 22px 44px -28px rgb(29 43 35 / 0.22);
-    --lift-lg: 0 2px 3px rgb(29 43 35 / 0.05),
-               0 14px 30px -14px rgb(29 43 35 / 0.16),
-               0 46px 70px -40px rgb(29 43 35 / 0.26);
+    /* Depth — one lift, one press. Restraint is the point. Values are the
+       --ink hex in decimal (23 33 63), not a var(): a shorthand shadow can't
+       take a custom property mid-function the way color-mix() can, so this
+       is the one place the ink hue is hand-kept in sync. */
+    --lift: 0 1px 1px rgb(23 33 63 / 0.04),
+            0 6px 14px -8px rgb(23 33 63 / 0.14),
+            0 22px 44px -28px rgb(23 33 63 / 0.22);
+    --lift-lg: 0 2px 3px rgb(23 33 63 / 0.05),
+               0 14px 30px -14px rgb(23 33 63 / 0.16),
+               0 46px 70px -40px rgb(23 33 63 / 0.26);
 
     /* Motion */
     --ease-out:  cubic-bezier(0.16, 0.84, 0.32, 1);
@@ -216,6 +231,26 @@
     font-size: var(--fs-md);
     line-height: var(--lh-body);
     font-feature-settings: "kern", "liga", "calt";
+  }
+
+  /* Fundalul curcubeu. Cinci pete moi, câte una din fiecare pigment, fixate
+     pe fereastră (nu pe pagină) ca să rămână vizibile oricât de jos ai
+     derula — aceeași construcție ca granulația de mai jos, dar cu
+     `z-index: -1` în loc de 900, ca să stea sub conținut, nu peste el.
+     Amestecul cu `transparent` ține totul suficient de pal cât textul să
+     rămână la fel de lizibil ca înainte. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(38rem 32rem at 6% -8%,   color-mix(in oklab, var(--ochre) 24%, transparent), transparent 60%),
+      radial-gradient(34rem 30rem at 100% 4%,  color-mix(in oklab, var(--sky) 20%, transparent), transparent 60%),
+      radial-gradient(40rem 34rem at -6% 58%,  color-mix(in oklab, var(--sage) 18%, transparent), transparent 58%),
+      radial-gradient(36rem 32rem at 104% 66%, color-mix(in oklab, var(--plum) 18%, transparent), transparent 58%),
+      radial-gradient(32rem 28rem at 50% 108%, color-mix(in oklab, var(--petal) 16%, transparent), transparent 55%);
   }
 
   /* Paper grain. Fixed, cheap, and the single reason the flats read as stock

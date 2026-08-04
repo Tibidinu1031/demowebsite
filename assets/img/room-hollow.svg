@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" width="400" height="240" role="img" aria-label="Hollow Club: a workbench with tools, a chessboard and a guitar">
-  <rect width="400" height="240" fill="#d8e5ee"/>
+  <rect width="400" height="240" fill="#dbebfb"/>
   <!-- pegboard -->
   <rect x="220" y="18" width="158" height="104" rx="6" fill="#e7dcc5"/>
   <g fill="#c9b89a">
@@ -13,11 +13,11 @@
   <!-- hanging tools -->
   <g>
     <path d="M244 40v42" stroke="#a7794e" stroke-width="6" stroke-linecap="round"/>
-    <path d="M232 42h24l-4 12h-16Z" fill="#6b7d71"/>
+    <path d="M232 42h24l-4 12h-16Z" fill="#646d99"/>
     <path d="M288 38v46" stroke="#c9a06a" stroke-width="5" stroke-linecap="round"/>
-    <path d="M278 36h20v10h-20Z" fill="#6b7d71"/>
+    <path d="M278 36h20v10h-20Z" fill="#646d99"/>
     <path d="M330 40l18 34" stroke="#a7794e" stroke-width="5" stroke-linecap="round"/>
-    <path d="M326 36a7 7 0 1 1 10 8Z" fill="#6b7d71"/>
+    <path d="M326 36a7 7 0 1 1 10 8Z" fill="#646d99"/>
   </g>
   <!-- guitar -->
   <g transform="translate(24 34)">
@@ -35,23 +35,23 @@
   <!-- chessboard -->
   <g transform="translate(214 138)">
     <rect width="112" height="38" rx="3" fill="#f8f3e8"/>
-    <g fill="#3b4d43">
+    <g fill="#313c66">
       <rect x="14" width="14" height="38"/><rect x="42" width="14" height="38"/>
       <rect x="70" width="14" height="38"/><rect x="98" width="14" height="38"/>
     </g>
     <rect width="112" height="38" rx="3" fill="none" stroke="#a7794e" stroke-width="3"/>
     <!-- two pieces -->
-    <path d="M32 20c-4 0-6-3-6-6s2-5 5-6c-2-2-2-6 1-6s4 4 2 6c3 1 5 3 5 6s-3 6-7 6Z" fill="#c05f38"/>
-    <path d="M26 20h14l3 10H23Z" fill="#c05f38"/>
-    <path d="M78 22c-5 0-8-4-8-8 0-4 3-6 6-7-2-3-1-7 2-7s4 4 2 7c3 1 6 3 6 7 0 4-3 8-8 8Z" fill="#1d2b23"/>
-    <path d="M70 22h16l3 8H67Z" fill="#1d2b23"/>
+    <path d="M32 20c-4 0-6-3-6-6s2-5 5-6c-2-2-2-6 1-6s4 4 2 6c3 1 5 3 5 6s-3 6-7 6Z" fill="#d6382a"/>
+    <path d="M26 20h14l3 10H23Z" fill="#d6382a"/>
+    <path d="M78 22c-5 0-8-4-8-8 0-4 3-6 6-7-2-3-1-7 2-7s4 4 2 7c3 1 6 3 6 7 0 4-3 8-8 8Z" fill="#17213f"/>
+    <path d="M70 22h16l3 8H67Z" fill="#17213f"/>
   </g>
   <!-- jar of pencils -->
   <g transform="translate(122 128)">
     <path d="M4 22h34l-4 26H8Z" fill="#f8f3e8" opacity="0.9"/>
-    <path d="M10 22V4M18 22V0M26 22V6M34 22V2" stroke="#c05f38" stroke-width="4" stroke-linecap="round"/>
+    <path d="M10 22V4M18 22V0M26 22V6M34 22V2" stroke="#d6382a" stroke-width="4" stroke-linecap="round"/>
     <path d="M18 22V0" stroke="#7fa6c3" stroke-width="4" stroke-linecap="round"/>
-    <path d="M34 22V2" stroke="#e2a641" stroke-width="4" stroke-linecap="round"/>
+    <path d="M34 22V2" stroke="#f2a11c" stroke-width="4" stroke-linecap="round"/>
     <path d="M4 22h34" stroke="#d9cbaf" stroke-width="3"/>
   </g>
 </svg>

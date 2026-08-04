@@ -168,6 +168,7 @@
     approach: '<circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M10.8 5.2 9.3 9.3 5.2 10.8 6.7 6.7Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>',
     journal: '<path d="M8 4.6C7 3.6 5.6 3.1 3.4 3.1H2v9.3h1.6c2 0 3.4.5 4.4 1.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M8 4.6c1-1 2.4-1.5 4.6-1.5H14v9.3h-1.6c-2 0-3.4.5-4.4 1.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M8 4.6v9.2" fill="none" stroke="currentColor" stroke-width="1.3"/>',
     gallery: '<rect x="1.9" y="3.2" width="12.2" height="9.6" rx="2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M6.7 6.3 10.4 8l-3.7 1.7Z" fill="currentColor" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>',
+    tour: '<circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M6.7 5.3v5.4l4.6-2.7Z" fill="currentColor"/>',
     blog: '<path d="M12.1 2.4 13.6 4l-7.4 7.4-2.2.7.7-2.2Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M2.4 14h11.2" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>',
     faq: '<circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M6.2 6.2c0-1 .8-1.8 1.8-1.8s1.8.8 1.8 1.8c0 1.3-1.8 1.4-1.8 2.9" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="8" cy="11.4" r=".85" fill="currentColor"/>',
     hours: '<circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M8 4.3V8l2.7 1.7" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>',
@@ -187,8 +188,10 @@
       desc: 'After school, școală de vară, ateliere și excursii. Mărimea grupelor, echipa și cât costă.' },
     { href: 'approach.html', icon: 'approach', title: 'Abordare', go: 'Nouă minute',
       desc: 'Blocuri lungi, unelte adevărate și adulți liniștiți — inclusiv cele patru lucruri la care nu ne pricepem.' },
-    { href: 'gallery.html', icon: 'gallery', title: 'Galerie', go: 'Trei filmulețe',
+    { href: 'gallery.html', icon: 'gallery', title: 'Galerie', go: 'Patru filmulețe',
       desc: 'Filmări din curte și din sală, exact așa cum arată o zi obișnuită la noi.' },
+    { href: 'tur-virtual.html', icon: 'tour', title: 'Tur Virtual', go: 'Cinci minute',
+      desc: 'O plimbare filmată prin curte și săli, cu sunet, fără montaj care să ascundă ceva.' },
     { href: 'blog.html', icon: 'blog', title: 'Blog', go: 'Scris de echipă',
       desc: 'Anunțuri, noutăți și povești din săptămâna care a trecut. Echipa se autentifică și publică.' },
     { href: 'journal.html', icon: 'journal', title: 'Jurnal', go: 'Trei articole',
@@ -534,18 +537,40 @@
 
     // Butonul de pauză din colț, pentru cine vrea liniște.
     const toggle = $('[data-hero-toggle]');
-    if (!toggle) return;
-
-    toggle.hidden = false;
-    toggle.addEventListener('click', () => {
-      const playing = !main.paused;
-      videos.forEach((v) => {
-        if (playing) v.pause();
-        else { v.currentTime = main.currentTime; v.play().catch(() => {}); }
+    if (toggle) {
+      toggle.hidden = false;
+      toggle.addEventListener('click', () => {
+        const playing = !main.paused;
+        videos.forEach((v) => {
+          if (playing) v.pause();
+          else { v.currentTime = main.currentTime; v.play().catch(() => {}); }
+        });
+        toggle.dataset.playing = String(!playing);
+        toggle.setAttribute('aria-label', playing ? 'Pornește filmul de fundal' : 'Oprește filmul de fundal');
       });
-      toggle.dataset.playing = String(!playing);
-      toggle.setAttribute('aria-label', playing ? 'Pornește filmul de fundal' : 'Oprește filmul de fundal');
-    });
+    }
+
+    // Butonul de sunet, lângă cel de pauză. Filmul pornește mut — așa cere
+    // autoplay-ul — și rămâne mut până la clic. Clicul e un gest al omului,
+    // deci browserul are voie să pornească sunetul chiar și pe un film care
+    // rula deja.
+    const sound = $('[data-hero-sound]');
+    if (sound) {
+      const label = $('[data-hero-sound-label]', sound);
+      sound.hidden = false;
+      sound.addEventListener('click', () => {
+        const wasMuted = main.muted;
+        videos.forEach((v) => {
+          v.muted = !wasMuted;
+          // Volumul poate rămâne pe 0 dintr-o sesiune anterioară; îl punem
+          // explicit, altfel „nemut” tot n-ar scoate niciun sunet.
+          if (wasMuted) v.volume = 1;
+        });
+        sound.dataset.muted = String(!wasMuted);
+        sound.setAttribute('aria-label', wasMuted ? 'Oprește sunetul filmului' : 'Pornește sunetul filmului');
+        if (label) label.textContent = wasMuted ? 'Oprește sunetul' : 'Pornește sunetul';
+      });
+    }
   }
 
   /* ---------------------------------------------------------------- galerie
@@ -951,7 +976,7 @@
     if (!mark) return;
 
     const here = location.pathname.split('/').pop() || 'index.html';
-    const tones = ['var(--sage)', 'var(--ochre)', 'var(--clay)', 'var(--sage-deep)', 'var(--petal)'];
+    const tones = ['var(--sage)', 'var(--ochre)', 'var(--clay)', 'var(--sky)', 'var(--petal)', 'var(--plum)'];
 
     mark.addEventListener('click', (e) => {
       if (mark.getAttribute('href') === here) {

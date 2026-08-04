@@ -158,8 +158,8 @@
     /* Sigiliul stătea în colțul din dreapta sus, adică exact peste ramă. */
     .hero--right .hero__seal { display: none; }
 
-    /* Butonul de pauză intră în colțul de jos al ramei, unde îi e locul. */
-    .hero--right .hero__toggle {
+    /* Comenzile intră în colțul de jos al ramei, unde le e locul. */
+    .hero--right .hero__controls {
       inset-inline-end: calc(var(--hero-rail) + var(--sp-sm));
       inset-block-end: calc(50% - (var(--hero-card) * 850 / 478) / 2 + var(--sp-sm));
       z-index: 2;
@@ -275,13 +275,20 @@
     .hero__seal { display: grid; }
   }
 
-  /* Butonul de pauză pentru film, pentru cine vrea liniște. Împins spre stânga
-     cât să iasă de sub butonul plutitor de WhatsApp, care stă în același colț. */
-  .hero__toggle {
+  /* Comenzile filmului de fundal: sunet și pauză, unul lângă altul. Grupul
+     stă unde stătea singur butonul de pauză înainte — împins spre stânga
+     cât să iasă de sub butonul plutitor de WhatsApp, care ocupă același colț. */
+  .hero__controls {
     position: absolute;
     inset-block-end: var(--sp-md);
     inset-inline-end: calc(var(--gutter) + 4.4rem);
     z-index: 2;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .hero__sound,
+  .hero__toggle {
     inline-size: 2.6rem;
     block-size: 2.6rem;
     display: grid;
@@ -294,21 +301,36 @@
                 border-color var(--dur-fast) var(--ease-out);
   }
 
+  .hero__sound:hover,
   .hero__toggle:hover {
     background: color-mix(in oklab, var(--paper) 16%, transparent);
     border-color: var(--paper);
   }
 
+  .hero__sound svg,
   .hero__toggle svg { inline-size: 0.85rem; }
+
   .hero__toggle .is-play { display: none; }
   .hero__toggle[data-playing="false"] .is-play { display: block; }
   .hero__toggle[data-playing="false"] .is-pause { display: none; }
 
+  /* Implicit filmul e mut (așa pornește autoplay-ul), deci implicit se vede
+     difuzorul tăiat; un clic dă sunetul și schimbă iconița pe cea cu unde. */
+  .hero__sound .is-unmuted { display: none; }
+  .hero__sound[data-muted="true"] .is-unmuted { display: none; }
+  .hero__sound[data-muted="true"] .is-muted { display: block; }
+  .hero__sound[data-muted="false"] .is-unmuted { display: block; }
+  .hero__sound[data-muted="false"] .is-muted { display: none; }
+
   @media (max-width: 48em) {
-    .hero__toggle { inset-block-end: auto; inset-block-start: var(--sp-sm); }
+    .hero__controls { inset-block-end: auto; inset-block-start: var(--sp-sm); }
   }
 
-  .hero__title .marked > svg { color: var(--ochre); }
+  /* Sublinierea de sub „Arcobaleno” ia direct arcul curcubeu din siglă, nu o
+     singură culoare — degradeul e definit o dată în spritul de pictograme al
+     paginii (id `i-rainbow`). Auriul rămâne ca rezervă, sintaxă de paint SVG,
+     pentru cazul rar în care referința la degrade nu se rezolvă. */
+  .hero__title .marked > svg path { stroke: url(#i-rainbow) var(--ochre); }
 
   /* Fiecare măsură verticală e plafonată cu min(<fluid>, <vh>): pe un ecran
      înalt câștigă scara fluidă normală, pe un laptop scund preia termenul în
@@ -724,6 +746,41 @@
   .vidcard__title { font-size: var(--fs-md); font-weight: 600; letter-spacing: -0.012em; }
   .vidcard__note { font-size: var(--fs-xs); color: var(--ink-faint); line-height: 1.55; }
 
+  /* ============================================================ tur virtual
+     Un singur film, vertical, cu sunet și comenzi — nu o previzualizare mută
+     ca în galerie, ci conținutul principal al paginii. Cadrul e cel mai mare
+     folosit pentru media pe tot site-ul: umbra `--lift-lg` și un hairline pe
+     muchie, aceeași limbă vizuală ca rama din eroul de pe index2.html. */
+  .tour__frame {
+    position: relative;
+    inline-size: min(100%, 23rem);
+    margin-inline: auto;
+    aspect-ratio: 9 / 16;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: var(--ink);
+    box-shadow: var(--lift-lg);
+  }
+
+  .tour__frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 1px solid color-mix(in oklab, var(--ink) 16%, transparent);
+    pointer-events: none;
+  }
+
+  .tour__frame video {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  .tour__facts { inline-size: 100%; }
+
   /* =========================================================== blog & auth */
   .blog__grid {
     display: grid;
@@ -884,7 +941,7 @@
   /* ============================================================== print */
   @media print {
     .masthead, .drawer, .to-top, .ticker, .cta, .hero__seal,
-    .banner, .wa, .hero__toggle, .vidcard__play, .authbox, .compose { display: none !important; }
+    .banner, .wa, .hero__controls, .vidcard__play, .authbox, .compose { display: none !important; }
     .hero { min-block-size: 0; background: #fff; color: #000; padding-block: 1cm; }
     .hero__media, .hero__scrim { display: none !important; }
     .hero__title, .hero__lede, .hero__figures .figure__n { color: #000 !important; }
@@ -894,5 +951,153 @@
     .panel--ink h1, .panel--ink h2, .panel--ink h3 { color: #000 !important; }
     a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; }
     .section { padding-block: 1.2cm; }
+  }
+}
+
+/* ==========================================================================
+   PRIMA PAGINĂ — fundal decorat  (`body.is-home`, doar index.html)
+
+   Nu mai e o singură culoare întinsă peste tot. Sunt cinci straturi peste
+   crem, toate desenate din pigmenții siglei:
+
+     1. arcul de curcubeu din stânga-jos   — inele concentrice, ca sigla
+     2. arcul de curcubeu din dreapta-sus  — același motiv, mai mic
+     3. confetti mare  }  cerculețe colorate, ca stelele din siglă
+     4. confetti mic   }
+     5. dungi diagonale — banda de curcubeu, repetată în diagonală
+
+   Totul stă pe `body::before`, fixat pe fereastră și cu `z-index: -1`, deci
+   trece pe sub conținut fără să prindă vreun clic. Densitatea e ținută în
+   frâu în zona centrală, unde stă textul: dungile sunt la ~8%, confettiul e
+   mic, iar arcurile sunt împinse în colțuri, aproape ieșite din cadru.
+   ========================================================================== */
+@layer pages {
+
+  .is-home::before {
+    background-image:
+      /* 1 — arc curcubeu, colțul din stânga jos */
+      radial-gradient(circle at 0% 100%,
+        transparent 0 236px,
+        color-mix(in oklab, var(--clay)  30%, transparent) 236px 268px,
+        color-mix(in oklab, var(--ochre) 30%, transparent) 268px 300px,
+        color-mix(in oklab, var(--sage)  30%, transparent) 300px 332px,
+        color-mix(in oklab, var(--sky)   30%, transparent) 332px 364px,
+        color-mix(in oklab, var(--plum)  30%, transparent) 364px 396px,
+        transparent 396px),
+
+      /* 2 — arc curcubeu, colțul din dreapta sus */
+      radial-gradient(circle at 100% 0%,
+        transparent 0 168px,
+        color-mix(in oklab, var(--plum)  26%, transparent) 168px 194px,
+        color-mix(in oklab, var(--sky)   26%, transparent) 194px 220px,
+        color-mix(in oklab, var(--sage)  26%, transparent) 220px 246px,
+        color-mix(in oklab, var(--ochre) 26%, transparent) 246px 272px,
+        color-mix(in oklab, var(--clay)  26%, transparent) 272px 298px,
+        transparent 298px),
+
+      /* 3 — confetti mare */
+      radial-gradient(circle, color-mix(in oklab, var(--ochre) 55%, transparent) 3.5px, transparent 4px),
+      /* 4 — confetti mic */
+      radial-gradient(circle, color-mix(in oklab, var(--sky) 48%, transparent) 2.5px, transparent 3px),
+
+      /* 5 — dungi diagonale de curcubeu */
+      repeating-linear-gradient(135deg,
+        color-mix(in oklab, var(--clay)  8%, transparent) 0 16px,
+        color-mix(in oklab, var(--ochre) 8%, transparent) 16px 32px,
+        color-mix(in oklab, var(--sage)  8%, transparent) 32px 48px,
+        color-mix(in oklab, var(--sky)   8%, transparent) 48px 64px,
+        color-mix(in oklab, var(--plum)  8%, transparent) 64px 80px,
+        transparent 80px 300px);
+
+    background-size:
+      auto, auto,
+      168px 168px,
+      104px 104px,
+      auto;
+
+    background-position:
+      0 0, 0 0,
+      22px 34px,
+      70px 88px,
+      0 0;
+
+    background-repeat:
+      no-repeat, no-repeat,
+      repeat, repeat,
+      repeat;
+  }
+
+  /* Panglica de curcubeu din capul fiecărui panou. `panel--seam::before` e
+     deja marginea ruptă de hârtie, deci banda intră pe `::after`. */
+  .is-home .panel--seam::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 0;
+    block-size: 5px;
+    background: linear-gradient(90deg,
+      var(--clay), var(--ochre), var(--sage), var(--sky), var(--plum));
+  }
+
+  /* Banda derulantă capătă și ea culoare, în loc de crem pe crem. */
+  .is-home .ticker {
+    background: linear-gradient(90deg,
+      var(--clay-wash), var(--ochre-wash), var(--sage-wash),
+      var(--sky-wash), var(--plum-wash));
+    border-block-color: color-mix(in oklab, var(--ink) 18%, transparent);
+  }
+
+  /* Sub 48em arcurile ar mânca jumătate de ecran: le strângem și rărim
+     dungile, ca textul să rămână pe primul plan. */
+  @media (max-width: 48em) {
+    .is-home::before {
+      background-size:
+        auto, auto,
+        128px 128px,
+        84px 84px,
+        auto;
+    }
+  }
+
+  /* Pe hârtie nu are ce căuta niciun fundal. */
+  @media print {
+    .is-home::before { display: none !important; }
+    .is-home .panel--seam::after { display: none !important; }
+  }
+}
+
+/* ==========================================================================
+   PRIMA PAGINĂ — butonul de sunet, vizibil ca atare
+
+   Două cercuri identice unul lângă altul nu spun nimic: nu se vede care
+   oprește filmul și care dă sunetul. Aici butonul de sunet devine o pastilă
+   cu text, verde când sunetul e pornit, ca să nu existe dubiu.
+   ========================================================================== */
+@layer pages {
+
+  .is-home .hero__sound {
+    inline-size: auto;
+    block-size: 2.6rem;
+    grid-auto-flow: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding-inline: 0.85rem;
+    border-radius: var(--r-pill);
+    background-color: color-mix(in oklab, var(--ink) 55%, transparent);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    font-size: var(--fs-3xs);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .is-home .hero__sound-label { display: block; }
+
+  /* Pe telefon rămâne doar pictograma — nu e loc de etichetă lângă bandă. */
+  @media (max-width: 30em) {
+    .is-home .hero__sound { padding-inline: 0; inline-size: 2.6rem; }
+    .is-home .hero__sound-label { display: none; }
   }
 }
