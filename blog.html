@@ -106,8 +106,8 @@
       </nav>
       <h1 class="pagehead__title">Blogul școlii</h1>
       <p class="lede pagehead__lede">
-        Anunțuri, noutăți și povești din săptămâna care a trecut. Echipa se
-        autentifică aici și publică direct, fără să treacă prin nimeni.
+        Anunțuri, noutăți și povești din săptămâna care a trecut. Administratorul
+        școlii se autentifică aici și publică direct, fără să treacă prin nimeni.
       </p>
     </div>
   </section>
@@ -120,20 +120,12 @@
 
         <!-- Neautentificat -->
         <form class="authbox" data-blog-auth>
-          <h2 class="authbox__title">Autentificare echipă</h2>
+          <h2 class="authbox__title">Autentificare</h2>
           <p class="form__note">
-            Pagina se citește de oricine. Ca să publicați, intrați cu contul primit
-            de la Nicoleta.
+            Pagina se citește de oricine. Publică doar administratorul școlii.
           </p>
 
-          <p class="authbox__error" data-blog-error hidden>
-            Utilizator sau parolă greșite. Mai încercați o dată.
-          </p>
-
-          <div class="field">
-            <label for="blog-user">Utilizator</label>
-            <input type="text" id="blog-user" name="blog-user" autocomplete="username" required>
-          </div>
+          <p class="authbox__error" data-blog-error hidden></p>
 
           <div class="field">
             <label for="blog-pass">Parolă</label>
@@ -143,9 +135,7 @@
           <button class="btn btn--clay" type="submit">Intră în cont</button>
 
           <p class="authbox__hint">
-            <strong>Conturi de test:</strong><br>
-            <code>admin</code> / <code>arcobaleno2026</code><br>
-            <code>educatoare</code> / <code>curcubeu2026</code>
+            Parola uitată se schimbă din panoul Cloudflare al site-ului, nu de aici.
           </p>
         </form>
 
@@ -226,13 +216,13 @@
       <p class="eyebrow">Notă tehnică</p>
       <h2 class="u-measure-sm">Cum funcționează blogul acum</h2>
       <p class="prose u-faint">
-        Site-ul e static: nu există server în spate. Autentificarea de mai sus e o
-        poartă în browser, iar postările se salvează local, în browserul care le-a
-        scris &mdash; sunt perfecte pentru probe și demonstrații, dar nu se văd de pe
-        alt calculator. Când blogul trebuie să meargă cu adevărat, se schimbă două
-        funcții din <code style="font-size:.92em">assets/js/blog.js</code>: una care
-        verifică parola pe server și una care citește și scrie postările într-o bază
-        de date.
+        Paginile sunt fișiere statice, dar autentificarea și postările trec printr-un
+        server: funcțiile din <code style="font-size:.92em">functions/api/blog/</code>,
+        care rulează pe Cloudflare. Parola nu e scrisă nicăieri în site &mdash; în
+        Cloudflare stă doar amprenta ei, iar sesiunea e un cookie
+        <code style="font-size:.92em">HttpOnly</code>, pe care JavaScriptul din pagină
+        nu îl poate citi. Postările se salvează într-o bază de date D1, deci se văd de
+        pe orice calculator și nu se pierd când se golește memoria browserului.
       </p>
     </div>
   </section>
@@ -269,8 +259,8 @@
       </div>
       <div class="stack stack--sm">
         <p class="eyebrow eyebrow--bare">Scrieți-ne</p>
-        <p style="font-size:var(--fs-sm);opacity:.85"><a href="tel:+40728933035">0728 933 035</a><br><a href="mailto:salut@arcobaleno.ro">salut@arcobaleno.ro</a></p>
-        <p><a class="btn btn--ghost btn--sm" href="https://wa.me/40728933035" target="_blank" rel="noopener">Scrie-ne pe WhatsApp</a></p>
+        <p style="font-size:var(--fs-sm);opacity:.85"><a href="tel:+40721996570">0721 996 570</a><br><a href="mailto:salut@arcobaleno.ro">salut@arcobaleno.ro</a></p>
+        <p><a class="btn btn--ghost btn--sm" href="https://wa.me/40721996570" target="_blank" rel="noopener">Scrie-ne pe WhatsApp</a></p>
         <div class="socials">
           <a class="social" href="https://www.instagram.com/after_school_arcobaleno/" target="_blank" rel="noopener">
             <span class="u-sr">Arcobaleno pe Instagram</span>

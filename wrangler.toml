@@ -1,0 +1,22 @@
+# Configurația Cloudflare Pages. Site-ul nu are pas de build, deci dosarul
+# publicat e chiar rădăcina; funcțiile sunt luate din `functions/`.
+#
+# `database_id` se completează o singură dată, cu ce scoate comanda:
+#
+#   npx wrangler d1 create arcobaleno-blog
+#
+# Variabilele secrete (ADMIN_PASSWORD_HASH, SESSION_SECRET) NU se scriu aici.
+# Locul lor e în panoul Cloudflare, iar pentru proba locală în `.dev.vars`.
+
+name = "arcobaleno"
+compatibility_date = "2026-01-01"
+pages_build_output_dir = "."
+
+[[d1_databases]]
+binding = "DB"
+database_name = "arcobaleno-blog"
+database_id = "PUNEȚI-AICI-ID-UL-DE-LA-WRANGLER-D1-CREATE"
+
+[vars]
+ADMIN_NAME = "Nicoleta"
+ADMIN_ROLE = "Director"

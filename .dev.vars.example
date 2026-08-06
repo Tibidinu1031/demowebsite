@@ -1,0 +1,11 @@
+# Model pentru `.dev.vars`, fișierul folosit doar la proba locală.
+#
+# Copiați-l cu numele `.dev.vars` și completați valorile scoase de:
+#
+#   node tools/hash-password.mjs "parola-aleasă"
+#
+# `.dev.vars` e trecut în .gitignore și nu ajunge niciodată pe GitHub.
+# Fișierul de față, cu valorile goale, poate sta liniștit în depozit.
+
+ADMIN_PASSWORD_HASH=""
+SESSION_SECRET=""

@@ -3,6 +3,12 @@
   "configurations": [
     {
       "name": "arcobaleno",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "wrangler@latest", "pages", "dev", "--port", "8788"],
+      "port": 8788
+    },
+    {
+      "name": "arcobaleno-static",
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "4321", "--bind", "127.0.0.1"],
       "port": 4321

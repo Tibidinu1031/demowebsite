@@ -1,0 +1,42 @@
+# ==========================================================================
+# Depozitul e public. Tot ce poate purta o parolă, o cheie sau o sesiune stă
+# în lista asta, ca să nu ajungă acolo dintr-o scăpare.
+# ==========================================================================
+
+# Variabilele de mediu pentru proba locală: conțin amprenta parolei și cheia
+# de sesiune, deci nu au ce căuta în git.
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+.env
+.env.*
+!.env.example
+
+# Starea locală a lui wrangler, inclusiv baza D1 de probă și jetonul de login.
+.wrangler/
+.wrangler-config/
+
+# Chei și certificate, sub orice nume.
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+id_rsa
+id_ed25519
+
+# Baze de date scoase local.
+*.sqlite
+*.sqlite3
+*.db
+
+node_modules/
+
+# Gunoi de sistem și de editor.
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+.idea/
+.vscode/
+*.swp

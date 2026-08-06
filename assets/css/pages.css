@@ -955,7 +955,7 @@
 }
 
 /* ==========================================================================
-   PRIMA PAGINĂ — fundal decorat  (`body.is-home`, doar index.html)
+   TOATE PAGINILE — fundal decorat
 
    Nu mai e o singură culoare întinsă peste tot. Sunt cinci straturi peste
    crem, toate desenate din pigmenții siglei:
@@ -973,7 +973,7 @@
    ========================================================================== */
 @layer pages {
 
-  .is-home::before {
+  body::before {
     background-image:
       /* 1 — arc curcubeu, colțul din stânga jos */
       radial-gradient(circle at 0% 100%,
@@ -1050,7 +1050,7 @@
   /* Sub 48em arcurile ar mânca jumătate de ecran: le strângem și rărim
      dungile, ca textul să rămână pe primul plan. */
   @media (max-width: 48em) {
-    .is-home::before {
+    body::before {
       background-size:
         auto, auto,
         128px 128px,
@@ -1061,7 +1061,7 @@
 
   /* Pe hârtie nu are ce căuta niciun fundal. */
   @media print {
-    .is-home::before { display: none !important; }
+    body::before { display: none !important; }
     .is-home .panel--seam::after { display: none !important; }
   }
 }

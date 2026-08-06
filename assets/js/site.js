@@ -14,9 +14,9 @@
 
   /* Datele de contact stau într-un singur loc. */
   const CONTACT = {
-    tel: '+40728933035',
-    telPretty: '0728 933 035',
-    wa: '40728933035',
+    tel: '+40721996570',
+    telPretty: '0721 996 570',
+    wa: '40721996570',
 
     /* Adresa releului care chiar trimite mesajul pe WhatsApp-ul școlii.
        Vezi `api/whatsapp.js` și secțiunea „WhatsApp” din README.

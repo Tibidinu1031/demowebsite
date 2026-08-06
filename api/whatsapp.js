@@ -17,7 +17,7 @@
    VARIABILE DE MEDIU
      WHATSAPP_TOKEN        Cheia permanentă din Meta (System User Access Token)
      WHATSAPP_PHONE_ID     ID-ul numărului expeditor, din Meta → WhatsApp → API
-     WHATSAPP_TO           Numărul care primește mesajele: 40728933035
+     WHATSAPP_TO           Numărul care primește mesajele: 40721996570
      WHATSAPP_TEMPLATE     Numele șablonului aprobat (implicit: mesaj_site)
      WHATSAPP_TEMPLATE_LANG Codul de limbă al șablonului (implicit: ro)
      ALLOWED_ORIGIN        Domeniul site-ului, pentru CORS (implicit: *)

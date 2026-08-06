@@ -35,18 +35,21 @@ assets/css/layout.css      Grila, secțiunile, antetul, subsolul, panourile
 assets/css/components.css  Tot ce se refolosește; plus stratul de utilitare
 assets/css/pages.css       Compoziția la nivel de pagină, stiluri de tipar
 assets/js/site.js          Module mici, fiecare inactiv dacă marcajul lipsește
-assets/js/blog.js          Autentificarea și postările blogului
+assets/js/blog.js          Partea din browser a blogului: cere totul de la API
 assets/img/*.svg           Ilustrații desenate de mână
 assets/video/*.mp4         Filmul din erou și cele patru filme din galerie
-api/whatsapp.js            Releul care livrează mesajele din chat pe WhatsApp
+functions/_lib/            Cod folosit de funcții, nepublicat (underscore)
+functions/api/blog/        Autentificarea și postările, pe Cloudflare
+api/whatsapp.js            Releul WhatsApp — scris pentru Vercel, vezi mai jos
+tools/hash-password.mjs    Generatorul amprentei de parolă
 ```
 
-`favicon.svg`, `robots.txt` și `sitemap.xml` stau în rădăcină.
+`favicon.svg`, `robots.txt`, `sitemap.xml` și `schema.sql` stau în rădăcină.
 
 ## Ce e nou față de versiunea precedentă
 
 - **Tot site-ul e în română** și marca a devenit Arcobaleno. Orele sunt în format
-  de 24 de ore, tarifele în lei, telefonul e `+40 728 933 035`, iar domeniul din
+  de 24 de ore, tarifele în lei, telefonul e `+40 721 996 570`, iar domeniul din
   canonicale, sitemap și JSON-LD e `arcobaleno.ro`.
 - **Erou video.** Prima fereastră e ocupată de `assets/video/hero.mp4`, cu un voal
   în cerneala casei peste el și titlul „Bine ați venit la Arcobaleno Afterschool”.
@@ -103,9 +106,9 @@ Antetul stă peste film cât timp pagina nu e derulată, așa că pe prima pagin
 (`<body class="has-hero-video">`) sigla și butoanele din antet trec pe culoarea
 hârtiei. De la primul scroll antetul își recapătă fundalul crem și cerneala.
 
-**Fișierul are aproape 21 MB.** Merge, dar e mult pentru prima încărcare. Înainte
-de lansare merită recomprimat (ținta rezonabilă: sub 5 MB, 1080p, ~2 Mbps), plus
-o variantă `.webm` și un cadru-poster `.jpg` pus în `poster=""`.
+**Fișierul are 11 MB**, recomprimat din 21 MB (H.264, CRF 30, `+faststart`).
+Rămâne cea mai grea bucată de la prima încărcare; dacă vreți și mai puțin,
+urmează o variantă `.webm` și un cadru-poster `.jpg` pus în `poster=""`.
 
 ## Galeria
 
@@ -129,28 +132,95 @@ Apoi puneți `poster="assets/video/galerie-1.jpg"` pe fiecare `<video>` din
 
 ## Blogul
 
-Pagina se citește de oricine. Ca să publicați, intrați în cont din coloana stângă:
+Pagina se citește de oricine. Publică o singură persoană — administratorul —
+care intră cu o parolă din coloana stângă. Nu există înscriere și nici formular
+de „parolă uitată”: contul se face o dată, punând două valori în Cloudflare, iar
+o parolă uitată se înlocuiește tot de acolo. Postările se salvează într-o bază
+de date, deci se văd de pe orice calculator.
 
-| Utilizator | Parolă | Rol |
-|---|---|---|
-| `admin` | `arcobaleno2026` | Director |
-| `educatoare` | `curcubeu2026` | Educatoare |
+```
+functions/_lib/blog-auth.js       Parola, sesiunea, cookie-ul
+functions/api/blog/login.js       POST — verifică parola, deschide sesiunea
+functions/api/blog/logout.js      POST — închide sesiunea
+functions/api/blog/session.js     GET  — mai sunt autentificat?
+functions/api/blog/posts/         GET public, POST și DELETE doar autentificat
+schema.sql                        Tabelele D1
+tools/hash-password.mjs           Generatorul amprentei de parolă
+```
 
-Postările apar imediat în listă, cel mai nou deasupra, și pot fi șterse cât timp
-sunteți autentificat. Sesiunea ține cât fila e deschisă (`sessionStorage`);
-postările se salvează în `localStorage`, cheia `arc-blog-posts`.
+### Cum se face contul
 
-> **Nu e autentificare reală.** Site-ul e static, deci nu există server care să
-> verifice ceva. Poarta ține publicul departe de formular, dar oricine deschide
-> `assets/js/blog.js` vede cum e construită, iar postările rămân doar în
-> browserul care le-a scris — nu se văd de pe alt calculator și dispar dacă se
-> golește memoria browserului.
->
-> Ca să funcționeze cu adevărat, înlocuiți două funcții din `assets/js/blog.js`:
-> `signIn()` cu un apel către un endpoint care verifică parola pe server, și
-> `readPosts()` / `writePosts()` cu apeluri către o bază de date. Restul
-> fișierului rămâne cum e. Parolele de mai sus trebuie schimbate în acel moment,
-> pentru că sunt scrise în README.
+1. **Alegeți parola** și generați valorile de pus în Cloudflare. Parola rămâne pe
+   calculatorul dumneavoastră; în Cloudflare ajunge doar amprenta ei:
+
+   ```bash
+   node tools/hash-password.mjs "parola-aleasă"
+   ```
+
+2. **Creați baza de date** și tabelele:
+
+   ```bash
+   npx wrangler d1 create arcobaleno-blog
+   npx wrangler d1 execute arcobaleno-blog --remote --file=schema.sql
+   ```
+
+3. **Legați baza de site.** Comanda de mai sus scoate un `database_id`; puneți-l
+   în `wrangler.toml`, în locul textului de rezervă. (Aceeași legătură se poate
+   face și din panou: Settings → Functions → D1 database bindings, cu numele
+   variabilei `DB`.)
+
+4. **Puneți variabilele**, în Cloudflare Pages → Settings → Variables and Secrets.
+   Primele două sunt de tip **Secret**, ultimele două pot fi text obișnuit:
+
+   ```
+   ADMIN_PASSWORD_HASH  amprenta scoasă de comanda de la pasul 1
+   SESSION_SECRET       cheia scoasă de aceeași comandă
+   ADMIN_NAME           Nicoleta
+   ADMIN_ROLE           Director
+   ```
+
+Gata — nu mai e nimic de creat. La următoarea publicare, parola de la pasul 1
+deschide formularul de scriere.
+
+### Dacă se uită parola
+
+Rulați din nou comanda de la pasul 1, cu parola nouă, și înlocuiți
+`ADMIN_PASSWORD_HASH` în Cloudflare. Dacă schimbați și `SESSION_SECRET`, se
+închid pe loc toate sesiunile rămase deschise pe alte calculatoare.
+
+### Ce ține parola în siguranță
+
+Parola nu e scrisă nicăieri în site și nu pleacă niciodată către browser. În
+Cloudflare stă doar amprenta ei, PBKDF2-SHA256 cu sare, deci nici cine vede
+variabilele nu poate citi parola. Sesiunea e un cookie `HttpOnly`, `Secure`,
+`SameSite=Strict`, semnat cu `SESSION_SECRET` și valabil opt ore — JavaScriptul
+din pagină nu îl poate citi, deci nu poate fi furat de un script străin. La opt
+încercări greșite de pe aceeași adresă, intrarea se blochează un sfert de oră.
+
+### Cum se probează local
+
+`python -m http.server` servește doar fișierele, nu și funcțiile, deci blogul va
+părea căzut. Pentru funcții, o dată:
+
+```bash
+npx wrangler d1 execute arcobaleno-blog --local --file=schema.sql
+```
+
+Puneți amprenta și cheia într-un fișier `.dev.vars` lângă `wrangler.toml`:
+
+```
+ADMIN_PASSWORD_HASH="pbkdf2$50000$…"
+SESSION_SECRET="…"
+```
+
+Apoi porniți serverul:
+
+```bash
+npx wrangler pages dev
+```
+
+`.dev.vars` și dosarul `.wrangler/` sunt trecute în `.gitignore`, deci nu ajung
+niciodată pe GitHub.
 
 ## WhatsApp
 
@@ -198,7 +268,7 @@ ajustări la `req`/`res`, pe Cloudflare Workers.
    ```
    WHATSAPP_TOKEN     cheia permanentă din Meta
    WHATSAPP_PHONE_ID  ID-ul numărului expeditor
-   WHATSAPP_TO        40728933035
+   WHATSAPP_TO        40721996570
    WHATSAPP_TEMPLATE  mesaj_site
    ALLOWED_ORIGIN     https://arcobaleno.ro
    ```
@@ -221,7 +291,7 @@ releu, dar care trimite pe e-mail sau prin SMS (Twilio). Se schimbă doar funcț
 
 Numărul stă într-un singur loc, în obiectul `CONTACT` din `assets/js/site.js`.
 Schimbați-l acolo și, pentru linkurile scrise direct în pagini, căutați
-`40728933035` și `+40728933035` în fișierele HTML.
+`40721996570` și `+40721996570` în fișierele HTML.
 
 Numărul folosit acum este cel dat pentru teste.
 
@@ -313,9 +383,21 @@ este `aria-hidden` și are buton de oprire.
 
 ## Înainte de lansare
 
-- **Recomprimați `hero.mp4`** și adăugați poster și `.webm`. Vezi mai sus.
-- **Blogul are nevoie de un server** dacă postările trebuie să se vadă de pe mai
-  multe dispozitive. Vezi mai sus.
+- **Adăugați poster și `.webm`** pentru `hero.mp4`. Recomprimarea e făcută.
+- **Niciun fișier peste 25 MiB.** Cloudflare refuză build-ul cu „Asset too large”
+  dacă un fișier depășește pragul. Filmele sunt acum toate sub el; dacă adăugați
+  altele, treceți-le întâi prin:
+
+  ```bash
+  ffmpeg -i intrare.mp4 -c:v libx264 -crf 30 -preset slow \
+         -c:a aac -b:a 96k -movflags +faststart iesire.mp4
+  ```
+- **Blogul are nevoie de baza de date legată** și de cele patru variabile puse în
+  Cloudflare, altfel autentificarea răspunde cu eroare. Vezi „Blogul”, mai sus.
+- **Releul WhatsApp e scris pentru Vercel** și nu pornește pe Cloudflare Pages,
+  care își caută funcțiile în `functions/`, nu în `api/`. Până e mutat, chatul
+  cade automat pe varianta cu `wa.me`, care merge — dar `CONTACT.relay` din
+  `assets/js/site.js` trebuie lăsat gol.
 - **Formularul e doar front-end.** `visit.html` interceptează trimiterea și arată
   o confirmare în pagină. Puneți în `action` adresa unui procesator real
   (Formspree, Netlify Forms, o funcție serverless) și ștergeți ramura cu
