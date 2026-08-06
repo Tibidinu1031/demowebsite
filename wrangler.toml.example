@@ -1,0 +1,27 @@
+# Model pentru `wrangler.toml`, folosit DOAR la proba locală.
+#
+#   copiați-l cu numele `wrangler.toml`
+#   npx wrangler d1 execute arcobaleno-blog --local --file=schema.sql
+#   npx wrangler pages dev
+#
+# `wrangler.toml` e trecut în .gitignore dinadins: dacă ajunge în depozit,
+# integrarea cu Git a Cloudflare citește proiectul ca Worker, nu ca Pages,
+# iar build-ul cade cu „Missing entry-point to Worker script”.
+#
+# În producție nu e nevoie de fișierul acesta: baza de date și variabilele
+# se leagă din panou, la proiectul Pages (vezi secțiunea „Blogul” din README).
+
+name = "arcobaleno"
+compatibility_date = "2026-01-01"
+pages_build_output_dir = "."
+
+# Pentru proba locală, `database_id` poate rămâne așa cum e: cu `--local`
+# wrangler ține baza într-un fișier din `.wrangler/`, nu în cloud.
+[[d1_databases]]
+binding = "DB"
+database_name = "arcobaleno-blog"
+database_id = "local-dev-only"
+
+[vars]
+ADMIN_NAME = "Nicoleta"
+ADMIN_ROLE = "Director"

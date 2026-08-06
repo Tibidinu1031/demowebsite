@@ -16,6 +16,12 @@
 .wrangler/
 .wrangler-config/
 
+# Configurația wrangler e doar pentru proba locală. Dacă ajunge în depozit,
+# integrarea cu Git a Cloudflare citește proiectul ca Worker, nu ca Pages, și
+# build-ul cade. Porniți de la `wrangler.toml.example`.
+wrangler.toml
+!wrangler.toml.example
+
 # Chei și certificate, sub orice nume.
 *.pem
 *.key

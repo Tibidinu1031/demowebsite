@@ -164,10 +164,9 @@ tools/hash-password.mjs           Generatorul amprentei de parolă
    npx wrangler d1 execute arcobaleno-blog --remote --file=schema.sql
    ```
 
-3. **Legați baza de site.** Comanda de mai sus scoate un `database_id`; puneți-l
-   în `wrangler.toml`, în locul textului de rezervă. (Aceeași legătură se poate
-   face și din panou: Settings → Functions → D1 database bindings, cu numele
-   variabilei `DB`.)
+3. **Legați baza de site**, din panou: proiectul Pages → Settings → Functions →
+   **D1 database bindings** → Add binding, cu numele variabilei `DB` și baza
+   `arcobaleno-blog`.
 
 4. **Puneți variabilele**, în Cloudflare Pages → Settings → Variables and Secrets.
    Primele două sunt de tip **Secret**, ultimele două pot fi text obișnuit:
@@ -203,21 +202,21 @@ din pagină nu îl poate citi, deci nu poate fi furat de un script străin. La o
 părea căzut. Pentru funcții, o dată:
 
 ```bash
+cp wrangler.toml.example wrangler.toml
+cp .dev.vars.example .dev.vars
 npx wrangler d1 execute arcobaleno-blog --local --file=schema.sql
 ```
 
-Puneți amprenta și cheia într-un fișier `.dev.vars` lângă `wrangler.toml`:
-
-```
-ADMIN_PASSWORD_HASH="pbkdf2$50000$…"
-SESSION_SECRET="…"
-```
-
-Apoi porniți serverul:
+Completați `.dev.vars` cu valorile scoase de `tools/hash-password.mjs`, apoi:
 
 ```bash
 npx wrangler pages dev
 ```
+
+> `wrangler.toml` e trecut **dinadins** în `.gitignore`. Dacă ajunge în depozit,
+> integrarea cu Git a Cloudflare citește proiectul ca **Worker**, nu ca **Pages**,
+> și build-ul cade cu „Missing entry-point to Worker script”. În producție nu e
+> nevoie de el: baza de date și variabilele se leagă din panou.
 
 `.dev.vars` și dosarul `.wrangler/` sunt trecute în `.gitignore`, deci nu ajung
 niciodată pe GitHub.
