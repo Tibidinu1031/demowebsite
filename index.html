@@ -281,10 +281,6 @@
       <div class="spread__rail stack">
         <p class="eyebrow">Capitolul unu</p>
         <h2>Cum arată<br>o zi</h2>
-        <p class="u-faint" style="font-size:var(--fs-sm)">
-          Publicat pentru că părinții tot întrebau și pentru că o școală care nu poate
-          spune ce se întâmplă la 10:45 probabil nici nu știe.
-        </p>
         <div class="now" data-now data-open="false">
           <p class="now__head"><span class="now__pip"></span> <span data-now-label>Chiar acum</span></p>
           <p class="now__what" data-now-what>&mdash;</p>
@@ -474,15 +470,15 @@
   <!-- ========================================================== galerie -->
   <section class="section shell" id="galerie">
     <div class="u-wide">
-      <div class="rooms__head">
-        <div>
-          <p class="eyebrow">Galerie</p>
-          <h2 class="u-mt-lg">Patru filmulețe<br>dintr-o zi obișnuită</h2>
-        </div>
-        <a class="arrow-link" href="gallery.html">
-          Toată galeria
-          <svg aria-hidden="true"><use href="#i-arrow"/></svg>
-        </a>
+      <div class="section__head--centred">
+        <p class="eyebrow">Galerie</p>
+        <h2>Patru filmulețe<br>dintr-o zi obișnuită</h2>
+        <p>
+          <a class="arrow-link" href="gallery.html">
+            Toată galeria
+            <svg aria-hidden="true"><use href="#i-arrow"/></svg>
+          </a>
+        </p>
       </div>
 
       <div class="gallery u-mt-lg reveal" data-reveal>
@@ -498,8 +494,6 @@
             </button>
           </div>
           <figcaption>
-            <p class="vidcard__title">Dimineața în curte</p>
-            <p class="vidcard__note">Primele ore, înainte de blocul lung de investigații.</p>
           </figcaption>
         </figure>
 
@@ -514,10 +508,6 @@
               <svg aria-hidden="true"><use href="#i-play"/></svg>
             </button>
           </div>
-          <figcaption>
-            <p class="vidcard__title">Blocul de investigații</p>
-            <p class="vidcard__note">Nouăzeci de minute fără întreruperi, exact cum arată.</p>
-          </figcaption>
         </figure>
 
         <figure class="vidcard"
@@ -531,10 +521,6 @@
               <svg aria-hidden="true"><use href="#i-play"/></svg>
             </button>
           </div>
-          <figcaption>
-            <p class="vidcard__title">După-amiaza la after school</p>
-            <p class="vidcard__note">Atelierele, temele și ora în care nu se plănuiește nimic.</p>
-          </figcaption>
         </figure>
 
         <figure class="vidcard"
@@ -548,198 +534,106 @@
               <svg aria-hidden="true"><use href="#i-play"/></svg>
             </button>
           </div>
-          <figcaption>
-            <p class="vidcard__title">Ateliere și excursii</p>
-            <p class="vidcard__note">Din atelierele de peste săptămână și din ieșirile din oraș.</p>
-          </figcaption>
         </figure>
       </div>
     </div>
   </section>
 
-  <!-- ========================================================= abordare -->
-  <section class="section section--loose panel panel--ink is-panel shell">
-    <div class="u-wide approach">
-      <blockquote class="quote reveal" data-reveal>
-        <p class="quote__text">
-          Copiii nu au nevoie să fie distrați. Au nevoie să li se dea ceva greu în grijă
-          și apoi să fie lăsați singuri cu acel ceva destul cât să-l termine.
-        </p>
-        <footer class="quote__by">Nicoleta &middot; Director</footer>
-      </blockquote>
+  <!-- ======================================================= fondatoarea -->
+  <section class="section panel panel--sage panel--seam is-panel shell">
+    <div class="u-wide founder reveal" data-reveal>
+      <figure class="founder__photo">
+        <!-- Ilustrația desenată rămâne dedesubt ca rezervă: dacă fotografia
+             lipsește, site.js scoate <img> și se vede desenul. -->
+        <svg viewBox="0 0 120 150" aria-hidden="true">
+          <path d="M0 150c0-38 26-56 60-56s60 18 60 56Z" fill="#276e33"/>
+          <circle cx="60" cy="62" r="34" fill="#8a5c3d"/>
+          <path d="M26 60c0-24 15-40 34-40s34 16 34 40c0 8-5 6-8 1-6-9-14-13-26-13s-20 4-26 13c-3 5-8 7-8-1Z" fill="#2b1f19"/>
+          <path d="M26 60c-6-2-9 6-6 12 2 4 6 4 7 1M94 60c6-2 9 6 6 12-2 4-6 4-7 1" fill="#2b1f19"/>
+        </svg>
+        <img src="assets/img/nicoleta.jpg"
+             alt="Nicoleta, fondatoarea Arcobaleno Afterschool"
+             data-optional decoding="async">
+      </figure>
 
-      <div class="tenets u-mt-2xl">
-        <div class="tenet reveal" data-reveal style="--i:0">
-          <h3>Blocuri lungi, puține întreruperi</h3>
-          <p>Nimic care merită făcut nu se face în douăzeci de minute. Blocul de dimineață ține nouăzeci și nu tăiem din el pentru nimic mai mic decât o alarmă de incendiu.</p>
-        </div>
-        <div class="tenet reveal" data-reveal style="--i:1">
-          <h3>Afară nu e o recompensă</h3>
-          <p>Nu există variantă de zi în care curtea se anulează. Ținem patruzeci de rânduri de haine impermeabile în hol, ca vremea să nu aibă niciodată votul decisiv.</p>
-        </div>
-        <div class="tenet reveal" data-reveal style="--i:2">
-          <h3>Unelte adevărate, risc adevărat</h3>
-          <p>Cuțite în bucătărie, ferăstraie la banc, chibrituri la vatră. Predate cum trebuie, supravegheate îndeaproape și niciodată ascunse sub preș.</p>
-        </div>
-        <div class="tenet reveal" data-reveal style="--i:3">
-          <h3>Adulți liniștiți</h3>
-          <p>Fără fluiere, fără numărători inverse, fără cântat la copii ca să strângă jucăriile. Dacă o sală e gălăgioasă, ne uităm mai întâi la adulții din ea.</p>
-        </div>
-        <div class="tenet reveal" data-reveal style="--i:4">
-          <h3>Plictiseala e în orar</h3>
-          <p>Cam patruzeci de minute pe zi sunt neplanificate, intenționat. E constant partea despre care întreabă părinții și constant partea în care începe cea mai bună treabă.</p>
-        </div>
-        <div class="tenet reveal" data-reveal style="--i:5">
-          <h3>Vă spunem adevărul</h3>
-          <p>Dacă cel mic a avut o zi proastă, a mușcat pe cineva sau a mutat pietriș patru ore dintr-o găleată în alta, exact asta va scrie în bilet.</p>
-        </div>
-      </div>
-
-      <p class="u-mt-xl">
-        <a class="arrow-link" href="approach.html">
-          Citește toată abordarea
-          <svg aria-hidden="true"><use href="#i-arrow"/></svg>
-        </a>
-      </p>
-    </div>
-  </section>
-
-  <!-- ============================================================ oameni -->
-  <section class="section shell">
-    <div class="spread">
-      <div class="spread__rail stack">
+      <div class="founder__text stack stack--sm">
         <p class="eyebrow">Capitolul trei</p>
-        <h2>Cinci adulți,<br>cei mai mulți<br>de multă vreme</h2>
-        <p class="u-faint" style="font-size:var(--fs-sm)">
-          Vechimea medie e de șapte ani. În domeniul ăsta e ori remarcabil, ori suspect,
-          și noi credem că e primul.
-        </p>
-      </div>
-
-      <div class="people reveal" data-reveal>
-        <figure class="person" style="--tone:var(--sage-wash)">
-          <div class="person__portrait">
-            <!-- Ilustrația rămâne dedesubt ca rezervă: dacă fotografia lipsește,
-                 site.js scoate <img> și se vede desenul. -->
-            <svg viewBox="0 0 120 150" aria-hidden="true">
-              <path d="M0 150c0-38 26-56 60-56s60 18 60 56Z" fill="#276e33"/>
-              <circle cx="60" cy="62" r="34" fill="#8a5c3d"/>
-              <path d="M26 60c0-24 15-40 34-40s34 16 34 40c0 8-5 6-8 1-6-9-14-13-26-13s-20 4-26 13c-3 5-8 7-8-1Z" fill="#2b1f19"/>
-              <path d="M26 60c-6-2-9 6-6 12 2 4 6 4 7 1M94 60c6-2 9 6 6 12-2 4-6 4-7 1" fill="#2b1f19"/>
-            </svg>
-            <!-- Fără `loading="lazy"`: fotografia trebuie să se rezolve devreme,
-                 ca rezerva să se aplice înainte să ajungă cineva cu privirea aici.
-                 E un singur portret, deci nu costă nimic. -->
-            <img class="person__photo" src="assets/img/nicoleta.jpg"
-                 alt="Nicoleta, directoarea Arcobaleno Afterschool"
-                 decoding="async">
-          </div>
-          <figcaption>
-            <p class="person__name">Nicoleta</p>
-            <p class="person__role">Director</p>
-            <p class="person__note">A pornit Arcobaleno în 2009, după unsprezece ani în săli de inspirație Reggio. Ține albine pe zidul din spate.</p>
-          </figcaption>
-        </figure>
-
-        <figure class="person" style="--tone:var(--ochre-wash)">
-          <div class="person__portrait">
-            <svg viewBox="0 0 120 150" aria-hidden="true">
-              <path d="M0 150c0-38 26-56 60-56s60 18 60 56Z" fill="#d6382a"/>
-              <circle cx="60" cy="62" r="34" fill="#e9c6a1"/>
-              <path d="M27 56c2-22 16-36 33-36s31 14 33 36c0 5-4 3-7-1-7-8-13-11-26-11s-19 3-26 11c-3 4-7 6-7 1Z" fill="#6b4a2f"/>
-              <path d="M46 92c8 5 20 5 28 0" stroke="#c9a06a" stroke-width="4" fill="none" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <figcaption>
-            <p class="person__name">Tomás Brandt</p>
-            <p class="person__role">Coordonator Crâng</p>
-            <p class="person__note">Cofondatorul nostru, care ne împărtășește viziunea și entuziasmul. El răspunde de Crâng.</p>
-          </figcaption>
-        </figure>
-
-        <figure class="person" style="--tone:var(--clay-wash)">
-          <div class="person__portrait">
-            <svg viewBox="0 0 120 150" aria-hidden="true">
-              <path d="M0 150c0-38 26-56 60-56s60 18 60 56Z" fill="#7fa6c3"/>
-              <circle cx="60" cy="62" r="34" fill="#c78f5f"/>
-              <path d="M24 66c0-28 16-46 36-46s36 18 36 46c0 14-6 22-10 20-3-2 0-10-2-18-3-12-11-18-24-18s-21 6-24 18c-2 8 1 16-2 18-4 2-10-6-10-20Z" fill="#241a14"/>
-              <circle cx="60" cy="30" r="7" fill="#ec5fa1"/>
-            </svg>
-          </div>
-          <figcaption>
-            <p class="person__name">Priya Raghunathan</p>
-            <p class="person__role">Coordonatoare Cuib</p>
-            <p class="person__note">Cincisprezece ani cu copii sub trei ani. Crede în podele mai degrabă decât în scaune și n-a ridicat niciodată tonul.</p>
-          </figcaption>
-        </figure>
-
-        <figure class="person" style="--tone:var(--sky-wash)">
-          <div class="person__portrait">
-            <svg viewBox="0 0 120 150" aria-hidden="true">
-              <path d="M0 150c0-38 26-56 60-56s60 18 60 56Z" fill="#276e33"/>
-              <circle cx="60" cy="62" r="34" fill="#8f6446"/>
-              <path d="M28 58c0-22 14-38 32-38s32 16 32 38c0 6-4 5-6 1-5-8-12-12-26-12s-21 4-26 12c-2 4-6 5-6-1Z" fill="#3a2a20"/>
-              <rect x="30" y="56" width="24" height="18" rx="9" fill="none" stroke="#17213f" stroke-width="3"/>
-              <rect x="66" y="56" width="24" height="18" rx="9" fill="none" stroke="#17213f" stroke-width="3"/>
-              <path d="M54 63h12" stroke="#17213f" stroke-width="3"/>
-            </svg>
-          </div>
-          <figcaption>
-            <p class="person__name">Hollis Reyes</p>
-            <p class="person__role">Coordonator after school</p>
-            <p class="person__note">Fost bibliotecar pentru copii. Ține lectura cu voce tare de la 17:40 și adoră să învețe copiii lucruri care le folosesc toată viața.</p>
-          </figcaption>
-        </figure>
-
-        <figure class="person" style="--tone:var(--plum-wash)">
-          <div class="person__portrait">
-            <svg viewBox="0 0 120 150" aria-hidden="true">
-              <path d="M0 150c0-38 26-56 60-56s60 18 60 56Z" fill="#f2a11c"/>
-              <circle cx="60" cy="62" r="34" fill="#f0cdae"/>
-              <path d="M28 54c4-20 16-34 32-34s28 14 32 34c1 6-4 6-7 2-6-8-13-11-25-11s-19 3-25 11c-3 4-8 4-7-2Z" fill="#8e8175"/>
-              <path d="M22 44h76v-6c0-4-3-6-8-6H30c-5 0-8 2-8 6Z" fill="#f8f3e8"/>
-            </svg>
-          </div>
-          <figcaption>
-            <p class="person__name">Ana Hurtado</p>
-            <p class="person__role">Bucătărie</p>
-            <p class="person__note">Gătește totul de la zero pentru patruzeci și unu de oameni. Își pune sufletul în fiecare fel de mâncare.</p>
-          </figcaption>
-        </figure>
+        <h2>Fondatoarea</h2>
+        <p class="prose">Urmează să fie adăugat</p>
       </div>
     </div>
   </section>
 
 
   <!-- ========================================================== părinți -->
-  <section class="section panel panel--sky panel--seam is-panel shell">
+  <section class="section panel panel--sky panel--seam is-panel shell reviews">
     <div class="u-wide stack stack--md">
       <p class="eyebrow">Ce spun părinții</p>
       <h2 class="u-measure-sm">Am cerut varianta sinceră</h2>
     </div>
 
+    <!-- ATENȚIE, ÎNAINTE DE PUBLICARE
+         Cele cinci cartonașe de mai jos sunt GOALE intenționat. Textul unei
+         recenzii și numele celui care a scris-o nu pot fi inventate: ar
+         însemna să punem în gura unor părinți adevărați vorbe pe care nu
+         le-au spus.
+
+         Ce e de făcut, pentru fiecare cartonaș:
+           1. Deschideți recenzia adevărată (legăturile de pe cartonașe duc la
+              listele de recenzii de pe Google și de pe Facebook).
+           2. Copiați textul în <p> și numele în <footer>.
+           3. Dacă recenzia are o adresă proprie, puneți-o în `href`, ca să
+              ducă exact la ea. Altfel, legătura de acum duce la listă, ceea
+              ce e corect, doar mai puțin precis.
+
+         Un cartonaș rămas necompletat nu se afișează: vezi `.note--gol` din
+         components.css. Așa nu poate ajunge un text de probă pe site. -->
     <div class="notes u-wide u-mt-lg reveal" data-reveal>
-      <blockquote class="note">
+
+      <a class="note note--review note--gol" target="_blank" rel="noopener"
+         href="https://www.google.com/maps/search/?api=1&amp;query=After%20School%20Arcobaleno%20T%C3%A2rgovi%C8%99te">
         <div class="note__stars" aria-label="Cinci din cinci">
           <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
         </div>
-        <p>Am vizitat șase locuri în primăvara aceea. Arcobaleno a fost singurul unde nimeni nu făcuse ordine pentru noi.</p>
-        <footer>Rosalinda &amp; Petru K. &middot; părinți la after school din 2024</footer>
-      </blockquote>
-      <blockquote class="note">
+        <p></p>
+        <footer><span class="note__who"></span><span class="note__source">Google</span></footer>
+      </a>
+
+      <a class="note note--review note--gol" target="_blank" rel="noopener"
+         href="https://www.google.com/maps/search/?api=1&amp;query=After%20School%20Arcobaleno%20T%C3%A2rgovi%C8%99te">
         <div class="note__stars" aria-label="Cinci din cinci">
           <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
         </div>
-        <p>Băiatul nostru a venit acasă cu o așchie și cu o căsuță de păsări și nu putea fi mai mândru de niciuna dintre ele.</p>
-        <footer>Dan M. &middot; părinte la after school</footer>
-      </blockquote>
-      <blockquote class="note">
+        <p></p>
+        <footer><span class="note__who"></span><span class="note__source">Google</span></footer>
+      </a>
+
+      <a class="note note--review note--gol" target="_blank" rel="noopener"
+         href="https://www.google.com/maps/search/?api=1&amp;query=After%20School%20Arcobaleno%20T%C3%A2rgovi%C8%99te">
         <div class="note__stars" aria-label="Cinci din cinci">
           <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
         </div>
-        <p>Biletul de la finalul zilei are trei rânduri și îți spune exact ce s-a întâmplat. După creșa anterioară, doar asta a meritat mutarea.</p>
-        <footer>Ioana A. &middot; părinte la ateliere</footer>
-      </blockquote>
+        <p></p>
+        <footer><span class="note__who"></span><span class="note__source">Google</span></footer>
+      </a>
+
+      <a class="note note--review note--gol" target="_blank" rel="noopener"
+         href="https://www.facebook.com/afterschoolarcobalenotargoviste/reviews">
+        <div class="note__stars" aria-label="Cinci din cinci">
+          <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
+        </div>
+        <p></p>
+        <footer><span class="note__who"></span><span class="note__source">Facebook</span></footer>
+      </a>
+
+      <a class="note note--review note--gol" target="_blank" rel="noopener"
+         href="https://www.facebook.com/afterschoolarcobalenotargoviste/reviews">
+        <div class="note__stars" aria-label="Cinci din cinci">
+          <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
+        </div>
+        <p></p>
+        <footer><span class="note__who"></span><span class="note__source">Facebook</span></footer>
+      </a>
     </div>
   </section>
 
@@ -839,36 +733,7 @@
     </div>
   </section>
 
-  <!-- ============================================================== cta -->
-  <section class="section section--loose shell cta">
-    <div class="u-wide cta__inner">
-      <div class="stack stack--md">
-        <p class="eyebrow">Veniți să vedeți</p>
-        <h2>Nu organizăm zile ale porților deschise</h2>
-        <p class="prose">
-          Veniți marți la ora zece, când e gălăgie și cineva plânge din cauza unei
-          căciuli. Nicoleta vă plimbă patruzeci de minute și răspunde la tot. Nu există
-          prezentare și nu există mapă.
-        </p>
-        <div class="cluster">
-          <a class="btn btn--clay btn--lg" href="visit.html">Rezervă o marți</a>
-          <a class="arrow-link" href="tel:+40721996570">
-            Sau sună la 0721 996 570
-            <svg aria-hidden="true"><use href="#i-arrow"/></svg>
-          </a>
-        </div>
-      </div>
-      <div class="cta__aside">
-        <p class="pill pill--ochre">Lista de așteptare &mdash; toamna 2026</p>
-        <dl class="room__facts">
-          <div><dt>After school</dt><dd>2 locuri</dd></div>
-          <div><dt>Școala de vară</dt><dd>Deschis</dd></div>
-          <div><dt>Ateliere</dt><dd>Doar listă</dd></div>
-        </dl>
-        <p class="form__note">Actualizat pe 14 iulie 2026. Ținem lista sinceră și nu păstrăm locuri pentru nimeni.</p>
-      </div>
-    </div>
-  </section>
+
 
 </main>
 

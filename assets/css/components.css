@@ -1038,6 +1038,43 @@
   .note__stars { display: flex; gap: 0.12rem; color: var(--ochre-deep); }
   .note__stars svg { inline-size: 0.85rem; }
 
+  /* ------------------------------------------------------------- recenzii
+     Cartonașul întreg e o legătură spre recenzia de pe Google sau Facebook. */
+  .note--review {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .note--review footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.4rem var(--sp-sm);
+  }
+
+  .note__source {
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: var(--fs-3xs);
+    color: var(--clay-deep);
+    white-space: nowrap;
+  }
+
+  .note--review:hover .note__source { text-decoration: underline; }
+
+  /* Un cartonaș fără text de recenzie nu are ce căuta în pagină. Se ascunde
+     singur, cât timp <p> e gol — așa nu poate ajunge un text de probă sau un
+     cartonaș pe jumătate completat sub ochii unui părinte. Se afișează în
+     clipa în care cineva scrie recenzia adevărată înăuntru. */
+  .note--gol:has(p:empty) { display: none; }
+
+  /* Cât timp niciun cartonaș n-are text, secțiunea întreagă se ascunde —
+     altfel ar rămâne un titlu („Ce spun părinții”) cu gol dedesubt. Reapare
+     singură la prima recenzie scrisă. */
+  .reviews:not(:has(.note--review p:not(:empty))) { display: none; }
+
   /* ================================================================ journal */
   .entries { border-block-start: 1px solid var(--rule); }
 

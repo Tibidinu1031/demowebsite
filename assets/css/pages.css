@@ -651,6 +651,52 @@
     border-block-start: 2px solid var(--ochre);
   }
 
+  /* Cap de secțiune centrat — folosit la galeria de pe prima pagină. */
+  .section__head--centred {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: var(--sp-sm);
+  }
+
+  .section__head--centred h2 { max-inline-size: 20ch; }
+
+  /* ========================================================== fondatoarea
+     Fotografia la stânga, textul la dreapta. Sub 48em cad una sub alta, cu
+     fotografia prima — altfel poza ajunge un dreptunghi lat și turtit. */
+  .founder {
+    display: grid;
+    gap: var(--sp-lg);
+    align-items: center;
+  }
+
+  @media (min-width: 48em) {
+    .founder {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+      gap: var(--sp-2xl);
+    }
+  }
+
+  .founder__photo {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: var(--sage-wash);
+    box-shadow: var(--lift);
+  }
+
+  /* Desenul și fotografia stau unul peste altul; fotografia acoperă desenul
+     cât timp există. */
+  .founder__photo svg,
+  .founder__photo img {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
   /* ============================================================== visit */
   .visit__grid {
     display: grid;
