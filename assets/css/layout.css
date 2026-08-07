@@ -166,7 +166,10 @@
     flex-wrap: wrap;
     gap: var(--sp-xs) var(--sp-md);
     align-items: center;
-    justify-content: space-between;
+    /* A rămas o singură linie în bază, deci stă centrată. Dacă se mai adaugă
+       una lângă ea, `space-between` e ce era înainte. */
+    justify-content: center;
+    text-align: center;
     font-size: var(--fs-2xs);
     color: color-mix(in oklab, var(--paper) 62%, var(--ink));
   }

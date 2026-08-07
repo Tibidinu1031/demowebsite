@@ -23,10 +23,6 @@ approach.html           Filosofia pe larg, inclusiv ce nu ne iese
 gallery.html            Galeria video
 blog.html               Blogul cu autentificare și publicare
 faq.html                Întrebări frecvente, pe patru categorii
-journal.html            Indexul jurnalului, plus arhiva de pe hârtie
-journal-the-hole.html   Articol principal
-journal-boredom.html    Articol
-journal-bread.html      Articol
 visit.html              Formular de contact, chestiuni practice
 404.html                Pagina de eroare
 

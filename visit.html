@@ -86,13 +86,12 @@
     </a>
       <noscript>
         <nav class="masthead__nav" aria-label="Principal">
-          <a class="navlink" href="rooms.html">Programe</a>
-          <a class="navlink" href="approach.html">Abordare</a>
+          <a class="navlink" href="rooms.html">Serviciile noastre</a>
+          <a class="navlink" href="approach.html">Misiune și viziune</a>
           <a class="navlink" href="gallery.html">Galerie</a>
           <a class="navlink" href="tur-virtual.html">Tur Virtual</a>
           <a class="navlink" href="blog.html">Blog</a>
           <a class="navlink" href="faq.html">Întrebări</a>
-          <a class="navlink" href="visit.html">Tarife &amp; program</a>
         </nav>
       </noscript>
     <div class="masthead__actions">
@@ -112,12 +111,6 @@
       <nav class="crumbs" aria-label="Firimituri">
         <a href="index.html">Arcobaleno</a> <span aria-hidden="true">/</span> <span>Vizită</span>
       </nav>
-      <h1 class="pagehead__title">Veniți marți, la zece</h1>
-      <p class="lede pagehead__lede">
-        Nu organizăm zile ale porților deschise, pentru că o școală cu luminile aprinse și
-        podeaua măturată nu vă spune nimic. Veniți la mijlocul dimineții, într-o zi
-        obișnuită, când e gălăgie și cineva plânge din cauza unei căciuli.
-      </p>
     </div>
   </section>
 
@@ -126,12 +119,6 @@
     <div class="u-wide visit__grid">
 
       <div class="stack stack--md">
-        <h2 style="font-size:var(--fs-2xl)">Cereți o marți</h2>
-        <p class="prose u-faint" style="font-size:var(--fs-sm)">
-          Nicoleta răspunde ea însăși la aceste mesaje, de obicei joia, pentru că joia e
-          zi de birou. Dacă e urgent, sunați &mdash; cineva răspunde întotdeauna &mdash;
-          sau scrieți-ne pe WhatsApp.
-        </p>
 
         <!--
           Doar front-end. Puneți în `action` adresa procesatorului dumneavoastră de
@@ -160,10 +147,10 @@
                 <label for="room">Ce grupă</label>
                 <select id="room" name="room" required>
                   <option value="">Alegeți una</option>
-                  <option>After school în timpul anului școlar</option>
-                  <option>Școala de vară în vacanță</option>
-                  <option>Cursuri și ateliere interactive</option>
-                  <option>Doar excursii</option>
+                  <option>After school</option>
+                  <option>Școala de vară</option>
+                  <option>Cursuri și ateliere</option>
+                  <option>Excursii</option>
                   <option>Încă nu știu</option>
                 </select>
                 <p class="field__error">Alegeți varianta cea mai apropiată — o putem schimba mai târziu.</p>
@@ -198,7 +185,7 @@
             <div class="field">
               <label for="message">Ce ar trebui să știm</label>
               <textarea id="message" name="message" rows="4"
-                        placeholder="Alergii, un frate mai mare care e deja la noi, o întrebare pe care preferați să o puneți înainte să veniți — orice."></textarea>
+                        placeholder=""></textarea>
               <p class="field__hint">Nu există răspuns greșit și nici lungime potrivită.</p>
             </div>
 
@@ -210,9 +197,6 @@
 
             <div class="cluster">
               <button class="btn btn--clay btn--lg" type="submit">Trimite</button>
-              <p class="form__note" style="max-inline-size:24ch">
-                Păstrăm datele cât timp sunteți pe listă și nu le dăm mai departe nimănui.
-              </p>
             </div>
           </div>
 
@@ -225,7 +209,7 @@
       </div>
 
       <aside class="visit__aside">
-        <p class="eyebrow eyebrow--bare">Chestiuni practice</p>
+        <p class="eyebrow eyebrow--bare">Detalii</p>
 
         <div class="contact-row">
           <svg aria-hidden="true"><use href="#i-pin"/></svg>
@@ -240,42 +224,22 @@
           <a href="tel:+40721996570">0721 996 570</a>
         </div>
 
-        <p><a class="btn btn--ghost btn--sm" href="#" data-wa-open>Scrie-ne pe WhatsApp</a></p>
+        <!-- Harta se încarcă abia când ajunge în dreptul ferestrei, ca să nu
+             ceară nimic de la Google cât timp nimeni nu s-a uitat la ea. -->
+        <div class="visit__map">
+          <iframe
+            src="https://maps.google.com/maps?q=Str.%20Preot%20Toma%20Georgescu%2012%2C%20T%C3%A2rgovi%C8%99te&amp;z=16&amp;hl=ro&amp;output=embed"
+            title="Arcobaleno Afterschool pe hartă"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
 
-        <hr>
-
-        <dl>
-          <dt>Cum ajungeți</dt>
-          <dd>
-            Ușa verde de lângă spălătorie, la jumătatea străzii, pe stânga. Nu există
-            firmă, lucru pe care îl menționează toată lumea. Autobuzele 14 și 26 opresc
-            în Târgoviște Green, la două minute de mers pe jos.
-          </dd>
-          <dt>Parcare</dt>
-          <dd>
-            Pe strada Preot Toma Georgescu se parchează doar cu permis de rezident. În spatele parcului
-            sunt patru locuri libere și toată lumea le folosește.
-          </dd>
-          <dt>Cât durează</dt>
-          <dd>
-            Cam patruzeci de minute. Veniți cu copilul dacă vreți &mdash; cei mai mulți așa
-            fac și vă spune mai mult decât turul în sine.
-          </dd>
-          <dt>Cum să vă îmbrăcați</dt>
-          <dd>Cu ceva ce nu vă pare rău să se murdărească. O să ajungem în curte.</dd>
-        </dl>
-
-        <hr>
-
-        <p class="pill pill--ochre">Lista de așteptare &mdash; toamna 2026</p>
-        <dl class="room__facts" style="inline-size:100%">
-          <div><dt>After school</dt><dd>2 locuri</dd></div>
-          <div><dt>Școala de vară</dt><dd>Deschis</dd></div>
-          <div><dt>Ateliere</dt><dd>Doar listă</dd></div>
-        </dl>
-        <p class="form__note">Actualizat pe 14 iulie 2026.</p>
+        <p>
+          <a class="btn btn--clay btn--sm"
+             href="https://www.google.com/maps/search/?api=1&amp;query=Str.%20Preot%20Toma%20Georgescu%2012%2C%20T%C3%A2rgovi%C8%99te%2C%20D%C3%A2mbovi%C8%9Ba"
+             target="_blank" rel="noopener">Vezi în Maps</a>
+        </p>
       </aside>
-
     </div>
   </section>
 
@@ -283,13 +247,7 @@
   <section class="section panel panel--clay panel--seam is-panel shell">
     <div class="u-wide cta__inner">
       <div class="stack stack--md">
-        <p class="eyebrow">Înainte să întrebați</p>
-        <h2 class="u-measure-sm">Am scris răspunsurile pe o pagină separată</h2>
-        <p class="prose">
-          Înscriere, acomodare, program, școlile de la care luăm copiii, mâncare și
-          alergii, boli, bani și zilele închise &mdash; toate întrebările pe care ni le
-          pun părinții, cu răspunsuri scurte și fără ocolișuri.
-        </p>
+     
         <div class="cluster">
           <a class="btn btn--clay btn--lg" href="faq.html">Vezi întrebările frecvente</a>
           <a class="arrow-link" href="#" data-wa-open>
@@ -297,15 +255,6 @@
             <svg aria-hidden="true"><use href="#i-arrow"/></svg>
           </a>
         </div>
-      </div>
-      <div class="cta__aside">
-        <p class="pill pill--sage">Cele mai citite</p>
-        <ul role="list" class="colophon__links" style="--flow:.4rem;font-size:var(--fs-sm)">
-          <li><a href="faq.html#inscriere">Cum funcționează lista de așteptare</a></li>
-          <li><a href="faq.html#zi">De la ce școli luați copiii</a></li>
-          <li><a href="faq.html#mancare">Mâncarea și alergiile</a></li>
-          <li><a href="faq.html#bani">Ce include taxa</a></li>
-        </ul>
       </div>
     </div>
   </section>
@@ -320,29 +269,26 @@
           <span class="mark__badge"><svg class="mark__glyph" aria-hidden="true"><use href="#i-mark"/></svg><img class="mark__logo" src="assets/img/logo.jpg" alt="" data-optional decoding="async"></span>
           <span class="mark__type"><span class="mark__name">Arcobaleno</span><span class="mark__sub">After School</span></span>
         </a>
-        <p style="font-size:var(--fs-sm);max-inline-size:32ch;opacity:.8">O școală mică pe strada Preot Toma Georgescu, care face un lucru obișnuit cu grijă, din 2009.</p>
       </div>
       <div class="stack stack--sm">
         <p class="eyebrow eyebrow--bare">Vizitați-ne</p>
-        <p style="font-size:var(--fs-sm);opacity:.85">Str. Preot Toma Georgescu nr. 12<br>Târgoviște</p>
-        <p style="font-size:var(--fs-sm);opacity:.85">Luni&ndash;vineri, 7:30 &ndash; 18:00<br>Închis trei săptămâni în august</p>
+        <p style="font-size:var(--fs-sm);opacity:.85">Str. Preot Toma Georgescu nr. 12, Târgoviște<br>Dâmbovița</p>
       </div>
       <div class="stack stack--sm">
         <p class="eyebrow eyebrow--bare">Secțiuni</p>
         <ul role="list" class="colophon__links">
-          <li><a href="rooms.html">Programe &amp; tarife</a></li>
-          <li><a href="approach.html">Abordare</a></li>
+          <li><a href="rooms.html">Serviciile noastre</a></li>
+          <li><a href="approach.html">Misiune și viziune</a></li>
           <li><a href="gallery.html">Galerie</a></li>
           <li><a href="tur-virtual.html">Tur Virtual</a></li>
           <li><a href="blog.html">Blog</a></li>
-          <li><a href="journal.html">Jurnal</a></li>
           <li><a href="faq.html">Întrebări frecvente</a></li>
           <li><a href="visit.html">Programează o vizită</a></li>
         </ul>
       </div>
       <div class="stack stack--sm">
         <p class="eyebrow eyebrow--bare">Scrieți-ne</p>
-        <p style="font-size:var(--fs-sm);opacity:.85"><a href="tel:+40721996570">0721 996 570</a><br><a href="mailto:salut@arcobaleno.ro">salut@arcobaleno.ro</a></p>
+        <p style="font-size:var(--fs-sm);opacity:.85"><a href="tel:+40721996570">0721 996 570</a></p>
         <p><a class="btn btn--ghost btn--sm" href="https://wa.me/40721996570" target="_blank" rel="noopener">Scrie-ne pe WhatsApp</a></p>
         <div class="socials">
           <a class="social" href="https://www.instagram.com/after_school_arcobaleno/" target="_blank" rel="noopener">
@@ -354,12 +300,11 @@
             <svg aria-hidden="true"><use href="#i-facebook"/></svg>
           </a>
         </div>
-        <p><a class="btn btn--ghost btn--sm" href="#enquire">Intră pe lista de așteptare</a></p>
+        <p><a class="btn btn--clay btn--sm" href="visit.html#enquire">Programează o vizită</a></p>
       </div>
     </div>
     <div class="colophon__base">
       <p>&copy; 2026 Arcobaleno Afterschool</p>
-      <p>Desenat și construit pe strada Preot Toma Georgescu &middot; Actualizat pe 1 august 2026</p>
     </div>
   </div>
 </footer>

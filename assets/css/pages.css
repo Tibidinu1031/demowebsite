@@ -83,85 +83,143 @@
      3. Cadru întreg, cu benzi în lateral — încercat și refuzat. */
   .hero { --hero-focus: 50%; }
 
-  /* ------------------------------------------- varianta cu filmul la dreapta
-     `.hero--right` (vezi index2.html). Aici eroul nu mai e un film pe toată
-     fereastra cu text peste, ci o compoziție pe două coloane: textul în
-     stânga, pe panoul de cerneală al casei, iar filmul în dreapta, într-o
-     ramă cu colțuri rotunde și umbră — aceeași limbă vizuală cu ilustrațiile
-     din galerie și cu arcadele din restul site-ului.
+  /* ------------------------------------------------ varianta pe două jumătăți
+     `.hero--split`: prima fereastră se taie exact în două coloane egale. În
+     stânga, panoul de cerneală (navy) cu textul, butoanele și sigiliul; în
+     dreapta, filmul, pe toată jumătatea lui.
 
-     Rama e ancorată pe coloana `wide` a grilei, nu pe marginea ferestrei, deci
-     respectă gutterul ca orice altă secțiune. Lățimea ei stă într-o singură
-     variabilă, `--hero-card`, folosită și de rama, și de spațiul rezervat în
-     dreapta textului — așa nu se pot desincroniza.
+     Filmul iese aici din poziționarea absolută și devine celulă de grilă. De
+     aceea și voalul trebuie mutat în aceeași celulă: altfel ar acoperi și
+     panoul din stânga, care n-are ce voala.
 
      Sub 62em nu se aplică nimic din toate astea: eroul se poartă ca cel
-     obișnuit, cu filmul pe tot fundalul. */
+     obișnuit, cu filmul pe tot fundalul și textul peste el. */
   @media (min-width: 62em) {
-    .hero--right {
-      --hero-card: clamp(15rem, 25vw, 24rem);
-      --hero-rail: max(var(--gutter), calc(50% - 39rem));
-      justify-content: center;
+    .hero.hero--split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      /* Jumătățile ating muchiile secțiunii; respirația o dă panoul. Scris cu
+         două clase ca să bată `.hero { padding-block }` de la 64em, care vine
+         mai jos în fișier și altfel ar câștiga pe ordine. */
+      padding-block: 0;
+      /* Eroul stă exact într-o fereastră: comenzile filmului sunt în colțul lui
+         de jos și trebuie să se vadă fără scroll. Ce e în panou se strânge (vezi
+         plafoanele în vh de mai jos), nu împinge secțiunea mai jos de ecran. */
+      block-size: var(--hero-h, calc(100svh - var(--header-h) - var(--banner-h, 0px)));
+      min-block-size: 26rem;
     }
 
-    .hero--right .hero__media {
-      inset-block-start: 50%;
-      inset-block-end: auto;
-      inset-inline-end: var(--hero-rail);
-      inset-inline-start: auto;
-      translate: 0 -50%;
-      inline-size: var(--hero-card);
-      block-size: auto;
-      aspect-ratio: 478 / 850;
-      max-block-size: calc(100% - var(--sp-2xl));
+    .hero--split .hero__body {
+      grid-area: 1 / 1;
+      display: grid;
+      align-content: center;
+      background: var(--ink);
+      padding-block: min(var(--sp-2xl), 3vh);
       z-index: 1;
-      border-radius: var(--r-lg);
-      overflow: hidden;
-      box-shadow: var(--lift-lg);
     }
 
-    /* Hairline pe muchie, ca la arcadele din restul site-ului. */
-    .hero--right .hero__media::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      border: 1px solid color-mix(in oklab, var(--paper) 20%, transparent);
-      pointer-events: none;
+    /* Titlul și sigiliul, unul lângă altul. Sigiliul nu se strânge (`flex:
+       none`) și e centrat pe înălțimea numelui. */
+    .hero--split .hero__head {
+      display: flex;
+      align-items: center;
+      gap: clamp(var(--sp-sm), 2.5vi, var(--sp-lg));
     }
 
-    .hero--right .hero__media video {
-      inset: 0;
-      inline-size: 100%;
-      block-size: 100%;
-      max-block-size: none;
-      object-fit: cover;
-      object-position: center;
+    .hero--split .hero__media {
+      position: relative;
+      inset: auto;
+      grid-area: 1 / 2;
+      z-index: 0;
     }
 
-    /* Nu mai e film sub text, deci voalul greu nu-și mai are rostul: rămâne
-       doar o suflare caldă de ocru, ca panoul să nu fie cerneală moartă. */
-    .hero--right .hero__scrim {
-      background: radial-gradient(80% 70% at 16% 26%,
-                  color-mix(in oklab, var(--ochre) 15%, transparent),
-                  transparent 68%);
+    /* Voalul, strâns peste film: întunecă muchia dinspre panou, ca trecerea
+       de la cerneală la imagine să nu fie o tăietură bruscă. */
+    .hero--split .hero__scrim {
+      position: relative;
+      inset: auto;
+      grid-area: 1 / 2;
+      z-index: 1;
+      background:
+        linear-gradient(to right,
+          color-mix(in oklab, var(--ink) 62%, transparent) 0%,
+          color-mix(in oklab, var(--ink) 12%, transparent) 34%,
+          transparent 100%),
+        radial-gradient(90% 70% at 70% 10%,
+          color-mix(in oklab, var(--ochre) 18%, transparent),
+          transparent 62%);
     }
 
-    /* Textul își ține coloana lui, la stânga ramei. */
-    .hero--right .hero__inner {
-      padding-inline-end: calc(var(--hero-card) + var(--sp-2xl));
+    /* Titlul nu mai are o fereastră întreagă la dispoziție, deci se strânge.
+       Plafonul în vh e obligatoriu: fără el, pe un laptop scund titlul singur
+       împinge panoul mai jos decât ecranul și comenzile filmului ajung sub
+       linia de plutire. */
+    .hero--split .hero__title {
+      font-size: min(var(--fs-7xl), 11.6vh);
+      max-inline-size: 12ch;
     }
 
-    .hero--right .hero__title,
-    .hero--right .hero__lede { max-inline-size: none; }
+    .hero--split .hero__lede {
+      max-inline-size: 34ch;
+      font-size: min(var(--fs-xl), 3.9vh);
+      margin-block-start: min(var(--sp-md), 2.4vh);
+    }
 
-    /* Sigiliul stătea în colțul din dreapta sus, adică exact peste ramă. */
-    .hero--right .hero__seal { display: none; }
+    .hero--split .hero__actions { margin-block-start: min(var(--sp-lg), 3vh); }
 
-    /* Comenzile intră în colțul de jos al ramei, unde le e locul. */
-    .hero--right .hero__controls {
-      inset-inline-end: calc(var(--hero-rail) + var(--sp-sm));
-      inset-block-end: calc(50% - (var(--hero-card) * 850 / 478) / 2 + var(--sp-sm));
+    /* Butoanele de acțiune se retrag la mărimea obișnuită: în panou vedeta e
+       numele școlii, nu ele. */
+    .hero--split .hero__actions .btn { font-size: var(--fs-xs); }
+
+    /* Toate butoanele pe un singur rând. Ca să nu ajungă peste film când
+       fonturile ies mai late (scalarea sistemului), rândul are voie să se
+       strângă: `min-inline-size: 0` lasă butoanele să se împacheteze în loc
+       să împingă în afara coloanei. */
+    .hero--split .hero__actions {
+      flex-wrap: wrap;
+      min-inline-size: 0;
+      max-inline-size: 100%;
+      /* Spațiul obișnuit dintre butoane (18px) plus indentarea nu mai încap pe
+         un rând: cele trei grupuri cer 541px într-o coloană de 539. Aici se
+         strânge, ca rândul să rămână unul singur. */
+      --gap: 0.65rem;
+    }
+
+    /* Butoanele își strâng și ele burta pe orizontală, ca să rămână loc de
+       rețele pe același rând chiar și cu fonturi mai late. */
+    .hero--split .hero__actions .btn { padding: 0.82em 1.05em; }
+
+    .hero--split .hero__actions .socials {
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hero--split .hero__actions .social {
+      inline-size: 3.3rem;
+      block-size: 3.3rem;
+      aspect-ratio: auto;
+    }
+
+    .hero--split .hero__actions .social svg { inline-size: 1.45rem; }
+
+    /* Sigiliul coboară din colț și intră în panou, sub butoane. Rămâne
+       `relative`, nu `static`: inelul și sigla din el sunt poziționate
+       absolut și au nevoie de sigiliu ca reper, altfel se raportează la
+       secțiune și ies cât toată jumătatea. */
+    .hero--split .hero__seal {
+      position: relative;
+      inset: auto;
+      display: grid;
+      /* Stă lângă titlu, deci nu se strânge și nu-și mai ia margine de sus. */
+      margin: 0;
+      flex: none;
+      inline-size: min(9.5rem, 15vh);
+    }
+
+    /* Comenzile filmului rămân peste film, în colțul lui de jos. */
+    .hero--split .hero__controls {
+      inset-inline-end: calc(var(--gutter) + 4.4rem);
+      inset-block-end: var(--sp-md);
       z-index: 2;
     }
   }
@@ -470,6 +528,15 @@
 
   .pagehead__lede { margin-block-start: var(--sp-md); }
 
+  /* Antet centrat — folosit pe „Misiune și viziune”, care n-are coloană
+     laterală și e o pagină de manifest, nu una de listat lucruri. */
+  .pagehead--centred { text-align: center; }
+  .pagehead--centred .crumbs { justify-content: center; }
+  .pagehead--centred .pagehead__title {
+    max-inline-size: 22ch;
+    margin-inline: auto;
+  }
+
   .crumbs {
     display: flex;
     gap: 0.5rem;
@@ -567,6 +634,23 @@
     font-variation-settings: "SOFT" 30, "WONK" 1, "opsz" 144;
   }
 
+  /* Text pe o singură coloană, centrat pe pagină. */
+  .article--centred {
+    text-align: center;
+    max-inline-size: 48rem;
+    margin-inline: auto;
+  }
+
+  /* Bara verticală a citatului n-are sens într-un text centrat: ar trage
+     ochiul spre stânga. Devine o linie deasupra. */
+  .article--centred blockquote {
+    padding-inline-start: 0;
+    border-inline-start: 0;
+    margin-block-start: 2em;
+    padding-block-start: 1.1em;
+    border-block-start: 2px solid var(--ochre);
+  }
+
   /* ============================================================== visit */
   .visit__grid {
     display: grid;
@@ -602,6 +686,22 @@
     font-size: var(--fs-sm);
   }
   .contact-row svg { inline-size: 1rem; color: var(--clay); flex: none; }
+
+  /* Harta din coloana de detalii: aceeași rotunjire ca restul cutiilor. */
+  .visit__map {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--r-md);
+    overflow: hidden;
+    border: 1px solid var(--rule);
+    background: var(--sky-wash);
+  }
+
+  .visit__map iframe {
+    inline-size: 100%;
+    block-size: 100%;
+    border: 0;
+    display: block;
+  }
 
   /* ================================================== antet peste filmul erou
      Cât timp pagina nu e derulată, antetul stă peste film și trebuie să fie

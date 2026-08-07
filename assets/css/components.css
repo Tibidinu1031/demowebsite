@@ -467,7 +467,11 @@
   .dashcard {
     position: relative;
     display: grid;
-    grid-template-rows: auto auto 1fr auto;
+    /* Cardul are doar numărul, pictograma și titlul — fără text sub el.
+       Titlul ia spațiul rămas și stă la mijloc. */
+    grid-template-rows: auto auto 1fr;
+    justify-items: center;
+    text-align: center;
     gap: 0.55rem;
     padding: var(--sp-md);
     min-block-size: 11rem;
@@ -525,33 +529,8 @@
     letter-spacing: -0.022em;
     line-height: 1.1;
     font-variation-settings: "SOFT" 44, "WONK" 1, "opsz" 48;
+    align-self: center;
   }
-
-  .dashcard__desc {
-    font-size: var(--fs-xs);
-    color: var(--ink-faint);
-    line-height: 1.5;
-    align-self: start;
-  }
-
-  .dashcard__go {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: var(--fs-3xs);
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-ghost);
-  }
-
-  .dashcard__go svg {
-    inline-size: 0.85rem;
-    transition: transform var(--dur) var(--ease-spring);
-  }
-
-  .dashcard:hover .dashcard__go { color: var(--clay-deep); }
-  .dashcard:hover .dashcard__go svg { transform: translateX(0.3rem); }
 
   /* The two that do something rather than go somewhere. */
   .dashcard--call {
@@ -567,9 +546,6 @@
   }
   .dashcard--book .dashcard__no { color: var(--ochre); }
   .dashcard--book .dashcard__icon { color: var(--ochre); }
-  .dashcard--book .dashcard__desc { color: color-mix(in oklab, var(--paper) 72%, var(--ink)); }
-  .dashcard--book .dashcard__go { color: color-mix(in oklab, var(--paper) 66%, var(--ink)); }
-  .dashcard--book:hover .dashcard__go { color: var(--ochre); }
 
   .dash__foot {
     display: flex;
@@ -670,6 +646,15 @@
   .seal__core {
     inline-size: 42%;
     color: var(--clay);
+  }
+
+  /* Sigla, tăiată rotund ca să stea în cercul sigiliului. */
+  .seal__logo {
+    position: absolute;
+    inline-size: 46%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
   }
 
   @keyframes spin { to { transform: rotate(360deg); } }
@@ -1009,6 +994,12 @@
 
   .quote__text::before { content: "\201C"; margin-inline-start: -0.42em; }
   .quote__text::after { content: "\201D"; }
+
+  /* Citatul centrat: ghilimeaua nu mai atârnă în afara coloanei, fiindcă n-are
+     margine de care să atârne. */
+  .quote--centred { justify-items: center; text-align: center; }
+  .quote--centred .quote__text { max-inline-size: 28ch; }
+  .quote--centred .quote__text::before { margin-inline-start: 0; }
 
   .quote__by {
     font-size: var(--fs-2xs);

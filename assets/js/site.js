@@ -166,15 +166,12 @@
   const ICON = {
     rooms: '<path d="M3.4 13.8V7.4a4.6 4.6 0 0 1 9.2 0v6.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M1.6 13.8h12.8" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="10.3" cy="9.7" r=".9" fill="currentColor"/>',
     approach: '<circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M10.8 5.2 9.3 9.3 5.2 10.8 6.7 6.7Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>',
-    journal: '<path d="M8 4.6C7 3.6 5.6 3.1 3.4 3.1H2v9.3h1.6c2 0 3.4.5 4.4 1.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M8 4.6c1-1 2.4-1.5 4.6-1.5H14v9.3h-1.6c-2 0-3.4.5-4.4 1.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M8 4.6v9.2" fill="none" stroke="currentColor" stroke-width="1.3"/>',
     gallery: '<rect x="1.9" y="3.2" width="12.2" height="9.6" rx="2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M6.7 6.3 10.4 8l-3.7 1.7Z" fill="currentColor" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>',
     tour: '<circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M6.7 5.3v5.4l4.6-2.7Z" fill="currentColor"/>',
     blog: '<path d="M12.1 2.4 13.6 4l-7.4 7.4-2.2.7.7-2.2Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M2.4 14h11.2" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>',
     faq: '<circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M6.2 6.2c0-1 .8-1.8 1.8-1.8s1.8.8 1.8 1.8c0 1.3-1.8 1.4-1.8 2.9" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="8" cy="11.4" r=".85" fill="currentColor"/>',
-    hours: '<circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M8 4.3V8l2.7 1.7" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>',
     phone: '<path d="M5.6 2.4 7 5.1 5.6 6.6c.6 1.5 2.3 3.2 3.8 3.8l1.5-1.4 2.7 1.4-.4 2.4c-.1.6-.6 1-1.2 1C6.6 13.7 2.3 9.4 2.2 4c0-.6.4-1.1 1-1.2Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>',
     visit: '<rect x="2.2" y="3.4" width="11.6" height="10.4" rx="2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M2.2 6.7h11.6M5.4 2.2v2.5M10.6 2.2v2.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="m6 10.3 1.5 1.5 3-3" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>',
-    arrow: '<path d="M2 8h12M9 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>',
     close: '<path d="m3.5 3.5 9 9M12.5 3.5l-9 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>'
   };
 
@@ -184,26 +181,14 @@
     '<path d="M12 2.2c-5.4 0-9.8 4.4-9.8 9.8 0 1.7.5 3.4 1.3 4.9L2.1 21.9l5.2-1.4c1.4.8 3 1.2 4.7 1.2 5.4 0 9.8-4.4 9.8-9.8S17.4 2.2 12 2.2zm0 17.8c-1.5 0-3-.4-4.3-1.2l-.3-.2-3.1.8.8-3-.2-.3c-.9-1.4-1.3-3-1.3-4.6 0-4.6 3.8-8.4 8.4-8.4s8.4 3.8 8.4 8.4-3.8 8.5-8.4 8.5z" fill="currentColor"/>';
 
   const DESTINATIONS = [
-    { href: 'rooms.html', icon: 'rooms', title: 'Programe', go: 'Patru dintre ele',
-      desc: 'After school, școală de vară, ateliere și excursii. Mărimea grupelor, echipa și cât costă.' },
-    { href: 'approach.html', icon: 'approach', title: 'Abordare', go: 'Nouă minute',
-      desc: 'Blocuri lungi, unelte adevărate și adulți liniștiți — inclusiv cele patru lucruri la care nu ne pricepem.' },
-    { href: 'gallery.html', icon: 'gallery', title: 'Galerie', go: 'Patru filmulețe',
-      desc: 'Filmări din curte și din sală, exact așa cum arată o zi obișnuită la noi.' },
-    { href: 'tur-virtual.html', icon: 'tour', title: 'Tur Virtual', go: 'Cinci minute',
-      desc: 'O plimbare filmată prin curte și săli, cu sunet, fără montaj care să ascundă ceva.' },
-    { href: 'blog.html', icon: 'blog', title: 'Blog', go: 'Scris de echipă',
-      desc: 'Anunțuri, noutăți și povești din săptămâna care a trecut. Echipa se autentifică și publică.' },
-    { href: 'journal.html', icon: 'journal', title: 'Jurnal', go: 'Trei articole',
-      desc: 'Însemnări din hol, scrise de cine s-a nimerit să fie acolo în momentul acela.' },
-    { href: 'faq.html', icon: 'faq', title: 'Întrebări frecvente', go: 'Răspunsuri scurte',
-      desc: 'Tot ce ne întreabă părinții înainte să vină în vizită, adunat într-un singur loc.' },
-    { href: 'visit.html', icon: 'hours', title: 'Tarife &amp; program', go: 'Chestiuni practice',
-      desc: 'Orar, cum ajungeți la noi, lista de așteptare și ce intră în taxă.' },
-    { href: 'tel:' + CONTACT.tel, icon: 'phone', title: 'Sună-ne', go: CONTACT.telPretty, mod: 'call',
-      desc: 'Cineva răspunde întotdeauna, ceea ce e mai mult decât putem promite despre e-mail.' },
-    { href: 'visit.html#enquire', icon: 'visit', title: 'Programează o vizită', go: 'Cere o marți', mod: 'book',
-      desc: 'La zece dimineața, când e gălăgie. Patruzeci de minute, fără prezentare și fără mapă.' }
+    { href: 'rooms.html', icon: 'rooms', title: 'Serviciile noastre' },
+    { href: 'approach.html', icon: 'approach', title: 'Misiune și viziune' },
+    { href: 'gallery.html', icon: 'gallery', title: 'Galerie' },
+    { href: 'tur-virtual.html', icon: 'tour', title: 'Tur Virtual' },
+    { href: 'blog.html', icon: 'blog', title: 'Blog' },
+    { href: 'faq.html', icon: 'faq', title: 'Întrebări frecvente' },
+    { href: 'tel:' + CONTACT.tel, icon: 'phone', title: 'Sună-ne', mod: 'call' },
+    { href: 'visit.html#enquire', icon: 'visit', title: 'Programează o vizită', mod: 'book' }
   ];
 
   function dashboard() {
@@ -240,10 +225,6 @@
         <span class="dashcard__no">${String(i + 1).padStart(2, '0')}</span>
         <svg class="dashcard__icon" viewBox="0 0 16 16" aria-hidden="true">${ICON[d.icon]}</svg>
         <span class="dashcard__title">${d.title}</span>
-        <span class="dashcard__desc">${d.desc}</span>
-        <span class="dashcard__go">${d.go}
-          <svg viewBox="0 0 16 16" aria-hidden="true">${ICON.arrow}</svg>
-        </span>
       </a>`).join('');
 
     panel.innerHTML = `

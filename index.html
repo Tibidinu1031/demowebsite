@@ -174,13 +174,12 @@
            butonului, așa că rămâne o navigație simplă pe post de plasă. -->
       <noscript>
         <nav class="masthead__nav" aria-label="Principal">
-          <a class="navlink" href="rooms.html">Programe</a>
-          <a class="navlink" href="approach.html">Abordare</a>
+          <a class="navlink" href="rooms.html">Serviciile noastre</a>
+          <a class="navlink" href="approach.html">Misiune și viziune</a>
           <a class="navlink" href="gallery.html">Galerie</a>
           <a class="navlink" href="tur-virtual.html">Tur Virtual</a>
           <a class="navlink" href="blog.html">Blog</a>
           <a class="navlink" href="faq.html">Întrebări</a>
-          <a class="navlink" href="visit.html">Tarife &amp; program</a>
         </nav>
       </noscript>
 
@@ -197,7 +196,7 @@
 <main id="main">
 
   <!-- ============================================================ erou -->
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="hero__media">
       <video class="hero__media-main" data-hero-video autoplay muted loop
              playsinline preload="auto" aria-hidden="true" tabindex="-1">
@@ -208,23 +207,28 @@
 
     <div class="hero__body shell">
       <div class="hero__inner u-wide">
-        <p class="eyebrow">Târgoviște &middot; din 2009</p>
 
-        <h1 class="hero__title">
-          <span class="hero__welcome">Bine ați venit la</span>
-          <span class="marked" data-mark>Arcobaleno<svg viewBox="0 0 420 34" preserveAspectRatio="none" aria-hidden="true"><path d="M7 22.5C96 11 214 6.5 413 12.5"/></svg></span>
-          Afterschool
-        </h1>
+        <!-- Titlul și sigiliul stau pe același rând: sigiliul la dreapta
+             numelui. Pe ecrane înguste sigiliul nu se afișează, iar rândul
+             rămâne doar cu titlul. -->
+        <div class="hero__head">
+          <h1 class="hero__title">
+            <span class="hero__welcome">Bine ați venit la</span>
+            <span class="marked" data-mark>Arcobaleno<svg viewBox="0 0 420 34" preserveAspectRatio="none" aria-hidden="true"><path d="M7 22.5C96 11 214 6.5 413 12.5"/></svg></span>
+            Afterschool
+          </h1>
+
+          <div class="seal hero__seal" aria-hidden="true">
+          </div>
+        </div>
 
         <p class="lede hero__lede">
-          Un after school pe strada Preot Toma Georgescu, în Târgoviște. Două săli,
-          o curte mare, patruzeci și unu de copii și o regulă bătută în cuie: noroiul
-          are voie înăuntru până la banca de cizme.
+          Educație integrativă pentru minte, emoții și suflet. <br> Te invităm să ne cunoști!
         </p>
 
         <div class="cluster hero__actions">
-          <a class="btn btn--clay btn--lg" href="visit.html">Programează o vizită</a>
-          <a class="btn btn--ghost btn--lg" href="faq.html">Întrebări frecvente</a>
+          <a class="btn btn--clay" href="visit.html">Programează o vizită</a>
+          <a class="btn btn--ghost" href="faq.html">Întrebări frecvente</a>
 
           <div class="socials">
             <a class="social" href="https://www.instagram.com/after_school_arcobaleno/" target="_blank" rel="noopener">
@@ -237,17 +241,8 @@
             </a>
           </div>
         </div>
-      </div>
-    </div>
 
-    <div class="seal hero__seal" aria-hidden="true">
-      <svg class="seal__ring" viewBox="0 0 120 120">
-        <defs><path id="sealpath" d="M60 12a48 48 0 1 1 0 96 48 48 0 0 1 0-96"/></defs>
-        <text><textPath href="#sealpath" startOffset="0">
-          Arcobaleno &middot; Afterschool &middot; Târgoviște &middot;
-        </textPath></text>
-      </svg>
-      <svg class="seal__core" viewBox="0 0 40 40"><use href="#i-mark"/></svg>
+      </div>
     </div>
 
     <div class="hero__controls">
@@ -336,7 +331,7 @@
         <div class="rhythm__row" data-from="14:30" data-to="15:15">
           <p class="rhythm__time">14:30</p>
           <p class="rhythm__what">Gustare</p>
-          <p class="rhythm__note">Pentru ca stim ca mintea funtioneaza mai bine pe stomacul plin.</p>
+          <p class="rhythm__note">Pentru că știm că mintea funcționează mai bine pe stomacul plin.</p>
         </div>
         <div class="rhythm__row" data-from="15:15" data-to="16:00">
           <p class="rhythm__time">15:15</p>
@@ -369,31 +364,32 @@
       <div class="rooms__head">
         <h2>Patru programe,<br>același loc</h2>
         <p class="prose u-faint">
-          Anul școlar, vara, atelierele de peste săptămână și ieșirile din oraș. Se pot
-          lua separat sau împreună &mdash; cei mai mulți copii rămân cu noi de la
-          septembrie până la finalul lui august.
+          Anul școlar, vara, cursurile și atelierele de peste săptămână și excursiile.
         </p>
       </div>
     </div>
 
     <div class="u-wide u-mt-lg">
+      <!-- Textele și cifrele de aici sunt aceleași cu cele de pe rooms.html.
+           Dacă se schimbă acolo, se schimbă și aici. -->
       <article class="room reveal" data-reveal>
         <p class="room__no">01</p>
         <div class="room__head">
           <h3 class="room__name">After school în timpul anului școlar</h3>
-          <p class="room__ages">6 &ndash; 11 ani &middot; septembrie &ndash; iunie</p>
+          <p class="room__ages">6 &ndash; 11 ani</p>
         </div>
         <div class="room__body">
           <p class="prose" style="font-size:var(--fs-sm)">
-            Venim după copii pe jos, de la școlile din apropiere. Mâncăm cald, facem
-            temele la masa lungă cu un adult care stă lângă tine dar nu le face în locul
-            tău, și abia după aceea începe partea bună a după-amiezii.
+            Din septembrie până în iunie oferim un program educațional axat pe nevoile
+            copiilor în conformitate cu aspectele psiho-pedagogice ale dezvoltării lor.
+            Lucrăm pe grupe de vârstă, iar cadrele didactice sunt temeinic pregătite cu
+            cele mai moderne metode.
           </p>
           <dl class="room__facts">
-            <div><dt>Program</dt><dd>12:00 &ndash; 18:00</dd></div>
-            <div><dt>Mărimea grupei</dt><dd>Până la 24 de copii</dd></div>
-            <div><dt>Îi luăm de la</dt><dd>3 școli, pe jos</dd></div>
-            <div><dt>Include</dt><dd>Masă caldă, teme, transport</dd></div>
+            <div><dt>Perioadă</dt><dd>Septembrie &ndash; Iunie</dd></div>
+            <div><dt>Program</dt><dd>11:00 &ndash; 18:00</dd></div>
+            <div><dt>Mărimea grupei</dt><dd>Maxim 10 copii</dd></div>
+            <div><dt>Cursuri și ateliere</dt><dd>Șah, engleză, karate, pictură, grafică, dans, teatru, LEGO, Micii Bucătari, Știința pentru copii, Dezvoltare Personală, Inteligență Emoțională</dd></div>
           </dl>
         </div>
         <div class="room__swatch" style="--swatch:var(--sky-wash)">
@@ -405,19 +401,17 @@
         <p class="room__no">02</p>
         <div class="room__head">
           <h3 class="room__name">Școala de vară în vacanță</h3>
-          <p class="room__ages">5 &ndash; 11 ani &middot; iulie &ndash; august</p>
+          <p class="room__ages">+4 ani</p>
         </div>
         <div class="room__body">
           <p class="prose" style="font-size:var(--fs-sm)">
-            Când se termină școala, programul nu se oprește &mdash; se mută afară.
-            Săptămâni cu temă, dimineți lungi în curte, gătit, construit și o zi pe
-            săptămână petrecută în afara orașului.
+            Când se termină școala, programul nu se oprește.
           </p>
           <dl class="room__facts">
-            <div><dt>Program</dt><dd>8:00 &ndash; 18:00</dd></div>
-            <div><dt>Înscriere</dt><dd>Pe săptămâni întregi</dd></div>
-            <div><dt>Mărimea grupei</dt><dd>Până la 20 de copii</dd></div>
-            <div><dt>Include</dt><dd>Trei mese, materiale, o ieșire pe săptămână</dd></div>
+            <div><dt>Perioadă</dt><dd>Iunie &ndash; Septembrie</dd></div>
+            <div><dt>Program</dt><dd>07:30 &ndash; 18:00</dd></div>
+            <div><dt>Mărimea grupei</dt><dd>Maxim 10 de copii</dd></div>
+            <div><dt>Cursuri și ateliere</dt><dd>Șah, engleză, karate, pictură, grafică, dans, teatru, LEGO, Micii Bucătari, Știința pentru copii, Dezvoltare Personală, Inteligență Emoțională</dd></div>
           </dl>
         </div>
         <div class="room__swatch" style="--swatch:var(--sage-wash)">
@@ -429,19 +423,17 @@
         <p class="room__no">03</p>
         <div class="room__head">
           <h3 class="room__name">Cursuri și ateliere interactive</h3>
-          <p class="room__ages">5 &ndash; 11 ani &middot; tot anul</p>
+          <p class="room__ages">5 &ndash; 11 ani</p>
         </div>
         <div class="room__body">
           <p class="prose" style="font-size:var(--fs-sm)">
-            Tâmplărie, gătit, robotică, teatru, pictură și grădinărit. Copiii aleg la
-            începutul fiecărui trimestru, iar grupele rămân mici pentru că altfel nu are
-            cine să țină ferăstrăul de celălalt capăt.
+            Copiii care nu sunt înscriși la after school/școala de vară pot participa la
+            cursurile și atelierele noastre, în limita locurilor disponibile.
           </p>
           <dl class="room__facts">
-            <div><dt>Frecvență</dt><dd>De două ori pe săptămână</dd></div>
-            <div><dt>Durata unui atelier</dt><dd>60 &ndash; 90 de minute</dd></div>
+            <div><dt>Frecvență</dt><dd>O dată pe săptămână</dd></div>
+            <div><dt>Durata unui atelier</dt><dd>50 minute</dd></div>
             <div><dt>Mărimea grupei</dt><dd>6 &ndash; 10 copii</dd></div>
-            <div><dt>Se aleg</dt><dd>La începutul fiecărui trimestru</dd></div>
           </dl>
         </div>
         <div class="room__swatch" style="--swatch:var(--ochre-wash)">
@@ -453,19 +445,16 @@
         <p class="room__no">04</p>
         <div class="room__head">
           <h3 class="room__name">Excursii</h3>
-          <p class="room__ages">6 &ndash; 11 ani &middot; lunar și săptămânal vara</p>
+          <p class="room__ages">+4 ani</p>
         </div>
         <div class="room__body">
           <p class="prose" style="font-size:var(--fs-sm)">
-            O ieșire pe lună în timpul anului școlar și una pe săptămână în vacanța de
-            vară. Muzee, ateliere meșteșugărești, ferme și pădurea de la marginea
-            orașului. Plecăm dimineața și ne întoarcem înainte de ora de plecare acasă.
+            Anunțăm destinația cu două săptămâni înainte, pe Facebook și pe WhatsApp.
           </p>
           <dl class="room__facts">
-            <div><dt>În anul școlar</dt><dd>O ieșire pe lună</dd></div>
-            <div><dt>Vara</dt><dd>O ieșire pe săptămână</dd></div>
-            <div><dt>Însoțitori</dt><dd>1 adult la 6 copii</dd></div>
-            <div><dt>Transport</dt><dd>Autocar licențiat</dd></div>
+            <div><dt>În timpul anului școlar</dt><dd>În fiecare vineri</dd></div>
+            <div><dt>Vara</dt><dd>Zilnic (cu excepția zilelor ploioase)</dd></div>
+            <div><dt>Însoțitori</dt><dd>1 adult la 10 copii</dd></div>
           </dl>
         </div>
         <div class="room__swatch" style="--swatch:var(--clay-wash)">
@@ -721,42 +710,6 @@
     </div>
   </section>
 
-  <!-- =========================================================== jurnal -->
-  <section class="section shell">
-    <div class="u-wide">
-      <div class="rooms__head">
-        <div>
-          <p class="eyebrow">Din jurnal</p>
-          <h2 class="u-mt-lg">Însemnări din hol</h2>
-        </div>
-        <a class="arrow-link" href="journal.html">
-          Toate însemnările
-          <svg aria-hidden="true"><use href="#i-arrow"/></svg>
-        </a>
-      </div>
-
-      <div class="entries u-mt-lg reveal" data-reveal>
-        <article class="entry">
-          <p class="entry__date"><time datetime="2026-06-12">12 iun. 2026</time></p>
-          <h3 class="entry__title"><a href="journal-the-hole.html">Ce am învățat din groapă</a></h3>
-          <p class="entry__meta">6 min</p>
-          <p class="entry__excerpt">Patru copii au săpat aceeași groapă unsprezece săptămâni. Nimeni nu a stabilit-o ca proiect. Iată ce a ieșit din ea, în afară de vreo tonă de lut.</p>
-        </article>
-        <article class="entry">
-          <p class="entry__date"><time datetime="2026-04-28">28 apr. 2026</time></p>
-          <h3 class="entry__title"><a href="journal-boredom.html">În apărarea unei după-amiezi plictisitoare</a></h3>
-          <p class="entry__meta">4 min</p>
-          <p class="entry__excerpt">De ce stau patruzeci de minute neplanificate în mijlocul orarului nostru și ce se întâmplă de obicei în minutul treizeci și doi.</p>
-        </article>
-        <article class="entry">
-          <p class="entry__date"><time datetime="2026-03-09">09 mar. 2026</time></p>
-          <h3 class="entry__title"><a href="journal-bread.html">Pâinea nu s-a schimbat din 2011</a></h3>
-          <p class="entry__meta">3 min</p>
-          <p class="entry__excerpt">Ana despre de ce pâinea de miercuri e cea mai importantă lecție a săptămânii și de ce rețeta e plictisitoare intenționat.</p>
-        </article>
-      </div>
-    </div>
-  </section>
 
   <!-- ========================================================== părinți -->
   <section class="section panel panel--sky panel--seam is-panel shell">
@@ -797,40 +750,89 @@
         <p class="eyebrow">Întrebări frecvente</p>
         <h2 style="font-size:var(--fs-3xl)">Ce ne întreabă<br>părinții</h2>
         <p class="form__note">
-          Cele patru care revin cel mai des. Restul, împreună cu răspunsurile lungi,
-          sunt pe pagina dedicată.
+          Aceleași întrebări și răspunsuri ca pe pagina dedicată.
         </p>
         <p class="u-mt-lg">
           <a class="arrow-link" href="faq.html">
-            Toate întrebările frecvente
+            Vezi pagina de întrebări frecvente
             <svg aria-hidden="true"><use href="#i-arrow"/></svg>
           </a>
         </p>
       </div>
 
+      <!-- Întrebările sunt copiate din faq.html. Dacă se schimbă acolo, se
+           schimbă și aici. -->
       <div class="faq reveal" data-reveal>
+        <details>
+          <summary>De ce Arcobaleno?</summary>
+          <div class="faq__body">
+            <p>La noi, este locul unde copilăria și performanța merg împreună. Rezultatele academice merg mână în mână cu atenția reală pentru copil, pentru ritmul și nevoile lui. Un mediu în care copilul se simte în siguranță și continuă să se dezvolte.</p>
+          </div>
+        </details>
         <details>
           <summary>Ce se întâmplă, de fapt, la o vizită?</summary>
           <div class="faq__body">
-            <p>Nicoleta vă întâmpină la ușă la zece și vă plimbă prin ambele săli și prin curte în timp ce se folosesc. O să stați în drum, și e în regulă. Nu există prezentare, mapă sau slideshow. La final stați în bucătărie cu o cafea și întrebați tot ce vreți, cât durează.</p>
+            <p>Ne cunoaștem, vizităm locația, părinții pot pune întrebări, se prezintă echipa și oferta educațională (program, cursuri, ateliere, activități și excursii).</p>
           </div>
         </details>
         <details>
-          <summary>Cum funcționează lista de așteptare?</summary>
+          <summary>Pot să vin cu copilul?</summary>
           <div class="faq__body">
-            <p>Strict în ordinea datelor, cu o singură excepție: frații copiilor care sunt deja la noi intră primii. Nu percepem taxă pentru înscrierea pe listă și nu ținem locuri deoparte. Dacă vi se oferă un loc, aveți două săptămâni să vă hotărâți, iar un „nu” nu vă scoate de pe listă pentru mai târziu.</p>
+            <p>Da, și cei mai mulți părinți așa fac. Prezența copilului este importantă deoarece el este cel care trebuie să se familiarizeze cu personalul și spațiul.</p>
           </div>
         </details>
         <details>
-          <summary>Asigurați mâncarea? Ce facem cu alergiile?</summary>
+          <summary>Ce înseamnă educația integrativă la Arcobaleno?</summary>
           <div class="faq__body">
-            <p>Totul se gătește aici, de către Ana: micul dejun la 8:15, prânzul la 12:15 și gustări la 14:30 și 15:45. Totul e inclus în taxă. Suntem un spațiu fără nuci și ținem de ani de zile meniuri fără lactoze, fără gluten și vegane în paralel cu meniul principal. Scrieți-ne în formular și discutăm serios înainte să începeți.</p>
+            <p>Înseamnă că nu ne oprim doar la teme și lucru suplimentar. Ne ocupăm de dezvoltarea completă a copilului (minte, emoții și suflet) prin limbi străine, dans, teatru, karate, șah, inteligență emoțională și ieșiri regulate în natură. Credem că adevărata educație începe acolo unde se închide caietul.</p>
           </div>
         </details>
         <details>
-          <summary>Ce se întâmplă când plouă?</summary>
+          <summary>Ce vârste acceptați la Arcobaleno?</summary>
           <div class="faq__body">
-            <p>Ieșim afară. Ținem patruzeci de rânduri de haine impermeabile și vreo șaizeci de perechi de cizme în hol, în toate mărimile, ca nimeni să nu piardă curtea din lipsă de haină. Trimiteți un rând de haine de schimb și așteptați-vă să primiți o pungă vineri.</p>
+            <p>În timpul anului școlar, copiii sunt de la clasa pregătitoare la clasa a V-a. În timpul vacanțelor școlare, primim copii de la 4 ani.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Copilul are posibilitatea de a se odihni după masa de prânz?</summary>
+          <div class="faq__body">
+            <p>Da, copiii au pătuțuri individuale și se pot relaxa/dormi după masa de prânz.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Cum se efectuează temele?</summary>
+          <div class="faq__body">
+            <p>Lucrăm pe grupe de vârstă, maxim 10 copii la un cadru didactic, respectând programa școlară, dar completată de metode moderne și activități care stimulează motivația și curiozitatea.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Cine se ocupă de copii?</summary>
+          <div class="faq__body">
+            <p>Echipa este formată din cadre didactice, cu studii în domeniu și experiență.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Cum se realizează legătura cu părinții?</summary>
+          <div class="faq__body">
+            <p>Părinții sunt informați, implicați și sprijiniți pe toată durata contractului, iar comunicarea este constantă și transparentă.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Sediul este deschis în timpul vacanțelor?</summary>
+          <div class="faq__body">
+            <p>Da. Sediul este deschis și în timpul vacanțelor școlare, cu program prelungit: 07:30 &ndash; 18:00.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Există reduceri pentru frați?</summary>
+          <div class="faq__body">
+            <p>Oferim 10% reducere pentru al doilea copil.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Ce alte reduceri există?</summary>
+          <div class="faq__body">
+            <p>Oferim 10% reducere pentru recomandări finalizate cu înscriere.</p>
           </div>
         </details>
       </div>
@@ -876,47 +878,28 @@
       <div class="stack">
         <a class="mark" href="index.html">
           <span class="mark__badge"><svg class="mark__glyph" aria-hidden="true"><use href="#i-mark"/></svg><img class="mark__logo" src="assets/img/logo.jpg" alt="" data-optional decoding="async"></span>
-          <span class="mark__type">
-            <span class="mark__name">Arcobaleno</span>
-            <span class="mark__sub">After School</span>
-          </span>
+          <span class="mark__type"><span class="mark__name">Arcobaleno</span><span class="mark__sub">After School</span></span>
         </a>
-        <p style="font-size:var(--fs-sm);max-inline-size:32ch;opacity:.8">
-          O școală mică pe strada Preot Toma Georgescu, care face un lucru obișnuit cu grijă, din 2009.
-        </p>
       </div>
-
       <div class="stack stack--sm">
         <p class="eyebrow eyebrow--bare">Vizitați-ne</p>
-        <p style="font-size:var(--fs-sm);opacity:.85">
-          Str. Preot Toma Georgescu nr. 12<br>Târgoviște
-        </p>
-        <p style="font-size:var(--fs-sm);opacity:.85">
-          Luni&ndash;vineri, 7:30 &ndash; 18:00<br>
-          Închis trei săptămâni în august
-        </p>
+        <p style="font-size:var(--fs-sm);opacity:.85">Str. Preot Toma Georgescu nr. 12, Târgoviște<br>Dâmbovița</p>
       </div>
-
       <div class="stack stack--sm">
         <p class="eyebrow eyebrow--bare">Secțiuni</p>
         <ul role="list" class="colophon__links">
-          <li><a href="rooms.html">Programe &amp; tarife</a></li>
-          <li><a href="approach.html">Abordare</a></li>
+          <li><a href="rooms.html">Serviciile noastre</a></li>
+          <li><a href="approach.html">Misiune și viziune</a></li>
           <li><a href="gallery.html">Galerie</a></li>
           <li><a href="tur-virtual.html">Tur Virtual</a></li>
           <li><a href="blog.html">Blog</a></li>
-          <li><a href="journal.html">Jurnal</a></li>
           <li><a href="faq.html">Întrebări frecvente</a></li>
           <li><a href="visit.html">Programează o vizită</a></li>
         </ul>
       </div>
-
       <div class="stack stack--sm">
         <p class="eyebrow eyebrow--bare">Scrieți-ne</p>
-        <p style="font-size:var(--fs-sm);opacity:.85">
-          <a href="tel:+40721996570">0721 996 570</a><br>
-          <a href="mailto:salut@arcobaleno.ro">salut@arcobaleno.ro</a>
-        </p>
+        <p style="font-size:var(--fs-sm);opacity:.85"><a href="tel:+40721996570">0721 996 570</a></p>
         <p><a class="btn btn--ghost btn--sm" href="https://wa.me/40721996570" target="_blank" rel="noopener">Scrie-ne pe WhatsApp</a></p>
         <div class="socials">
           <a class="social" href="https://www.instagram.com/after_school_arcobaleno/" target="_blank" rel="noopener">
@@ -928,13 +911,11 @@
             <svg aria-hidden="true"><use href="#i-facebook"/></svg>
           </a>
         </div>
-        <p><a class="btn btn--ghost btn--sm" href="visit.html">Intră pe lista de așteptare</a></p>
+        <p><a class="btn btn--clay btn--sm" href="visit.html#enquire">Programează o vizită</a></p>
       </div>
     </div>
-
     <div class="colophon__base">
       <p>&copy; 2026 Arcobaleno Afterschool</p>
-      <p>Desenat și construit pe strada Preot Toma Georgescu &middot; Actualizat pe 1 august 2026</p>
     </div>
   </div>
 </footer>
