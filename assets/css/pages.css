@@ -661,6 +661,49 @@
 
   .section__head--centred h2 { max-inline-size: 20ch; }
 
+  /* ============================================================== poze
+     Grilă de fotografii. Cadrele au toate aceeași formă, ca rândurile să fie
+     drepte deși pozele vin și pe lat, și pe înalt; `object-fit` taie din ele
+     în loc să le turtească. */
+  .shots {
+    display: grid;
+    gap: var(--sp-2xs);
+    /* Pe telefon două pe rând: una singură ar însemna douăzeci de ecrane de
+       derulat pentru douăzeci de poze. */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (min-width: 40em) {
+    .shots {
+      gap: var(--sp-sm);
+      grid-template-columns: repeat(auto-fill, minmax(min(13rem, 100%), 1fr));
+    }
+  }
+
+  .shot {
+    display: block;
+    aspect-ratio: 3 / 4;
+    border-radius: var(--r-md);
+    overflow: hidden;
+    background: var(--sky-wash);
+    border: 1px solid var(--rule);
+    transition: transform var(--dur) var(--ease-out),
+                box-shadow var(--dur) var(--ease-out);
+  }
+
+  .shot img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .shot:hover,
+  .shot:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: var(--lift);
+  }
+
   /* ========================================================== fondatoarea
      Fotografia la stânga, textul la dreapta. Sub 48em cad una sub alta, cu
      fotografia prima — altfel poza ajunge un dreptunghi lat și turtit. */

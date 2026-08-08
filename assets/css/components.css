@@ -997,6 +997,18 @@
     color: inherit;
   }
 
+  /* Sigla sursei, deasupra textului. Facebook e un cerc plin, Google o literă
+     decupată — la aceeași înălțime, cercul pare mai greu, deci e puțin mai mic. */
+  .note__brand { display: flex; }
+
+  .note__logo {
+    inline-size: 1.5rem;
+    block-size: 1.5rem;
+    flex: none;
+  }
+
+  .note__logo--facebook { inline-size: 1.35rem; block-size: 1.35rem; }
+
   .note--review footer {
     display: flex;
     flex-wrap: wrap;

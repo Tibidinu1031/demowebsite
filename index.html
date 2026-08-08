@@ -128,6 +128,18 @@
       <circle cx="12" cy="12" r="9.3" fill="none" stroke="currentColor" stroke-width="1.8"/>
       <path d="M13.9 8.2h-1.2c-1 0-1.5.6-1.5 1.6v10M9.4 12.4h4.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
     </symbol>
+    <!-- Siglele Google și Facebook, folosite doar ca să se vadă de unde vine
+         fiecare recenzie. Culorile sunt ale mărcilor, deci nu moștenesc
+         culoarea textului ca restul pictogramelor. -->
+    <symbol id="i-google-brand" viewBox="0 0 48 48">
+      <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+      <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+      <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.28-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.55 10.78l7.98-6.19z"/>
+      <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+    </symbol>
+    <symbol id="i-facebook-brand" viewBox="0 0 24 24">
+      <path fill="#1877F2" d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.96h-1.51c-1.49 0-1.96.93-1.96 1.89v2.26h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/>
+    </symbol>
     <!-- Arcul curcubeului din siglă, reprodus ca degrade — folosit pe
          sublinierea desenată de mână de sub „Arcobaleno” din titlul erou.
          `objectBoundingBox` (implicit) face ca degradeul să se întindă pe
@@ -555,66 +567,76 @@
     </div>
 
     <!-- ATENȚIE, ÎNAINTE DE PUBLICARE
-         Cele cinci cartonașe de mai jos sunt GOALE intenționat. Textul unei
-         recenzii și numele celui care a scris-o nu pot fi inventate: ar
-         însemna să punem în gura unor părinți adevărați vorbe pe care nu
-         le-au spus.
+         „Lorem Ipsum” de mai jos e text de umplutură, pus ca să se vadă
+         așezarea. NU e o recenzie și nu are ce căuta pe site-ul publicat.
 
-         Ce e de făcut, pentru fiecare cartonaș:
-           1. Deschideți recenzia adevărată (legăturile de pe cartonașe duc la
-              listele de recenzii de pe Google și de pe Facebook).
-           2. Copiați textul în <p> și numele în <footer>.
-           3. Dacă recenzia are o adresă proprie, puneți-o în `href`, ca să
-              ducă exact la ea. Altfel, legătura de acum duce la listă, ceea
-              ce e corect, doar mai puțin precis.
-
-         Un cartonaș rămas necompletat nu se afișează: vezi `.note--gol` din
-         components.css. Așa nu poate ajunge un text de probă pe site. -->
+         Pentru fiecare cartonaș:
+           1. Deschideți recenzia adevărată — sigla de sus duce la lista de
+              recenzii de pe Google, respectiv de pe Facebook.
+           2. Puneți textul ei în <p> și numele celui care a scris-o în
+              <span class="note__who">.
+           3. Dacă recenzia are adresă proprie, treceți-o în atributul href
+              al cartonașului, ca legătura să ducă exact la ea, nu la listă. -->
     <div class="notes u-wide u-mt-lg reveal" data-reveal>
 
-      <a class="note note--review note--gol" target="_blank" rel="noopener"
-         href="https://www.google.com/maps/search/?api=1&amp;query=After%20School%20Arcobaleno%20T%C3%A2rgovi%C8%99te">
+      <a class="note note--review" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=After%20School%20Arcobaleno%20T%C3%A2rgovi%C8%99te">
+        <span class="note__brand">
+          <svg class="note__logo note__logo--google" aria-hidden="true"><use href="#i-google-brand"/></svg>
+          <span class="u-sr">Recenzie pe Google</span>
+        </span>
         <div class="note__stars" aria-label="Cinci din cinci">
           <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
         </div>
-        <p></p>
-        <footer><span class="note__who"></span><span class="note__source">Google</span></footer>
+        <p>Lorem Ipsum</p>
+        <footer><span class="note__who"></span></footer>
       </a>
 
-      <a class="note note--review note--gol" target="_blank" rel="noopener"
-         href="https://www.google.com/maps/search/?api=1&amp;query=After%20School%20Arcobaleno%20T%C3%A2rgovi%C8%99te">
+      <a class="note note--review" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=After%20School%20Arcobaleno%20T%C3%A2rgovi%C8%99te">
+        <span class="note__brand">
+          <svg class="note__logo note__logo--google" aria-hidden="true"><use href="#i-google-brand"/></svg>
+          <span class="u-sr">Recenzie pe Google</span>
+        </span>
         <div class="note__stars" aria-label="Cinci din cinci">
           <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
         </div>
-        <p></p>
-        <footer><span class="note__who"></span><span class="note__source">Google</span></footer>
+        <p>Lorem Ipsum</p>
+        <footer><span class="note__who"></span></footer>
       </a>
 
-      <a class="note note--review note--gol" target="_blank" rel="noopener"
-         href="https://www.google.com/maps/search/?api=1&amp;query=After%20School%20Arcobaleno%20T%C3%A2rgovi%C8%99te">
+      <a class="note note--review" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=After%20School%20Arcobaleno%20T%C3%A2rgovi%C8%99te">
+        <span class="note__brand">
+          <svg class="note__logo note__logo--google" aria-hidden="true"><use href="#i-google-brand"/></svg>
+          <span class="u-sr">Recenzie pe Google</span>
+        </span>
         <div class="note__stars" aria-label="Cinci din cinci">
           <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
         </div>
-        <p></p>
-        <footer><span class="note__who"></span><span class="note__source">Google</span></footer>
+        <p>Lorem Ipsum</p>
+        <footer><span class="note__who"></span></footer>
       </a>
 
-      <a class="note note--review note--gol" target="_blank" rel="noopener"
-         href="https://www.facebook.com/afterschoolarcobalenotargoviste/reviews">
+      <a class="note note--review" target="_blank" rel="noopener" href="https://www.facebook.com/afterschoolarcobalenotargoviste/reviews">
+        <span class="note__brand">
+          <svg class="note__logo note__logo--facebook" aria-hidden="true"><use href="#i-facebook-brand"/></svg>
+          <span class="u-sr">Recenzie pe Facebook</span>
+        </span>
         <div class="note__stars" aria-label="Cinci din cinci">
           <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
         </div>
-        <p></p>
-        <footer><span class="note__who"></span><span class="note__source">Facebook</span></footer>
+        <p>Lorem Ipsum</p>
+        <footer><span class="note__who"></span></footer>
       </a>
 
-      <a class="note note--review note--gol" target="_blank" rel="noopener"
-         href="https://www.facebook.com/afterschoolarcobalenotargoviste/reviews">
+      <a class="note note--review" target="_blank" rel="noopener" href="https://www.facebook.com/afterschoolarcobalenotargoviste/reviews">
+        <span class="note__brand">
+          <svg class="note__logo note__logo--facebook" aria-hidden="true"><use href="#i-facebook-brand"/></svg>
+          <span class="u-sr">Recenzie pe Facebook</span>
+        </span>
         <div class="note__stars" aria-label="Cinci din cinci">
           <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
         </div>
-        <p></p>
-        <footer><span class="note__who"></span><span class="note__source">Facebook</span></footer>
+        <p>Lorem Ipsum</p>
+        <footer><span class="note__who"></span></footer>
       </a>
     </div>
   </section>
