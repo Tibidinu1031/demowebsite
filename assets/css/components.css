@@ -1625,6 +1625,84 @@
 
   .lightbox__close svg { inline-size: 1rem; }
 
+  /* --------------------------------------------------- galeria de fotografii
+     Aceeași fereastră ca la filme, dar cu o fotografie în ea și cu săgeți în
+     lateral. Rama e mai largă: o fotografie are ce arăta. */
+  .lightbox--photo .lightbox__frame {
+    max-inline-size: min(100%, 64rem);
+    gap: var(--sp-xs);
+  }
+
+  .lightbox__photo {
+    inline-size: auto;
+    max-inline-size: 100%;
+    /* Lasă loc sus pentru butonul de închidere și jos pentru descriere. */
+    max-block-size: calc(100svh - 10rem);
+    border-radius: var(--r-lg);
+    box-shadow: var(--lift-lg);
+    background: color-mix(in oklab, var(--ink) 40%, transparent);
+  }
+
+  .lightbox--photo figcaption {
+    display: grid;
+    gap: 0.15rem;
+    justify-items: center;
+    font-size: var(--fs-xs);
+    color: color-mix(in oklab, var(--paper) 78%, transparent);
+    text-align: center;
+  }
+
+  .lightbox__count {
+    font-size: var(--fs-3xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: color-mix(in oklab, var(--paper) 52%, transparent);
+    font-variant-numeric: lining-nums;
+  }
+
+  .lightbox__nav {
+    position: absolute;
+    inset-block-start: 50%;
+    translate: 0 -50%;
+    inline-size: 3rem;
+    block-size: 3rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid color-mix(in oklab, var(--paper) 34%, transparent);
+    background: color-mix(in oklab, var(--ink) 55%, transparent);
+    color: var(--paper);
+    cursor: pointer;
+    transition: background-color var(--dur-fast) var(--ease-out),
+                transform var(--dur) var(--ease-spring);
+  }
+
+  .lightbox__nav:hover { background: color-mix(in oklab, var(--paper) 18%, transparent); }
+  .lightbox__nav svg { inline-size: 1.15rem; }
+
+  .lightbox__nav--prev { inset-inline-start: var(--gutter); }
+  .lightbox__nav--next { inset-inline-end: var(--gutter); }
+  /* Aceeași săgeată, întoarsă. */
+  .lightbox__nav--next svg { scale: -1 1; }
+
+  .lightbox__nav--prev:hover { transform: translateX(-2px); }
+  .lightbox__nav--next:hover { transform: translateX(2px); }
+
+  /* Pe ecran îngust săgețile nu mai încap în lateral fără să stea peste
+     fotografie: coboară sub ea, una lângă alta. */
+  @media (max-width: 40em) {
+    .lightbox__nav {
+      inset-block-start: auto;
+      inset-block-end: var(--sp-md);
+      translate: 0;
+      inline-size: 2.75rem;
+      block-size: 2.75rem;
+    }
+    .lightbox__nav--prev { inset-inline-start: calc(50% - 3.4rem); }
+    .lightbox__nav--next { inset-inline-end: calc(50% - 3.4rem); }
+    .lightbox__photo { max-block-size: calc(100svh - 14rem); }
+  }
+
   /* ============================================================== WhatsApp
      Butonul plutitor și fereastra de compunere. Nu trimite nimic singur:
      deschide WhatsApp cu mesajul deja scris. Injectat de site.js. */

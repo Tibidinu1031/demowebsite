@@ -179,7 +179,9 @@
     faq: '<circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M6.2 6.2c0-1 .8-1.8 1.8-1.8s1.8.8 1.8 1.8c0 1.3-1.8 1.4-1.8 2.9" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="8" cy="11.4" r=".85" fill="currentColor"/>',
     phone: '<path d="M5.6 2.4 7 5.1 5.6 6.6c.6 1.5 2.3 3.2 3.8 3.8l1.5-1.4 2.7 1.4-.4 2.4c-.1.6-.6 1-1.2 1C6.6 13.7 2.3 9.4 2.2 4c0-.6.4-1.1 1-1.2Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>',
     visit: '<rect x="2.2" y="3.4" width="11.6" height="10.4" rx="2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M2.2 6.7h11.6M5.4 2.2v2.5M10.6 2.2v2.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="m6 10.3 1.5 1.5 3-3" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>',
-    close: '<path d="m3.5 3.5 9 9M12.5 3.5l-9 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>'
+    close: '<path d="m3.5 3.5 9 9M12.5 3.5l-9 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
+    /* Săgeata spre stânga. Cea spre dreapta e aceeași, întoarsă din CSS. */
+    chevron: '<path d="M10.2 3.2 5.4 8l4.8 4.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>'
   };
 
   /* Sigla WhatsApp, desenată o singură dată. */
@@ -591,6 +593,131 @@
     });
   }
 
+  /* ------------------------------------------------------ galeria de poze
+     Clic pe o fotografie o deschide peste pagină, cu săgeți în stânga și în
+     dreapta. Legătura din <a> rămâne pusă: fără JavaScript, sau la clic cu
+     Ctrl ori cu rotița, fotografia se deschide ca înainte, în filă nouă. */
+
+  function photos() {
+    const shots = $$('.shot');
+    if (!shots.length) return;
+
+    const items = shots.map((a) => ({
+      src: a.getAttribute('href'),
+      alt: $('img', a)?.alt || ''
+    }));
+
+    const box = document.createElement('div');
+    box.className = 'lightbox lightbox--photo';
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-modal', 'true');
+    box.setAttribute('aria-label', 'Fotografie din galerie');
+    box.setAttribute('inert', '');
+    box.innerHTML = `
+      <button class="lightbox__close" type="button">
+        <span class="u-sr">Închide fotografia</span>
+        <svg viewBox="0 0 16 16" aria-hidden="true">${ICON.close}</svg>
+      </button>
+      <button class="lightbox__nav lightbox__nav--prev" type="button">
+        <span class="u-sr">Fotografia dinainte</span>
+        <svg viewBox="0 0 16 16" aria-hidden="true">${ICON.chevron}</svg>
+      </button>
+      <button class="lightbox__nav lightbox__nav--next" type="button">
+        <span class="u-sr">Fotografia următoare</span>
+        <svg viewBox="0 0 16 16" aria-hidden="true">${ICON.chevron}</svg>
+      </button>
+      <figure class="lightbox__frame">
+        <img class="lightbox__photo" alt="" decoding="async">
+        <figcaption>
+          <span data-photo-caption></span>
+          <span class="lightbox__count" data-photo-count></span>
+        </figcaption>
+      </figure>`;
+    document.body.append(box);
+
+    const img      = $('.lightbox__photo', box);
+    const caption  = $('[data-photo-caption]', box);
+    const count    = $('[data-photo-count]', box);
+    const closeBtn = $('.lightbox__close', box);
+
+    let at = 0;
+    let lastFocus = null;
+    let startX = null;    // de unde a început glisarea, cât timp degetul e jos
+    let swiped = false;   // glisarea tocmai a schimbat fotografia
+
+    /* Vecinele se aduc din timp: altfel, la prima apăsare pe săgeată, omul se
+       uită la un dreptunghi gol cât vine fișierul. */
+    const warm = (i) => { new Image().src = items[(i + items.length) % items.length].src; };
+
+    const show = (i) => {
+      at = (i + items.length) % items.length;
+      const item = items[at];
+      img.src = item.src;
+      img.alt = item.alt;
+      caption.textContent = item.alt;
+      count.textContent = `${at + 1} din ${items.length}`;
+      warm(at + 1);
+      warm(at - 1);
+    };
+
+    const open = (i) => {
+      lastFocus = document.activeElement;
+      show(i);
+      box.dataset.open = 'true';
+      box.removeAttribute('inert');
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus({ preventScroll: true });
+    };
+
+    const close = () => {
+      box.dataset.open = 'false';
+      box.setAttribute('inert', '');
+      document.body.style.overflow = '';
+      if (lastFocus instanceof HTMLElement) lastFocus.focus({ preventScroll: true });
+    };
+
+    shots.forEach((a, i) => {
+      a.addEventListener('click', (e) => {
+        // Ctrl, Shift sau rotița — lăsăm browserul să deschidă fila nouă.
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+        e.preventDefault();
+        open(i);
+      });
+    });
+
+    $('.lightbox__nav--prev', box).addEventListener('click', () => show(at - 1));
+    $('.lightbox__nav--next', box).addEventListener('click', () => show(at + 1));
+    closeBtn.addEventListener('click', close);
+    box.addEventListener('click', (e) => {
+      /* Clic pe fundal — dar nu și când fundalul tocmai a fost glisat: după o
+         glisare browserul trimite și un `click` pe strămoșul comun, adică pe
+         fereastră, iar fotografia următoare s-ar fi închis în aceeași clipă în
+         care apărea. */
+      if (e.target === box && !swiped) close();
+      swiped = false;
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (box.dataset.open !== 'true') return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft') show(at - 1);
+      else if (e.key === 'ArrowRight') show(at + 1);
+    });
+
+    /* Degetul: o glisare orizontală trece la fotografia alăturată. Pragul e
+       destul de mare cât să nu se declanșeze la un tremurat de mână. */
+    box.addEventListener('pointerdown', (e) => { startX = e.clientX; });
+    box.addEventListener('pointercancel', () => { startX = null; });
+    box.addEventListener('pointerup', (e) => {
+      if (startX === null) return;
+      const dx = e.clientX - startX;
+      startX = null;
+      if (Math.abs(dx) <= 45) return;
+      show(at + (dx < 0 ? 1 : -1));
+      swiped = true;
+    });
+  }
+
   /* --------------------------------------------------------------- WhatsApp
      Un buton plutitor cu o fereastră de chat. Are două comportamente:
 
@@ -965,6 +1092,7 @@
     heroFit();
     heroVideo();
     gallery();
+    photos();
     whatsapp();
     toTop();
     form();
