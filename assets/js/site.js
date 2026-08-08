@@ -123,8 +123,15 @@
       return;
     }
 
+    /* Rotunjim la pixelul FIZIC următor, nu la cel CSS, și mai punem unul peste.
+       La scalare fracționară (125% în Windows, zoom la 90%) muchia de jos cădea
+       între doi pixeli fizici, iar jumătatea rămasă se amesteca cu banda de
+       hârtie de dedesubt — de acolo dunga albă sub film. Ce trece de fereastră
+       cade oricum sub `overflow: clip`. */
     const top = hero.getBoundingClientRect().top + window.scrollY;
-    hero.style.setProperty('--hero-h', `${Math.ceil(window.innerHeight - top)}px`);
+    const dpr = window.devicePixelRatio || 1;
+    const exact = window.innerHeight - top;
+    hero.style.setProperty('--hero-h', `${(Math.ceil(exact * dpr) + 1) / dpr}px`);
   }
 
   /* ------------------------------------------------------------ portrete
@@ -240,7 +247,6 @@
         <footer class="dash__foot">
           <span><strong>Str. Preot Toma Georgescu nr. 12</strong>, Târgoviște</span>
           <span>De luni până vineri, <strong>7:30 &ndash; 18:00</strong></span>
-          <span data-dash-now></span>
         </footer>
       </div>`;
 
@@ -261,7 +267,6 @@
 
       if (open) {
         lastFocus = document.activeElement;
-        mirrorNow();
         // Forțăm calculul stilurilor ca panoul să fie chiar vizibil — un element
         // ascuns nu poate primi focus, iar așteptarea unui cadru care s-ar putea
         // să nu vină niciodată (filă de fundal, randare headless) ar bloca dialogul.
@@ -275,13 +280,6 @@
     };
 
     const isOpen = () => panel.dataset.open === 'true';
-
-    // Preluăm în subsolul panoului linia „chiar acum”, când există.
-    const mirrorNow = () => {
-      const slot = $('[data-dash-now]', panel);
-      const what = $('[data-now-what]');
-      if (slot && what) slot.innerHTML = 'Chiar acum: <strong>' + what.textContent + '</strong>';
-    };
 
     trigger.addEventListener('click', () => setOpen(!isOpen()));
     burger?.addEventListener('click', () => setOpen(!isOpen()));
@@ -391,103 +389,66 @@
 
   /* ------------------------------------------------------------------ bandă */
 
+  /* Fraza din bandă se scrie literă cu literă, ca un text care se generează
+     sub ochii tăi. Textul nu stă în JavaScript: îl citim din copia „ghost”
+     din pagină, ca fraza să fie într-un singur loc, în HTML, acolo unde o
+     caută cine vrea s-o schimbe. */
+
   function ticker() {
-    const track = $('[data-ticker]');
-    if (!track) return;
+    const slot = $('[data-typewriter]');
+    if (!slot) return;
 
-    const group = $('.ticker__group', track);
-    if (!group) return;
+    const ghost = $('.ticker__ghost', slot.parentElement);
+    const text = ghost ? ghost.textContent.trim() : '';
+    if (!text) return;
 
-    // Duplicăm o dată, ca translateX(-50%) să cadă pe o cusătură invizibilă.
-    const clone = group.cloneNode(true);
-    clone.setAttribute('aria-hidden', 'true');
-    track.append(clone);
-  }
-
-  /* ------------------------------------------------------------------ ceasul
-     Programul stă în marcaj, așa că widgetul și orarul tipărit nu se pot
-     îndepărta niciodată unul de celălalt. */
-
-  const toMinutes = (hhmm) => {
-    const [h, m] = hhmm.split(':').map(Number);
-    return h * 60 + m;
-  };
-
-  const toClock = (mins) => {
-    const h = Math.floor(mins / 60) % 24;
-    const m = String(mins % 60).padStart(2, '0');
-    return `${h}:${m}`;
-  };
-
-  /* Româna cere „de” după douăzeci: 1 minut, 5 minute, 25 de minute. */
-  const plural = (n, one, few) =>
-    n === 1 ? `un ${one}` : (n % 100 >= 20 || n % 100 === 0 ? `${n} de ${few}` : `${n} ${few}`);
-
-  const hours = (n) =>
-    n === 1 ? 'o oră' : (n % 100 >= 20 || n % 100 === 0 ? `${n} de ore` : `${n} ore`);
-
-  function nowWidget() {
-    const box = $('[data-now]');
-    const rows = $$('.rhythm__row');
-    if (!box || !rows.length) return;
-
-    const label = $('[data-now-label]', box);
-    const what  = $('[data-now-what]', box);
-    const meta  = $('[data-now-meta]', box);
-
-    const schedule = rows.map((row) => ({
-      row,
-      from: toMinutes(row.dataset.from),
-      to:   toMinutes(row.dataset.to),
-      title: $('.rhythm__what', row).textContent.trim()
-    }));
-
-    const opens  = schedule[0].from;
-    const closes = schedule[schedule.length - 1].to;
-
-    const render = () => {
-      const d = new Date();
-      const mins = d.getHours() * 60 + d.getMinutes();
-      const weekend = d.getDay() === 0 || d.getDay() === 6;
-
-      rows.forEach((row) => row.removeAttribute('data-now'));
-
-      const stamp = d.toLocaleTimeString('ro-RO', { hour: 'numeric', minute: '2-digit' });
-      label.textContent = `Chiar acum · ${stamp}`;
-
-      if (weekend) {
-        box.dataset.open = 'false';
-        what.textContent = 'Curtea e goală';
-        meta.textContent = `Deschidem din nou luni, la ${toClock(opens)}.`;
-        return;
-      }
-
-      if (mins < opens) {
-        const wait = opens - mins;
-        box.dataset.open = 'false';
-        what.textContent = 'Încă nu am deschis';
-        meta.textContent = wait > 60
-          ? `Ușile se deschid la ${toClock(opens)}, peste aproximativ ${hours(Math.round(wait / 60))}.`
-          : `Ușile se deschid la ${toClock(opens)}, peste ${plural(wait, 'minut', 'minute')}.`;
-        return;
-      }
-
-      if (mins >= closes) {
-        box.dataset.open = 'false';
-        what.textContent = 'Toată lumea a plecat acasă';
-        meta.textContent = `Sigur a rămas ceva în urmă. Revenim la ${toClock(opens)}.`;
-        return;
-      }
-
-      const slot = schedule.find((s) => mins >= s.from && mins < s.to) || schedule[schedule.length - 1];
-      box.dataset.open = 'true';
-      what.textContent = slot.title;
-      meta.textContent = `De la ${toClock(slot.from)} — până la ${toClock(slot.to)}.`;
-      slot.row.setAttribute('data-now', 'true');
+    const finish = () => {
+      slot.textContent = text;
+      slot.dataset.done = 'true';
     };
 
-    render();
-    setInterval(render, 30000);
+    // Cine a cerut mai puțină mișcare primește fraza dintr-o dată.
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return finish();
+
+    let i = 0;
+
+    const step = () => {
+      slot.textContent = text.slice(0, ++i);
+      if (i >= text.length) return finish();
+
+      /* Pauza nu e fixă: după virgulă și după semnul de întrebare se stă mai
+         mult, ca ritmul să semene cu al cuiva care scrie, nu cu al unui ceas. */
+      const ch = text[i - 1];
+      const wait = /[.?!]/.test(ch) ? 420
+                 : ch === ','       ? 190
+                 : 22 + Math.random() * 26;
+      setTimeout(step, wait);
+    };
+
+    /* Începe când banda ajunge sub ochii omului, nu mai devreme — altfel
+       fraza s-ar termina de scris până să ajungă cineva cu privirea la ea.
+       Măsurăm cu `getBoundingClientRect` la scroll, nu cu IntersectionObserver:
+       observatorul nu livrează nimic în filele care nu desenează (fundal,
+       previzualizări ascunse), iar banda ar rămâne goală. */
+
+    let pornit = false;
+
+    const seVede = () => {
+      const r = slot.getBoundingClientRect();
+      return r.top < window.innerHeight * 0.9 && r.bottom > 0;
+    };
+
+    const poateIncepe = () => {
+      if (pornit || !seVede()) return;
+      pornit = true;
+      window.removeEventListener('scroll', poateIncepe);
+      window.removeEventListener('resize', poateIncepe);
+      step();
+    };
+
+    window.addEventListener('scroll', poateIncepe, { passive: true });
+    window.addEventListener('resize', poateIncepe);
+    poateIncepe();
   }
 
   /* ------------------------------------------------------------- video erou
@@ -1000,7 +961,6 @@
     reveal();
     marks();
     ticker();
-    nowWidget();
     portraits();
     heroFit();
     heroVideo();

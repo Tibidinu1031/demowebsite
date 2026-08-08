@@ -667,14 +667,17 @@
   .founder {
     display: grid;
     gap: var(--sp-lg);
-    align-items: center;
+    /* `start`, nu `center`: textul e lung, iar pe centru fotografia ar pluti
+       undeva la mijlocul unei coloane de două ori mai înalte decât ea. */
+    align-items: start;
   }
 
   @media (min-width: 48em) {
     .founder {
-      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
       gap: var(--sp-2xl);
     }
+
   }
 
   .founder__photo {
@@ -684,6 +687,16 @@
     overflow: hidden;
     background: var(--sage-wash);
     box-shadow: var(--lift);
+  }
+
+  /* Fotografia rămâne în dreptul textului cât se citește, în loc să dispară
+     după primul ecran de derulare. Scris după regula de mai sus: `sticky` și
+     `relative` au aceeași greutate, deci contează ordinea. */
+  @media (min-width: 48em) {
+    .founder__photo {
+      position: sticky;
+      inset-block-start: calc(var(--header-h) + var(--sp-md));
+    }
   }
 
   /* Desenul și fotografia stau unul peste altul; fotografia acoperă desenul
@@ -696,6 +709,58 @@
     block-size: 100%;
     object-fit: cover;
   }
+
+  /* Întrebarea cu care începe textul, tratată ca un cap de secțiune mic. */
+  .founder__lead {
+    font-family: var(--font-display);
+    font-size: var(--fs-lg);
+    line-height: 1.25;
+    font-variation-settings: "SOFT" 44, "WONK" 1, "opsz" 32;
+    margin-block-start: var(--sp-xs);
+  }
+
+  .founder__text p { font-size: var(--fs-sm); line-height: 1.65; }
+
+  .founder__intro { color: var(--ink); }
+
+  /* Emoji-urile din text sunt deja marcatori de listă, deci lista nu-și mai
+     pune și ea bulinele ei — ar ieși două semne pe fiecare rând. */
+  .founder__facts {
+    display: grid;
+    gap: var(--sp-xs);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: var(--fs-sm);
+    line-height: 1.6;
+  }
+
+  .founder__motto-label {
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    margin-block-start: var(--sp-xs);
+  }
+
+  .founder__motto {
+    margin: 0;
+    padding-inline-start: var(--sp-md);
+    border-inline-start: 2px solid var(--sage-deep);
+    font-family: var(--font-display);
+    font-size: var(--fs-lg);
+    line-height: 1.35;
+    font-variation-settings: "SOFT" 44, "WONK" 1, "opsz" 32;
+  }
+
+  .founder__motto p { font-size: inherit; line-height: inherit; }
+
+  /* Etichetele, la fundul textului: se văd, dar nu concurează cu el. */
+  .founder__tags {
+    margin-block-start: var(--sp-xs);
+    color: var(--ink-ghost);
+    word-spacing: 0.25em;
+  }
+
+  .founder__text .founder__tags { font-size: var(--fs-2xs); line-height: 1.7; }
 
   /* ============================================================== visit */
   .visit__grid {

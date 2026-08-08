@@ -560,60 +560,66 @@
 
   .dash__foot strong { color: var(--ink); font-weight: 600; }
 
-  /* ================================================================ marquee */
+  /* ================================================================== bandă */
   .ticker {
-    --speed: 46s;
     overflow: hidden;
+    /* Banda urcă un pixel peste erou. Eroul se măsoară din JS și ajunge la
+       fereastră la pixel, dar dacă vreodată rămâne scurt cu o fracțiune,
+       muchia de sus a benzii era exact dunga de hârtie care se vedea sub
+       film. Așa nu are cum. */
+    margin-block-start: -1px;
     border-block: 1px solid var(--rule);
     padding-block: 0.85rem;
     background: var(--paper-warm);
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
-    mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
   }
 
-  .ticker__track {
-    display: flex;
-    inline-size: max-content;
-    animation: ticker var(--speed) linear infinite;
+  /* ------------------------------------------------- banda care se scrie
+     Aceeași bandă, dar cu o singură frază care apare literă cu literă.
+     Nu mai derulează, deci nici masca de pe muchii n-are ce estompa. */
+  .ticker--type {
+    display: grid;
+    justify-items: center;
+    padding-block: 1.05rem;
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 
-  .ticker:hover .ticker__track { animation-play-state: paused; }
-
-  .ticker__group {
-    display: flex;
-    align-items: center;
-    gap: var(--sp-lg);
-    padding-inline-end: var(--sp-lg);
-  }
-
-  .ticker__item {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-size: var(--fs-2xs);
+  .ticker__line {
+    position: relative;
+    max-inline-size: 64rem;
+    padding-inline: var(--gutter);
+    text-align: center;
+    font-size: var(--fs-sm);
     font-weight: 550;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    line-height: 1.45;
     color: var(--ink-soft);
-    white-space: nowrap;
+    text-wrap: balance;
   }
 
-  .ticker__item svg { inline-size: 0.85rem; color: var(--clay); flex: none; }
+  /* Ține locul frazei întregi, fără s-o arate. */
+  .ticker__ghost { visibility: hidden; }
 
-  /* Frunzele din bandă merg pe tot arcul, ca sub siglă — șapte fapte, șapte
-     culori. `nth-child` se calculează per grup, deci copia pentru buclă
-     continuă exact aceeași secvență, fără cusătură vizibilă. */
-  .ticker__item:nth-child(7n+1) svg { color: var(--clay); }
-  .ticker__item:nth-child(7n+2) svg { color: var(--ochre-deep); }
-  .ticker__item:nth-child(7n+3) svg { color: var(--sage-deep); }
-  .ticker__item:nth-child(7n+4) svg { color: var(--sky-deep); }
-  .ticker__item:nth-child(7n+5) svg { color: var(--plum); }
-  .ticker__item:nth-child(7n+6) svg { color: var(--petal); }
-  .ticker__item:nth-child(7n)   svg { color: var(--clay-deep); }
-
-  @keyframes ticker {
-    to { transform: translateX(-50%); }
+  .ticker__typed {
+    position: absolute;
+    inset: 0;
+    padding-inline: var(--gutter);
   }
+
+  /* Cursorul clipește cât se scrie și pleacă la final. */
+  .ticker__typed::after {
+    content: "";
+    display: inline-block;
+    inline-size: 0.09em;
+    block-size: 1.05em;
+    margin-inline-start: 0.14em;
+    vertical-align: -0.18em;
+    background: var(--clay);
+    animation: caret 1s steps(1) infinite;
+  }
+
+  .ticker__typed[data-done="true"]::after { display: none; }
+
+  @keyframes caret { 50% { opacity: 0; } }
 
   /* ================================================================ seal */
   .seal {
@@ -683,113 +689,59 @@
     overflow: hidden;
   }
 
-  /* ================================================================ rhythm
-     The day, laid out against a hairline. */
-  .rhythm { border-block-start: 1px solid var(--rule); }
-
-  .rhythm__row {
-    display: grid;
-    grid-template-columns: 4.4rem minmax(0, 1fr);
-    gap: var(--sp-xs) var(--sp-sm);
-    padding-block: var(--sp-sm);
-    border-block-end: 1px solid var(--rule);
-    align-items: baseline;
-    transition: background-color var(--dur) var(--ease-out);
-  }
+  /* ================================================================== ziua
+     Lista zilei lângă filmul vertical. Filmul trece sub listă abia sub 46em,
+     unde o coloană de text de lângă un 9:16 ar rămâne prea îngustă. */
+  .day { display: grid; gap: var(--sp-xl); }
 
   @media (min-width: 46em) {
-    .rhythm__row {
-      grid-template-columns: 6rem minmax(0, 15rem) minmax(0, 1fr);
-      gap: var(--sp-md);
-      padding-inline: var(--sp-xs);
-      margin-inline: calc(var(--sp-xs) * -1);
-      border-radius: var(--r-sm);
+    .day {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 15rem);
+      gap: var(--sp-xl);
+      align-items: start;
     }
-    .rhythm__row:hover { background: color-mix(in oklab, var(--ochre) 12%, transparent); }
   }
 
-  .rhythm__time {
-    font-family: var(--font-display);
-    font-size: var(--fs-sm);
-    font-weight: 500;
-    font-variant-numeric: tabular-nums lining-nums;
-    letter-spacing: -0.01em;
-    color: var(--clay-deep);
-    font-variation-settings: "SOFT" 30, "WONK" 0, "opsz" 20;
-  }
-
-  .rhythm__what {
-    font-size: var(--fs-md);
-    font-weight: 550;
-    letter-spacing: -0.012em;
-    grid-column: 2;
-  }
-
-  .rhythm__note {
-    grid-column: 2;
-    font-size: var(--fs-sm);
-    color: var(--ink-faint);
-    line-height: 1.5;
-  }
-
-  @media (min-width: 46em) {
-    .rhythm__note { grid-column: 3; }
-  }
-
-  .rhythm__row[data-now="true"] {
-    background: color-mix(in oklab, var(--ochre) 24%, transparent);
-  }
-
-  /* ================================================================ now */
-  .now {
+  .daylist {
     display: grid;
-    gap: var(--sp-xs);
-    padding: var(--sp-md);
-    border: 1px solid var(--rule-strong);
-    border-radius: var(--r-lg);
-    background: var(--surface-raised);
-    box-shadow: var(--lift);
+    gap: var(--sp-md);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-block-start: 1px solid var(--rule);
   }
 
-  .now__head {
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
-    font-size: var(--fs-3xs);
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+  .daylist li {
+    padding-block: var(--sp-md) 0;
+    padding-inline-start: 2rem;
+    position: relative;
+    font-size: var(--fs-sm);
+    line-height: 1.6;
     color: var(--ink-faint);
   }
 
-  .now__pip {
-    inline-size: 0.5rem;
-    block-size: 0.5rem;
-    border-radius: 50%;
-    background: var(--sage-deep);
-    flex: none;
-    box-shadow: 0 0 0 0 color-mix(in oklab, var(--sage-deep) 60%, transparent);
-    animation: pip 2.6s var(--ease-out) infinite;
+  /* Bifa, desenată din două laturi ale unei casete rotite — fără pictogramă. */
+  .daylist li::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-start: calc(var(--sp-md) + 0.34em);
+    inline-size: 1rem;
+    block-size: 0.52rem;
+    border-block-end: 2px solid var(--sage-deep);
+    border-inline-start: 2px solid var(--sage-deep);
+    rotate: -45deg;
   }
 
-  .now[data-open="false"] .now__pip { background: var(--ink-ghost); animation: none; }
-
-  @keyframes pip {
-    0%   { box-shadow: 0 0 0 0 color-mix(in oklab, var(--sage-deep) 55%, transparent); }
-    70%  { box-shadow: 0 0 0 0.62rem transparent; }
-    100% { box-shadow: 0 0 0 0 transparent; }
+  .daylist strong {
+    display: block;
+    font-size: var(--fs-md);
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    color: var(--ink);
   }
 
-  .now__what {
-    font-family: var(--font-display);
-    font-size: var(--fs-2xl);
-    font-weight: 470;
-    line-height: 1.1;
-    letter-spacing: -0.024em;
-    font-variation-settings: "SOFT" 44, "WONK" 1, "opsz" 48;
-  }
-
-  .now__meta { font-size: var(--fs-xs); color: var(--ink-faint); }
+  .day__film { align-self: start; }
 
   /* ================================================================ rooms */
   .room {
@@ -1412,10 +1364,6 @@
       transition: transform var(--dur-slow) var(--ease-spring);
     }
     .tenet:hover::before { transform: rotate(-12deg) translateY(-2px); }
-
-    /* Ticker items sit up as they pass under the cursor. */
-    .ticker__item { transition: color var(--dur-fast) var(--ease-out); }
-    .ticker__item:hover { color: var(--clay-deep); }
   }
 
   /* Leaves thrown by the logo. Positioned and coloured from script. */

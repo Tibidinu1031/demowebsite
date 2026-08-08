@@ -260,19 +260,18 @@
     </div>
   </section>
 
-  <!-- ============================================================ bandă -->
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker__track" data-ticker>
-      <div class="ticker__group">
-        <span class="ticker__item"><svg><use href="#i-sprig"/></svg> Vinerea în pădure, pe orice vreme</span>
-        <span class="ticker__item"><svg><use href="#i-sprig"/></svg> Miercurea e ziua pâinii</span>
-        <span class="ticker__item"><svg><use href="#i-sprig"/></svg> Odihnă la 12:45</span>
-        <span class="ticker__item"><svg><use href="#i-sprig"/></svg> Doi educatori la fiecare doisprezece copii</span>
-        <span class="ticker__item"><svg><use href="#i-sprig"/></svg> Luăm copiii de la trei școli din zonă</span>
-        <span class="ticker__item"><svg><use href="#i-sprig"/></svg> Clubul de vacanță merge toată vara</span>
-        <span class="ticker__item"><svg><use href="#i-sprig"/></svg> Cizmele lângă ușă, vă rugăm</span>
-      </div>
-    </div>
+  <!-- ============================================================ bandă
+       Fraza se scrie literă cu literă. Trei copii ale ei, fiecare cu rostul
+       ei: „ghost” ține locul, ca banda să aibă de la început înălțimea
+       finală și pagina să nu sară cât se scrie; copia pentru cititoarele de
+       ecran o dă dintr-o bucată, fiindcă nimeni n-are nevoie să audă un text
+       literă cu literă; a treia e cea care se vede scriindu-se. -->
+  <div class="ticker ticker--type">
+    <p class="ticker__line">
+      <span class="ticker__ghost" aria-hidden="true">Știi sentimentul acela de liniște când știi că puiul tău este pe mâini bune, mănâncă sănătos, se odihnește, își face temele, se dezvoltă și se distrează? Asta găsești la Arcobaleno</span>
+      <span class="u-sr">Știi sentimentul acela de liniște când știi că puiul tău este pe mâini bune, mănâncă sănătos, se odihnește, își face temele, se dezvoltă și se distrează? Asta găsești la Arcobaleno</span>
+      <span class="ticker__typed" data-typewriter aria-hidden="true"></span>
+    </p>
   </div>
 
   <!-- ============================================================ ziua -->
@@ -281,74 +280,30 @@
       <div class="spread__rail stack">
         <p class="eyebrow">Capitolul unu</p>
         <h2>Cum arată<br>o zi</h2>
-        <div class="now" data-now data-open="false">
-          <p class="now__head"><span class="now__pip"></span> <span data-now-label>Chiar acum</span></p>
-          <p class="now__what" data-now-what>&mdash;</p>
-          <p class="now__meta" data-now-meta></p>
-        </div>
+
+        <!-- Filmul stă sub titlu, în coloana din stânga, nu lângă listă. -->
+        <figure class="vidcard day__film"
+                data-video-card="assets/video/ziua.mp4"
+                data-video-title="O zi la Arcobaleno Afterschool">
+          <div class="vidcard__frame">
+            <video src="assets/video/ziua.mp4#t=0.1" muted loop playsinline preload="metadata"></video>
+            <button class="vidcard__play" type="button" data-video-open>
+              <span class="u-sr">Redă filmul: o zi la Arcobaleno</span>
+              <svg aria-hidden="true"><use href="#i-play"/></svg>
+            </button>
+          </div>
+        </figure>
       </div>
 
-      <div class="rhythm reveal" data-reveal>
-        <div class="rhythm__row" data-from="7:30" data-to="8:15">
-          <p class="rhythm__time">7:30</p>
-          <p class="rhythm__what">Se deschid ușile</p>
-          <p class="rhythm__note">Pături, cărți și capătul liniștit al sălii. Nimeni nu e întâmpinat cu voce tare.</p>
-        </div>
-        <div class="rhythm__row" data-from="8:15" data-to="9:00">
-          <p class="rhythm__time">8:15</p>
-          <p class="rhythm__what">Micul dejun</p>
-          <p class="rhythm__note">Terci, fructe și ce a mai ieșit din cuptor. Copiii se servesc singuri.</p>
-        </div>
-        <div class="rhythm__row" data-from="9:00" data-to="9:30">
-          <p class="rhythm__time">9:00</p>
-          <p class="rhythm__what">Cercul de dimineață</p>
-          <p class="rhythm__note">Prezența, vremea și cine are noutăți. Opt minute, rareori nouă.</p>
-        </div>
-        <div class="rhythm__row" data-from="9:30" data-to="10:45">
-          <p class="rhythm__time">9:30</p>
-          <p class="rhythm__what">Investigații</p>
-          <p class="rhythm__note">Blocul lung. Lut, apă, construcții, litere, povești &mdash; nouăzeci de minute, netăiate.</p>
-        </div>
-        <div class="rhythm__row" data-from="10:45" data-to="12:15">
-          <p class="rhythm__time">10:45</p>
-          <p class="rhythm__what">Afară</p>
-          <p class="rhythm__note">În fiecare zi. Hainele de ploaie sunt ale noastre, deci vremea nu e un motiv.</p>
-        </div>
-        <div class="rhythm__row" data-from="12:15" data-to="12:45">
-          <p class="rhythm__time">12:15</p>
-          <p class="rhythm__what">Prânzul</p>
-          <p class="rhythm__note">O masă lungă, servită ca acasă. Ana îl gătește în aceeași dimineață.</p>
-        </div>
-        <div class="rhythm__row" data-from="12:45" data-to="14:30">
-          <p class="rhythm__time">12:45</p>
-          <p class="rhythm__what">Odihnă</p>
-          <p class="rhythm__note">Dormi dacă ai nevoie. Povești și o cameră în penumbră dacă nu.</p>
-        </div>
-        <div class="rhythm__row" data-from="14:30" data-to="15:15">
-          <p class="rhythm__time">14:30</p>
-          <p class="rhythm__what">Gustare</p>
-          <p class="rhythm__note">Pentru că știm că mintea funcționează mai bine pe stomacul plin.</p>
-        </div>
-        <div class="rhythm__row" data-from="15:15" data-to="16:00">
-          <p class="rhythm__time">15:15</p>
-          <p class="rhythm__what">Se deschide after school-ul</p>
-          <p class="rhythm__note">Mergem pe jos după copii la Marlow, Beckett și Sfântul Aldate.</p>
-        </div>
-        <div class="rhythm__row" data-from="16:00" data-to="17:00">
-          <p class="rhythm__time">16:00</p>
-          <p class="rhythm__what">Cluburi</p>
-          <p class="rhythm__note">Tâmplărie, cor, șah, grădinărit. Alese de copii la începutul fiecărui trimestru.</p>
-        </div>
-        <div class="rhythm__row" data-from="17:00" data-to="18:00">
-          <p class="rhythm__time">17:00</p>
-          <p class="rhythm__what">Ora liniștită</p>
-          <p class="rhythm__note">Teme sub lampa lungă, apoi Hollis citește cu voce tare &mdash; prost, intenționat.</p>
-        </div>
-        <div class="rhythm__row" data-from="18:00" data-to="18:15">
-          <p class="rhythm__time">18:00</p>
-          <p class="rhythm__what">Se închid ușile</p>
-          <p class="rhythm__note">Cizmele încălțate, ghiozdanele verificate, un lucru rămas mereu în urmă.</p>
-        </div>
+      <div class="day reveal" data-reveal>
+        <ul class="daylist">
+          <li><strong>Sosirea cu zâmbetul pe buze:</strong> entuziasmul revederii.</li>
+          <li><strong>Prânzul cald:</strong> o masă delicioasă, ca acasă, pentru energie pe tot restul zilei.</li>
+          <li><strong>Momentul de „reîncărcare”:</strong> odihnă și relaxare, esențiale pentru un creier odihnit.</li>
+          <li><strong>Misiunea „Temele gata”:</strong> ne concentrăm, învățăm și rezolvăm cerințele școlare sub îndrumarea atentă a cadrelor didactice.</li>
+          <li><strong>Explozia de creativitate:</strong> atelierele unde talentele prind viață și, desigur&hellip;</li>
+          <li><strong>Joaca!</strong> Momentul preferat, în care legăm cele mai frumoase prietenii.</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -556,10 +511,37 @@
              data-optional decoding="async">
       </figure>
 
+      <!-- Textul de mai jos e cel dat de autor, cuvânt cu cuvânt. Emoji-urile
+           țin loc de buline, deci lista nu-și mai pune și ea una. -->
       <div class="founder__text stack stack--sm">
         <p class="eyebrow">Capitolul trei</p>
         <h2>Fondatoarea</h2>
-        <p class="prose">Urmează să fie adăugat</p>
+
+        <p class="founder__lead">CINE ESTE Nicoleta Voicu?</p>
+
+        <p class="founder__intro">🌈Nicoleta, fondatorul și managerul After School Arcobaleno Târgoviște , este CADRU DIDACTIC cu o VASTĂ EXPERIENȚĂ LA CATEDRĂ, specializată și la PARIS cu o bursă de studiu, implicată 100% în activitatea didactică la renumita Școală Europeană ,,Elena Donici Cantacuzino" din Pucioasa. 🌈</p>
+
+        <ul class="founder__facts" role="list">
+          <li>🌈A fost timp de trei ani consecutiv OLIMPICĂ NAȚIONALĂ la psihologie și pedagogie în timpul liceul Pedagogic.</li>
+          <li>🌈 A absolvit și Facultatea de ȘTIINȚE JURIDICE.</li>
+          <li>🌈 A avut ocazia de a învăța lucruri noi și în ITALIA, timp de 15 ani, în zona educației, la un Centru Educativ Recreativ.</li>
+          <li>🌈Este profesionistă în lucrul cu copiii.</li>
+          <li>🌈In plus, Nicoleta este și MAMĂ a doi copii, deci experiența la catedră este completată de propria experiență.</li>
+          <li>❤After school Arcobaleno este un PROIECT DE SUFLET, de a pregăti și educa copii pentru viață, de a-i ajuta să pășească pe drumul succesului.</li>
+          <li>🌈 Nicoleta participă la cursuri de perfecționare continuă și parenting, seminarii, conferințe, a obținut titluri, premii, diplome . Este implicată în proiecte și parteneriate nationale și internaționale.</li>
+          <li>🌈Face o ALTFEL de #educație și crede că în meseria de profesor este nevoie de #pasiune, determinare și mult zâmbet</li>
+        </ul>
+
+        <p class="founder__motto-label">MOTTO-ul ei:</p>
+        <blockquote class="founder__motto">
+          <p>,,Atunci când ești pasionat, poți să schimbi lumea!"</p>
+        </blockquote>
+
+        <p>🌈 În cei 31 de ani de experiență în zona educației, Nicoleta a adus VALOARE în viața a mii de copii și părinți.</p>
+
+        <p>🔥 Arcobaleno, de 11 ani, oferă copiilor și părinților o alternativă educativă, un sprijin de nădejde în educația copiilor. 🌈</p>
+
+        <p class="founder__tags">#mămicitârgoviște #afterschool #arcobaleno #educatie #arcobalenotârgoviște #afterschooltârgoviște</p>
       </div>
     </div>
   </section>
