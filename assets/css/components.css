@@ -1034,6 +1034,27 @@
      clipa în care cineva scrie recenzia adevărată înăuntru. */
   .note--gol:has(p:empty) { display: none; }
 
+  /* Subsolul cartonașului dispare cât timp n-are un nume în el. */
+  .note--review footer:has(.note__who:empty) { display: none; }
+
+  /* Trei pe primul rând, două pe al doilea. Grila are șase coloane: primele
+     trei cartonașe iau două fiecare, ultimele două iau trei fiecare. Sub
+     62em rămâne curgerea obișnuită, unul sub altul sau două pe rând. */
+  @media (min-width: 62em) {
+    .reviews .notes { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+    .reviews .note:nth-child(-n+3) { grid-column: span 2; }
+    .reviews .note:nth-child(n+4)  { grid-column: span 3; }
+  }
+
+  /* Secțiunea nu mai are panou, deci sub cartonașe trece fundalul colorat al
+     paginii. Ca textul să rămână la fel de lizibil, cartonașele sunt pline,
+     fără pic de transparență, și cu o umbră ceva mai apăsată. */
+  .reviews .note {
+    background: var(--surface-raised);
+    border-color: var(--rule-strong);
+    box-shadow: var(--lift-lg);
+  }
+
   /* Cât timp niciun cartonaș n-are text, secțiunea întreagă se ascunde —
      altfel ar rămâne un titlu („Ce spun părinții”) cu gol dedesubt. Reapare
      singură la prima recenzie scrisă. */
