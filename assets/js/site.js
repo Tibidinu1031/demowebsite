@@ -519,7 +519,7 @@
 
   /* ---------------------------------------------------------------- galerie
      Cardurile rulează o previzualizare mută la hover; clicul deschide filmul
-     mare, cu sunet și cu comenzi. */
+     mare, cu sunet și cu comenzi, cu săgeți către filmele din aceeași grilă. */
 
   function gallery() {
     const cards = $$('[data-video-card]');
@@ -547,27 +547,63 @@
         <span class="u-sr">Închide filmul</span>
         <svg viewBox="0 0 16 16" aria-hidden="true">${ICON.close}</svg>
       </button>
+      <button class="lightbox__nav lightbox__nav--prev" type="button">
+        <span class="u-sr">Filmul dinainte</span>
+        <svg viewBox="0 0 16 16" aria-hidden="true">${ICON.chevron}</svg>
+      </button>
+      <button class="lightbox__nav lightbox__nav--next" type="button">
+        <span class="u-sr">Filmul următor</span>
+        <svg viewBox="0 0 16 16" aria-hidden="true">${ICON.chevron}</svg>
+      </button>
       <figure class="lightbox__frame">
         <video controls playsinline preload="metadata"></video>
-        <figcaption data-lightbox-caption></figcaption>
+        <figcaption>
+          <span data-lightbox-caption></span>
+          <span class="lightbox__count" data-video-count></span>
+        </figcaption>
       </figure>`;
     document.body.append(box);
 
-    const video   = $('video', box);
-    const caption = $('[data-lightbox-caption]', box);
-    let lastFocus = null;
+    const video    = $('video', box);
+    const caption  = $('[data-lightbox-caption]', box);
+    const count    = $('[data-video-count]', box);
+    const closeBtn = $('.lightbox__close', box);
 
-    const open = (src, text, poster) => {
+    let set = [];         // filmele prin care se plimbă săgețile acum
+    let at = 0;
+    let lastFocus = null;
+    let startX = null;    // de unde a început glisarea, cât timp degetul e jos
+    let swiped = false;   // glisarea tocmai a schimbat filmul
+
+    /* Săgețile rămân în grila din care s-a pornit: cele patru filmulețe merg
+       între ele, și pe prima pagină, și în galerie. Filmul zilei stă singur
+       în coloana lui, deci pentru el nu are ce arăta o săgeată. */
+    const setOf = (card) => {
+      const grid = card.closest('.gallery');
+      return grid ? $$('[data-video-card]', grid) : [card];
+    };
+
+    const show = (i) => {
+      at = (i + set.length) % set.length;
+      const card = set[at];
+      video.src = card.dataset.videoCard;
+      if (card.dataset.videoPoster) video.poster = card.dataset.videoPoster;
+      else video.removeAttribute('poster');
+      caption.textContent = card.dataset.videoTitle || '';
+      count.textContent = set.length > 1 ? `${at + 1} din ${set.length}` : '';
+      video.play().catch(() => {});
+    };
+
+    const open = (card) => {
       lastFocus = document.activeElement;
-      video.src = src;
-      if (poster) video.poster = poster;
-      caption.textContent = text || '';
+      set = setOf(card);
+      box.classList.toggle('lightbox--nav', set.length > 1);
+      show(set.indexOf(card));
       box.dataset.open = 'true';
       box.removeAttribute('inert');
       document.body.style.overflow = 'hidden';
       void box.offsetHeight;
-      $('.lightbox__close', box).focus({ preventScroll: true });
-      video.play().catch(() => {});
+      closeBtn.focus({ preventScroll: true });
     };
 
     const close = () => {
@@ -581,15 +617,40 @@
     };
 
     cards.forEach((card) => {
-      $('[data-video-open]', card)?.addEventListener('click', () => {
-        open(card.dataset.videoCard, card.dataset.videoTitle, card.dataset.videoPoster);
-      });
+      $('[data-video-open]', card)?.addEventListener('click', () => open(card));
     });
 
-    $('.lightbox__close', box).addEventListener('click', close);
-    box.addEventListener('click', (e) => { if (e.target === box) close(); });
+    $('.lightbox__nav--prev', box).addEventListener('click', () => show(at - 1));
+    $('.lightbox__nav--next', box).addEventListener('click', () => show(at + 1));
+    closeBtn.addEventListener('click', close);
+
+    box.addEventListener('click', (e) => {
+      // Clic pe fundal, dar nu și clicul pe care browserul îl trimite după o
+      // glisare — altfel filmul următor s-ar închide cum apare.
+      if (e.target === box && !swiped) close();
+      swiped = false;
+    });
+
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && box.dataset.open === 'true') close();
+      if (box.dataset.open !== 'true') return;
+      if (e.key === 'Escape') { close(); return; }
+      // Cu filmul în focus, săgețile îl derulează: sunt ale comenzilor lui.
+      if (document.activeElement === video || set.length < 2) return;
+      if (e.key === 'ArrowLeft') show(at - 1);
+      else if (e.key === 'ArrowRight') show(at + 1);
+    });
+
+    /* Glisarea merge doar pe fundal. Peste film degetul e al comenzilor de
+       derulare, iar peste ele n-avem ce căuta. */
+    box.addEventListener('pointerdown', (e) => { startX = e.target === box ? e.clientX : null; });
+    box.addEventListener('pointercancel', () => { startX = null; });
+    box.addEventListener('pointerup', (e) => {
+      if (startX === null) return;
+      const dx = e.clientX - startX;
+      startX = null;
+      if (Math.abs(dx) <= 45 || set.length < 2) return;
+      show(at + (dx < 0 ? 1 : -1));
+      swiped = true;
     });
   }
 
@@ -608,7 +669,8 @@
     }));
 
     const box = document.createElement('div');
-    box.className = 'lightbox lightbox--photo';
+    // `--nav` aprinde săgețile; cu o singură fotografie n-ar avea unde duce.
+    box.className = 'lightbox lightbox--photo' + (items.length > 1 ? ' lightbox--nav' : '');
     box.setAttribute('role', 'dialog');
     box.setAttribute('aria-modal', 'true');
     box.setAttribute('aria-label', 'Fotografie din galerie');

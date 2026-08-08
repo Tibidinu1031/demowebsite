@@ -1643,13 +1643,12 @@
     background: color-mix(in oklab, var(--ink) 40%, transparent);
   }
 
-  .lightbox--photo figcaption {
+  /* Descrierea și numărul, unul sub altul și centrate — la fel sub fotografii
+     și sub filme. */
+  .lightbox__frame figcaption {
     display: grid;
     gap: 0.15rem;
     justify-items: center;
-    font-size: var(--fs-xs);
-    color: color-mix(in oklab, var(--paper) 78%, transparent);
-    text-align: center;
   }
 
   .lightbox__count {
@@ -1659,6 +1658,11 @@
     color: color-mix(in oklab, var(--paper) 52%, transparent);
     font-variant-numeric: lining-nums;
   }
+
+  /* Săgețile apar doar când e unde te duce: `--nav` se pune din site.js, când
+     în grilă sunt cel puțin două lucruri. Filmul zilei, singur în coloana lui
+     de pe prima pagină, se deschide fără ele. */
+  .lightbox:not(.lightbox--nav) .lightbox__nav { display: none; }
 
   .lightbox__nav {
     position: absolute;
@@ -1689,7 +1693,8 @@
   .lightbox__nav--next:hover { transform: translateX(2px); }
 
   /* Pe ecran îngust săgețile nu mai încap în lateral fără să stea peste
-     fotografie: coboară sub ea, una lângă alta. */
+     fotografie: coboară sub ea, una lângă alta. Ce e deasupra lor se strânge
+     cu atât cât le trebuie — dar numai când chiar sunt pe ecran. */
   @media (max-width: 40em) {
     .lightbox__nav {
       inset-block-start: auto;
@@ -1700,7 +1705,9 @@
     }
     .lightbox__nav--prev { inset-inline-start: calc(50% - 3.4rem); }
     .lightbox__nav--next { inset-inline-end: calc(50% - 3.4rem); }
-    .lightbox__photo { max-block-size: calc(100svh - 14rem); }
+
+    .lightbox--nav .lightbox__photo,
+    .lightbox--nav .lightbox__frame video { max-block-size: calc(100svh - 14rem); }
   }
 
   /* ============================================================== WhatsApp
