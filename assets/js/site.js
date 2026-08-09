@@ -179,6 +179,7 @@
     faq: '<circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M6.2 6.2c0-1 .8-1.8 1.8-1.8s1.8.8 1.8 1.8c0 1.3-1.8 1.4-1.8 2.9" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="8" cy="11.4" r=".85" fill="currentColor"/>',
     phone: '<path d="M5.6 2.4 7 5.1 5.6 6.6c.6 1.5 2.3 3.2 3.8 3.8l1.5-1.4 2.7 1.4-.4 2.4c-.1.6-.6 1-1.2 1C6.6 13.7 2.3 9.4 2.2 4c0-.6.4-1.1 1-1.2Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>',
     visit: '<rect x="2.2" y="3.4" width="11.6" height="10.4" rx="2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M2.2 6.7h11.6M5.4 2.2v2.5M10.6 2.2v2.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="m6 10.3 1.5 1.5 3-3" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>',
+    spark: '<path d="M8 1.9 9.7 6.3 14.1 8 9.7 9.7 8 14.1 6.3 9.7 1.9 8 6.3 6.3Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>',
     close: '<path d="m3.5 3.5 9 9M12.5 3.5l-9 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
     /* Săgeata spre stânga. Cea spre dreapta e aceeași, întoarsă din CSS. */
     chevron: '<path d="M10.2 3.2 5.4 8l4.8 4.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>'
@@ -191,6 +192,7 @@
 
   const DESTINATIONS = [
     { href: 'rooms.html', icon: 'rooms', title: 'Serviciile noastre' },
+    { href: 'ce-ne-diferentiaza.html', icon: 'spark', title: 'Ce ne diferențiază' },
     { href: 'approach.html', icon: 'approach', title: 'Misiune și viziune' },
     { href: 'gallery.html', icon: 'gallery', title: 'Galerie' },
     { href: 'tur-virtual.html', icon: 'tour', title: 'Tur Virtual' },
@@ -226,7 +228,7 @@
     panel.id = 'dash';
     panel.setAttribute('role', 'dialog');
     panel.setAttribute('aria-modal', 'true');
-    panel.setAttribute('aria-label', 'Tot ce găsiți la Arcobaleno');
+    panel.setAttribute('aria-label', 'Tot ce găsești la Arcobaleno');
     panel.setAttribute('inert', '');
 
     const cards = DESTINATIONS.map((d, i) => `
@@ -239,7 +241,7 @@
     panel.innerHTML = `
       <div class="dash__sheet">
         <header class="dash__head">
-          <p class="eyebrow">Tot ce găsiți la Arcobaleno</p>
+          <p class="eyebrow">Tot ce găsești la Arcobaleno</p>
           <button class="dash__close" type="button">
             <span class="u-sr">Închide meniul</span>
             <svg viewBox="0 0 16 16" aria-hidden="true">${ICON.close}</svg>
@@ -959,6 +961,83 @@
     });
   }
 
+  /* --------------------------------------------------- dă pagina mai departe
+     Trei feluri de a trimite pagina altui părinte.
+
+     „Trimite rapid” cheamă foaia de partajare a sistemului (Web Share) — pe
+     telefon e cel mai scurt drum spre orice aplicație are omul instalată.
+     Acolo unde browserul n-o are (Firefox pe desktop, de pildă) butonul nu
+     rămâne mort: copiază adresa în clipboard și scrie „Link copiat” dedesubt.
+
+     WhatsApp și Facebook sunt legături obișnuite, cu adresa deja scrisă în
+     HTML: merg și cu JS oprit. Aici doar le împrospătăm cu adresa paginii pe
+     care stă omul chiar acum.
+
+     `[data-share-copy]` nu mai există în pagină, dar cârligul rămâne: dacă se
+     mai pune vreodată un buton de copiat, el se leagă singur. */
+
+  function share() {
+    const box = $('[data-share]');
+    if (!box) return;
+
+    const url = location.href.split('#')[0];
+    const title = box.dataset.shareTitle || document.title;
+    const text = box.dataset.shareText || '';
+    const enc = encodeURIComponent;
+
+    const wa = $('[data-share-wa]', box);
+    if (wa) wa.href = 'https://wa.me/?text=' + enc(text ? text + ' ' + url : url);
+
+    const fb = $('[data-share-fb]', box);
+    if (fb) fb.href = 'https://www.facebook.com/sharer/sharer.php?u=' + enc(url);
+
+    /* Un singur loc care spune ce s-a întâmplat, sub butoane. */
+    const said = $('[data-share-said]', box);
+    let timer = 0;
+
+    const say = (msg) => {
+      if (!said) return;
+      said.textContent = msg;
+      clearTimeout(timer);
+      timer = setTimeout(() => { said.textContent = ''; }, 3200);
+    };
+
+    const copy = async () => {
+      try {
+        await navigator.clipboard.writeText(url);
+        say('Link copiat');
+        return;
+      } catch (e) { /* fără permisiune sau fără https — mai jos e varianta veche */ }
+
+      const field = document.createElement('input');
+      field.value = url;
+      field.setAttribute('readonly', '');
+      field.style.cssText = 'position:fixed;top:0;opacity:0;pointer-events:none';
+      document.body.appendChild(field);
+      field.select();
+      field.setSelectionRange(0, url.length);
+
+      let done = false;
+      try { done = document.execCommand('copy'); } catch (err) { done = false; }
+      field.remove();
+
+      say(done ? 'Link copiat' : 'Nu am putut copia adresa');
+    };
+
+    const copyBtn = $('[data-share-copy]', box);
+    if (copyBtn) copyBtn.addEventListener('click', copy);
+
+    const nativeBtn = $('[data-share-native]', box);
+    if (nativeBtn) {
+      nativeBtn.addEventListener('click', async () => {
+        if (!navigator.share) { copy(); return; }
+        try {
+          await navigator.share({ title, text, url });
+        } catch (e) { /* omul a închis foaia de partajare; nu e o eroare */ }
+      });
+    }
+  }
+
   /* ------------------------------------------------------------------ sus */
 
   function toTop() {
@@ -1156,6 +1235,7 @@
     gallery();
     photos();
     whatsapp();
+    share();
     toTop();
     form();
     magnetic();

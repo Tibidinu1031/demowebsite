@@ -432,6 +432,77 @@
 
   .room__swatch img { inline-size: 100%; block-size: 100%; object-fit: cover; }
 
+  /* ==================================================== ce ne diferențiază
+     Nouă puncte, așezate ca un text de citit, nu ca niște cartonașe: o singură
+     coloană, îngustă cât să încapă un rând comod de citit, cu numerele
+     atârnate în marginea din stânga și un fir de păr între puncte.
+
+     Două coloane de cartonașe rupeau tocmai lucrul care contează aici — ochiul
+     nu putea coborî pe o singură verticală, iar textele, foarte inegale ca
+     lungime, lăsau goluri sub cele scurte. */
+  .diffs {
+    display: grid;
+    list-style: none;
+    padding: 0;
+    margin-inline: auto;
+    max-inline-size: 52rem;
+    border-block-start: 1px solid var(--rule);
+  }
+
+  .diff {
+    display: grid;
+    gap: 0.2rem;
+    padding-block: var(--sp-lg);
+    border-block-end: 1px solid var(--rule);
+  }
+
+  /* De la lățimea la care încap ambele: numărul iese în marginea din stânga,
+     iar titlul și textul păstrează o singură margine comună. */
+  @media (min-width: 46em) {
+    .diff {
+      grid-template-columns: 4.75rem minmax(0, 1fr);
+      column-gap: var(--sp-lg);
+      padding-block: var(--sp-xl);
+    }
+  }
+
+  .diff__no {
+    font-family: var(--font-display);
+    font-size: var(--fs-2xl);
+    line-height: 1;
+    font-weight: 400;
+    color: var(--ochre-deep);
+    font-variant-numeric: lining-nums;
+    font-variation-settings: "SOFT" 20, "WONK" 0, "opsz" 60;
+  }
+
+  /* Cifra e mai mare decât litera de titlu, deci coboară cu o idee ca cele
+     două să pornească de pe aceeași linie optică. */
+  @media (min-width: 46em) {
+    .diff__no {
+      font-size: var(--fs-3xl);
+      margin-block-start: -0.1em;
+    }
+  }
+
+  .diff__title {
+    font-size: var(--fs-xl);
+    line-height: 1.18;
+    letter-spacing: -0.022em;
+    font-variation-settings: "SOFT" 40, "WONK" 1, "opsz" 72;
+    text-wrap: balance;
+  }
+
+  .diff__body p {
+    font-size: var(--fs-md);
+    line-height: var(--lh-body);
+    color: var(--ink-soft);
+    max-inline-size: 62ch;
+    margin-block-start: 0.5em;
+  }
+
+  .diff__body p + p { margin-block-start: 0.8em; }
+
   /* ============================================================= approach */
   .approach .quote { max-inline-size: 26ch; }
 
@@ -536,6 +607,7 @@
     max-inline-size: 22ch;
     margin-inline: auto;
   }
+  .pagehead--centred .pagehead__lede { margin-inline: auto; }
 
   .crumbs {
     display: flex;
@@ -1191,6 +1263,91 @@
   /* ============================================================== întrebări */
   .faq__group { display: grid; gap: var(--sp-sm); }
   .faq__group + .faq__group { margin-block-start: var(--sp-xl); }
+
+  /* =========================================================== dă mai departe
+     Ultima secțiune a paginii de acasă, chiar deasupra subsolului. E un singur
+     cartonaș centrat, cu un degrade moale pe diagonală — nu un panou pe toată
+     lățimea, ca să nu se lipească de banda de cerneală a subsolului. */
+  .share {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: var(--sp-sm);
+    padding: var(--sp-xl) var(--sp-md);
+    border: 1px solid var(--rule);
+    border-radius: var(--r-xl);
+    box-shadow: var(--lift-lg);
+    background:
+      radial-gradient(30rem 20rem at 8% 0%,
+        color-mix(in oklab, var(--sky-wash) 85%, transparent), transparent 62%),
+      radial-gradient(28rem 20rem at 94% 100%,
+        color-mix(in oklab, var(--ochre-wash) 88%, transparent), transparent 60%),
+      var(--surface-raised);
+  }
+
+  @media (min-width: 46em) {
+    .share { padding: var(--sp-2xl) var(--sp-xl); }
+  }
+
+  .share__eyebrow { color: var(--clay); }
+  .share__eyebrow svg { inline-size: 1.15em; block-size: 1.15em; flex: none; }
+
+  .share__title {
+    font-size: var(--fs-3xl);
+    line-height: 1.12;
+    letter-spacing: -0.026em;
+    max-inline-size: 24ch;
+  }
+
+  .share__note {
+    font-size: var(--fs-sm);
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-inline-size: 54ch;
+  }
+
+  /* Sub 40em butoanele stau unul sub altul, pe aceeași lățime — patru pastile
+     de lățimi diferite, înghesuite pe două rânduri, arătau ca o grămadă. */
+  .share__buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--sp-2xs);
+    inline-size: 100%;
+    max-inline-size: 20rem;
+    margin-block-start: var(--sp-xs);
+  }
+
+  @media (min-width: 40em) {
+    .share__buttons {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--sp-xs);
+      max-inline-size: none;
+    }
+  }
+
+  .share__btn svg { inline-size: 1.1em; block-size: 1.1em; flex: none; }
+
+  /* Verdele și albastrul sunt cele ale mărcilor, coborâte până unde textul alb
+     de deasupra trece de 4.5:1 — culorile de firmă, luate ca atare, lasă un
+     alb care abia se citește. */
+  .share__btn--wa { --btn-bg: #0d823f; --btn-edge: #0d823f; --btn-fg: #fff; }
+  .share__btn--wa:hover { --btn-bg: #0a6c34; --btn-edge: #0a6c34; }
+
+  .share__btn--fb { --btn-bg: #1461c9; --btn-edge: #1461c9; --btn-fg: #fff; }
+  .share__btn--fb:hover { --btn-bg: #0f4fa6; --btn-edge: #0f4fa6; }
+
+  /* Locul în care scrie „Link copiat”. Stă gol și nu ia loc cât timp n-are ce
+     spune, ca rândul de butoane să nu sară când apare mesajul. */
+  .share__said {
+    font-size: var(--fs-2xs);
+    color: var(--sage-deep);
+    font-weight: 600;
+    min-block-size: 1.4em;
+    margin-block-start: calc(var(--sp-2xs) * -1);
+  }
 
   /* ============================================================== print */
   @media print {

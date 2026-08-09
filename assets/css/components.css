@@ -769,6 +769,44 @@
     .room__head   { grid-area: head; }
     .room__body   { grid-area: body; }
     .room__swatch { grid-area: art; }
+    .room__films  { grid-area: art; }
+
+    /* Rândurile cu film au coloana a treia strânsă pe măsura filmului, nu pe
+       jumătate de pagină: filmele sunt verticale (9:16), iar la lățimea
+       întreagă a coloanei ieșeau cât un ecran de telefon în mărime naturală.
+       Textul se așază pe mijlocul filmului, nu lipit de marginea lui de sus. */
+    .room:has(.room__films) {
+      grid-template-columns: 4.5rem minmax(0, 1fr) minmax(0, 16rem);
+    }
+
+    .room:has(.room__films--doua) {
+      grid-template-columns: 4.5rem minmax(0, 1fr) minmax(0, 26rem);
+    }
+
+    .room:has(.room__films) .room__body {
+      align-self: center;
+      max-inline-size: 42rem;
+    }
+  }
+
+  /* Filmele programului stau în locul ilustrației. Sunt verticale, ca toate
+     filmările de la școală, iar `.vidcard__frame` le dă deja forma 9:16.
+     Excursiile au două, deci merg umăr la umăr.
+
+     Plafonul de lățime e ce ține înălțimea în frâu: un 9:16 lat cât coloana
+     ajunge de două ori mai înalt decât textul de lângă el. Sub 54em coloana e
+     una singură, deci filmul stă centrat sub text. */
+  .room__films {
+    display: grid;
+    gap: var(--sp-sm);
+    inline-size: 100%;
+    max-inline-size: 15rem;
+    margin-inline: auto;
+  }
+
+  .room__films--doua {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-inline-size: 26rem;
   }
 
   .room__no {
@@ -1009,12 +1047,46 @@
 
   .note__logo--facebook { inline-size: 1.35rem; block-size: 1.35rem; }
 
+  /* Semnătura: poza rotundă a părintelui, apoi numele. Stă lipită de talpa
+     cartonașului (`margin-block-start: auto`) — recenziile au lungimi foarte
+     diferite, iar semnăturile aliniate pe un rând țin rândul de cartonașe
+     legat, în loc să plutească fiecare la altă înălțime. */
   .note--review footer {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 0.4rem var(--sp-sm);
+    align-items: center;
+    gap: 0.4rem var(--sp-xs);
+    margin-block-start: auto;
+    padding-block-start: var(--sp-sm);
+    border-block-start: 1px solid var(--rule);
+  }
+
+  /* Discul e desenat de <span>, nu de <img>: rămâne perfect rotund și la locul
+     lui și când poza încă nu există (`data-optional` scoate imaginea ruptă). */
+  .note__face {
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    flex: none;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--ochre-wash);
+    box-shadow: inset 0 0 0 1px var(--rule);
+    display: grid;
+    place-items: center;
+  }
+
+  .note__face img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .note__who {
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.006em;
   }
 
   .note__source {
@@ -1048,11 +1120,20 @@
 
   /* Secțiunea nu mai are panou, deci sub cartonașe trece fundalul colorat al
      paginii. Ca textul să rămână la fel de lizibil, cartonașele sunt pline,
-     fără pic de transparență, și cu o umbră ceva mai apăsată. */
+     fără pic de transparență, și cu o umbră ceva mai apăsată.
+
+     Aici cartonașele stau drepte, nu înclinate ca bilețelele prinse în ac:
+     sunt recenzii adevărate, semnate cu poză și nume, iar rândul de semnături
+     se citește ca un rând doar dacă marginile de jos sunt paralele. Rândul al
+     treilea (textul recenziei) ia tot spațiul rămas, așa că semnătura cade la
+     talpa cartonașului, la aceeași înălțime pe tot rândul. */
   .reviews .note {
     background: var(--surface-raised);
     border-color: var(--rule-strong);
     box-shadow: var(--lift-lg);
+    rotate: 0deg;
+    translate: none;
+    grid-template-rows: auto auto 1fr auto;
   }
 
   /* Cât timp niciun cartonaș n-are text, secțiunea întreagă se ascunde —
